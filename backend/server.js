@@ -1,67 +1,34 @@
-const express = require('express')
-//const bodyParser = require('body-parser')
-//const cors = require('cors')
-
-const server = express()
-
-const UserContr = require('./uzivatel/UzivatelController')
-server.use('/users', UserContr)
-
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'test'
-});
-db.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to dtb!');
+const api = require('./api');
+
+const connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root',
+  database : 'test'
 });
 
-/*var corsOptions = {
-    origin: 'http://example.com',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
-} 
-server.use(cors(corsOptions))*/
+connection.connect((err) => {
+    if (err) throw err;
+    console.log('Connected to dtb!');
+  });
 
-// start server with command
-// node controller.js or F5 when using visual code
-server.listen(8000, () => {
-    console.log('Server started!')
-  })
+const port = process.env.PORT || 8080;
 
+const app = express()
+  .use(cors())
+  .use(bodyParser.json())
+  .use(api(connection));
 
-module.exports = {
-    app : server,
-    dtb : db
-}
+app.listen(port, () => {
+  console.log(`Express server listening on port ${port}`);
+});
 
-/*
-app.route('/api/cats').get((req, res) => {
-    res.send({
-    cats: [{ name: 'lilly' }, { name: 'lucy' }],
-    })
-})
-
-app.route('/api/cats/:name').get((req, res) => {
-    const requestedCatName = req.params['name']
-    res.send({ name: requestedCatName })
-})
-
-
-app.use(bodyParser.json())
-app.route('/api/cats').post((req, res) => {
-    res.send(201, req.body)
-})
-
-
-app.route('/api/cats/:name').put((req, res) => {
-    res.send(200, req.body)
-})
-
-
-app.route('/api/cats/:name').delete((req, res) => {
-    res.sendStatus(204)
-})
-*/
+//todo https://developer.okta.com/blog/2019/08/16/angular-mysql-express
+//
+// ak nefunguje pripojenie na dtb
+// ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+// FLUSH privileges;

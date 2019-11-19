@@ -2,12 +2,12 @@ module.exports = (grunt) => {
     grunt.initConfig({
       execute: {
         target: {
-          src: ['./backend/dtb-connection.js']
+          src: ['./backend/server.js']
         }
       },
       watch: {
         scripts: {
-          files: ['./backend/dtb-connection.js'],
+          files: ['./backend/server.js'],
           tasks: ['execute'],
         },
       }
