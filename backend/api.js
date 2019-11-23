@@ -5,301 +5,303 @@ function createRouter(db) {
   const owner = '';
 
 
-  /* #region  Uzivatel API */
-  router.get('/uzivatel', function (req, res) {
-    db.query(
-      "SELECT * FROM Uzivatel",
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json(results);
-        }
+/* #region  Uzivatel API */
+router.get('/uzivatel', function (req, res) {
+  db.query(
+    "SELECT * FROM Uzivatel",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
       }
-    );
-  });
+    }
+  );
+});
 
-  router.get('/uzivatel/:id', function (req, res) {
-    db.query(
-      "SELECT * FROM Uzivatel WHERE UzivatelID=?",
-      [req.params.id],
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json(results);
-        }
+router.get('/uzivatel/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Uzivatel WHERE UzivatelID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
       }
-    );
-  });
+    }
+  );
+});
 
-  router.post('/uzivatel', (req, res) => {
-    db.query(
-      "INSERT INTO Uzivatel (Meno, Priezvisko, Vek, Email, Login, Heslo) VALUES (?,?,?,?,?,?)",
-      [req.body.Meno, req.body.Priezvisko, req.body.Vek, req.body.Email, req.body.Login, req.body.Heslo],
-      (error) => {
-        if (error) {
-          console.error(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.post('/uzivatel', (req, res) => {
+  db.query(
+    "INSERT INTO Uzivatel (Meno, Priezvisko, Vek, Email, Login, Heslo) VALUES (?,?,?,?,?,?)",
+    [req.body.meno, req.body.priezvisko, req.body.vek, req.body.email, req.body.login, req.body.heslo],
+    (error) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error' });
+        throw error;
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
+    }
+  );
+});
 
-  router.put('/uzivatel/:id', function (req, res, next) {
-    db.query(
-      'UPDATE Uzivatel SET Meno=?, Priezvisko=?, Vek=?, Email=?, Login=?, Heslo=? WHERE UzivatelID=?',
-      [req.body.Meno, req.body.Priezvisko, req.body.Vek, req.body.Email, req.body.Login, req.body.Heslo, req.params.id],
-      (error) => {
-        if (error) {
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.put('/uzivatel/:id', function (req, res, next) {
+  db.query(
+    'UPDATE Uzivatel SET Meno=?, Priezvisko=?, Vek=?, Email=?, Login=?, Heslo=? WHERE UzivatelID=?',
+    [req.body.meno, req.body.priezvisko, req.body.vek, req.body.email, req.body.login, req.body.heslo, req.params.id],
+    (error) => {
+      if (error) {
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
+    }
+  );
+});
 
-  router.delete('/uzivatel/:id', function (req, res, next) {
-    db.query(
-      'DELETE FROM Uzivatel WHERE UzivatelID=?',
-      [req.params.id],
-      (error) => {
-        if (error) {
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.delete('/uzivatel/:id', function (req, res, next) {
+  db.query(
+    'DELETE FROM Uzivatel WHERE UzivatelID=?',
+    [req.params.id],
+    (error) => {
+      if (error) {
+        res.status(500).json({ status: 'error' });
+        throw error;
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
-  /* #endregion */
+    }
+  );
+});
+/* #endregion */
 
-  /* #region  Podmienky_turnaja API */
-  router.get('/podmienky_turnaja', function (req, res) {
-    db.query(
-      "SELECT * FROM Podmienky_turnaja",
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json(results);
-        }
+/* #region  Podmienky_turnaja API */
+router.get('/podmienky_turnaja', function (req, res) {
+  db.query(
+    "SELECT * FROM Podmienky_turnaja",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
       }
-    );
-  });
+    }
+  );
+});
 
-  router.get('/podmienky_turnaja/:id', function (req, res) {
-    db.query(
-      "SELECT * FROM Podmienky_turnaja WHERE Podmienky_turnajaID=?",
-      [req.params.id],
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json(results);
-        }
+router.get('/podmienky_turnaja/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Podmienky_turnaja WHERE Podmienky_turnajaID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
       }
-    );
-  });
+    }
+  );
+});
 
-  router.post('/podmienky_turnaja', (req, res) => {
-    db.query(
-      "INSERT INTO Podmienky_turnaja (Minimalny_vek_hracov, Pocet_hracov_v_tyme, Pocet_tymov, Registracny_poplatok) VALUES (?,?,?,?)",
-      [req.body.Minimalny_vek_hracov, req.body.Pocet_hracov_v_tyme, req.body.Pocet_tymov, req.body.Registracny_poplatok],
-      (error) => {
-        if (error) {
-          console.error(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.post('/podmienky_turnaja', (req, res) => {
+  db.query(
+    "INSERT INTO Podmienky_turnaja (Minimalny_vek_hracov, Pocet_hracov_v_tyme, Pocet_tymov, Registracny_poplatok) VALUES (?,?,?,?)",
+    [req.body.Minimalny_vek_hracov, req.body.Pocet_hracov_v_tyme, req.body.Pocet_tymov, req.body.Registracny_poplatok],
+    (error) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
+    }
+  );
+});
 
-  router.put('/podmienky_turnaja/:id', function (req, res, next) {
-    db.query(
-      'UPDATE Podmienky_turnaja SET Minimalny_vek_hracov=?, Pocet_hracov_v_tyme=?, Pocet_tymov=?, Registracny_poplatok=? WHERE Podmienky_turnajaID=?',
-      [req.body.Minimalny_vek_hracov, req.body.Pocet_hracov_v_tyme, req.body.Pocet_tymov, req.body.Registracny_poplatok, req.params.id],
-      (error) => {
-        if (error) {
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.put('/podmienky_turnaja/:id', function (req, res, next) {
+  db.query(
+    'UPDATE Podmienky_turnaja SET Minimalny_vek_hracov=?, Pocet_hracov_v_tyme=?, Pocet_tymov=?, Registracny_poplatok=? WHERE Podmienky_turnajaID=?',
+    [req.body.Minimalny_vek_hracov, req.body.Pocet_hracov_v_tyme, req.body.Pocet_tymov, req.body.Registracny_poplatok, req.params.id],
+    (error) => {
+      if (error) {
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
+    }
+  );
+});
 
-  router.delete('/podmienky_turnaja/:id', function (req, res, next) {
-    db.query(
-      'DELETE FROM Podmienky_turnaja WHERE Podmienky_turnajaID=?',
-      [req.params.id],
-      (error) => {
-        if (error) {
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.delete('/podmienky_turnaja/:id', function (req, res, next) {
+  db.query(
+    'DELETE FROM Podmienky_turnaja WHERE Podmienky_turnajaID=?',
+    [req.params.id],
+    (error) => {
+      if (error) {
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
-  /* #endregion */
+    }
+  );
+});
+/* #endregion */
 
-  /* #region  Turnaj API */
-  router.get('/turnaj', function (req, res) {
-    db.query(
-      "SELECT * FROM Turnaj",
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json(results);
-        }
+/* #region  Turnaj API */
+router.get('/turnaj', function (req, res) {
+  db.query(
+    "SELECT * FROM Turnaj",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
       }
-    );
-  });
+    }
+  );
+});
 
-  router.get('/turnaj/:id', function (req, res) {
-    db.query(
-      "SELECT * FROM Turnaj WHERE TurnajID=?",
-      [req.params.id],
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json(results);
-        }
+router.get('/turnaj/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Turnaj WHERE TurnajID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
       }
-    );
-  });
+    }
+  );
+});
 
-  router.post('/turnaj', (req, res) => {
-    db.query(
-      "INSERT INTO Turnaj (Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UzivatelID) VALUES (?,?,?,?,?,?,?)",
-      [req.body.Nazov, req.body.Zaciatok, req.body.Koniec, req.body.Vyhra, req.body.Sponzori, req.body.Podmienky_turnajaID, req.body.UzivatelID],
-      (error) => {
-        if (error) {
-          console.error(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.post('/turnaj', (req, res) => {
+  db.query(
+    "INSERT INTO Turnaj (Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UzivatelID) VALUES (?,?,?,?,?,?,?)",
+    [req.body.Nazov, req.body.Zaciatok, req.body.Koniec, req.body.Vyhra, req.body.Sponzori, req.body.Podmienky_turnajaID, req.body.UzivatelID],
+    (error) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
+    }
+  );
+});
 
-  router.put('/turnaj/:id', function (req, res, next) {
-    db.query(
-      'UPDATE Turnaj SET Nazov=?, Zaciatok=?, Koniec=?, Vyhra=?, Sponzori=?, Podmienky_turnajaID=?, UzivatelID=? WHERE TurnajID=?',
-      [req.body.Nazov, req.body.Zaciatok, req.body.Koniec, req.body.Vyhra, req.body.Sponzori, req.body.Podmienky_turnajaID, req.body.UzivatelID, req.params.id],
-      (error) => {
-        if (error) {
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.put('/turnaj/:id', function (req, res, next) {
+  db.query(
+    'UPDATE Turnaj SET Nazov=?, Zaciatok=?, Koniec=?, Vyhra=?, Sponzori=?, Podmienky_turnajaID=?, UzivatelID=? WHERE TurnajID=?',
+    [req.body.Nazov, req.body.Zaciatok, req.body.Koniec, req.body.Vyhra, req.body.Sponzori, req.body.Podmienky_turnajaID, req.body.UzivatelID, req.params.id],
+    (error) => {
+      if (error) {
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
+    }
+  );
+});
 
-  router.delete('/turnaj/:id', function (req, res, next) {
-    db.query(
-      'DELETE FROM Turnaj WHERE TurnajID=?',
-      [req.params.id],
-      (error) => {
-        if (error) {
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.delete('/turnaj/:id', function (req, res, next) {
+  db.query(
+    'DELETE FROM Turnaj WHERE TurnajID=?',
+    [req.params.id],
+    (error) => {
+      if (error) {
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
-  /* #endregion */
+    }
+  );
+});
+/* #endregion */
 
-  /* #region  Tim API */
-  router.get('/tim', function (req, res) {
-    db.query(
-      "SELECT * FROM Tim",
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json(results);
-        }
+/* #region  Tim API */
+router.get('/tim', function (req, res) {
+  db.query(
+    "SELECT * FROM Tim",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
       }
-    );
-  });
+    }
+  );
+});
 
-  router.get('/tim/:id', function (req, res) {
-    db.query(
-      "SELECT * FROM Tim WHERE TimID=?",
-      [req.params.id],
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json(results);
-        }
+router.get('/tim/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Tim WHERE TimID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
       }
-    );
-  });
+    }
+  );
+});
 
-  router.post('/tim', (req, res) => {
-    db.query(
-      "INSERT INTO Tim (Nazov, Logo, Pocet_hracov) VALUES (?,?,?)",
-      [req.body.Nazov, req.body.Logo, req.body.Pocet_hracov],
-      (error) => {
-        if (error) {
-          console.error(error);
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.post('/tim', (req, res) => {
+  db.query(
+    "INSERT INTO Tim (Nazov, Logo, Pocet_hracov) VALUES (?,?,?)",
+    [req.body.Nazov, req.body.Logo, req.body.Pocet_hracov],
+    (error) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
+    }
+  );
+});
 
-  router.put('/tim/:id', function (req, res, next) {
-    db.query(
-      'UPDATE Tim SET Nazov=?, Zaciatok=?, Koniec=?, Vyhra=?, Sponzori=?, Podmienky_turnajaID=?, UzivatelID=? WHERE TimID=?',
-      [req.body.Nazov, req.body.Logo, req.body.Pocet_hracov, req.params.id],
-      (error) => {
-        if (error) {
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.put('/tim/:id', function (req, res, next) {
+  db.query(
+    'UPDATE Tim SET Nazov=?, Zaciatok=?, Koniec=?, Vyhra=?, Sponzori=?, Podmienky_turnajaID=?, UzivatelID=? WHERE TimID=?',
+    [req.body.Nazov, req.body.Logo, req.body.Pocet_hracov, req.params.id],
+    (error) => {
+      if (error) {
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
+    }
+  );
+});
 
-  router.delete('/tim/:id', function (req, res, next) {
-    db.query(
-      'DELETE FROM Tim WHERE TimID=?',
-      [req.params.id],
-      (error) => {
-        if (error) {
-          res.status(500).json({ status: 'error' });
-        } else {
-          res.status(200).json({ status: 'ok' });
-        }
+router.delete('/tim/:id', function (req, res, next) {
+  db.query(
+    'DELETE FROM Tim WHERE TimID=?',
+    [req.params.id],
+    (error) => {
+      if (error) {
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json({ status: 'ok' });
       }
-    );
-  });
-  /* #endregion */
+    }
+  );
+});
+/* #endregion */
 
 /* #region  Zapas API */
 router.get('/zapas', function (req, res) {
