@@ -101,7 +101,7 @@ CREATE TABLE `Uzivatel`
 (
 	`UzivatelID` int NOT NULL AUTO_INCREMENT,
     `Meno` varchar(50),
-	`Prezvisko` varchar(50),
+	`Priezvisko` varchar(50),
     `Vek` int,
     `Email` varchar(50),
     `Login` varchar(50),
@@ -176,26 +176,26 @@ SET FOREIGN_KEY_CHECKS=1
 
 /* Fill tables */
 
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Matej", "Makovčík", 34, "makovcik@gmail.com", "matej1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Tomáš", "Majerský", 42, "majersky@gmail.com", "tomas1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Gejza", "Fico", 25, "fico@gmail.com", "gejza1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Robo", "Tomáš", 16, "tomas@gmail.com", "robo1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Marek", "Horvát", 17, "horvat@gmail.com", "marek1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Jozef", "Kandráč", 18, "kandrac@gmail.com", "jozef1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Nikolas", "Nikolev", 16, "nikolev@gmail.com", "nikolas1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Matej", "Hrdý", 20, "hrdy@gmail.com", "matej2", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Daniel", "Malý", 21, "maly@gmail.com", "daniel1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Ján", "Krátky", 19, "kratky@gmail.com", "jan1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Jaroslav", "Kováč", 18, "kovac@gmail.com", "jaroslav1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Ján", "Matovič", 19, "matovic@gmail.com", "jan2", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Marián", "Hlina", 17, "hlina@gmail.com", "marian1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Juraj", "Kotleta", 17, "kotleta@gmail.com", "juraj1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Ján", "Púčik", 25, "pucik@gmail.com", "jan3", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Andrej", "Zeman", 26, "zeman@gmail.com", "andrej1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Martin", "Danko", 24, "danko@gmail.com", "martin1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Alojz", "Marcin", 22, "marcin@gmail.com", "alojz1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Igor", "Bugár", 23, "bugar@gmail.com", "igor1", "heslo123");
-INSERT INTO `Uzivatel` (`Meno`, `Prezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("František", "Novák", 21, "novak@gmail.com", "frantisek1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Matej", "Makovčík", 34, "makovcik@gmail.com", "matej1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Tomáš", "Majerský", 42, "majersky@gmail.com", "tomas1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Gejza", "Fico", 25, "fico@gmail.com", "gejza1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Robo", "Tomáš", 16, "tomas@gmail.com", "robo1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Marek", "Horvát", 17, "horvat@gmail.com", "marek1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Jozef", "Kandráč", 18, "kandrac@gmail.com", "jozef1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Nikolas", "Nikolev", 16, "nikolev@gmail.com", "nikolas1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Matej", "Hrdý", 20, "hrdy@gmail.com", "matej2", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Daniel", "Malý", 21, "maly@gmail.com", "daniel1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Ján", "Krátky", 19, "kratky@gmail.com", "jan1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Jaroslav", "Kováč", 18, "kovac@gmail.com", "jaroslav1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Ján", "Matovič", 19, "matovic@gmail.com", "jan2", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Marián", "Hlina", 17, "hlina@gmail.com", "marian1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Juraj", "Kotleta", 17, "kotleta@gmail.com", "juraj1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Ján", "Púčik", 25, "pucik@gmail.com", "jan3", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Andrej", "Zeman", 26, "zeman@gmail.com", "andrej1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Martin", "Danko", 24, "danko@gmail.com", "martin1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Alojz", "Marcin", 22, "marcin@gmail.com", "alojz1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("Igor", "Bugár", 23, "bugar@gmail.com", "igor1", "heslo123");
+INSERT INTO `Uzivatel` (`Meno`, `Priezvisko`, `Vek`, `Email`, `Login`, `Heslo`) VALUES ("František", "Novák", 21, "novak@gmail.com", "frantisek1", "heslo123");
 
 INSERT INTO `Podmienky_turnaja` (`Minimalny_vek_hracov`, `Pocet_hracov_v_tyme`, `Pocet_tymov`, `Registracny_poplatok`) VALUES (16, 2, 10, "10 €");
 INSERT INTO `Podmienky_turnaja` (`Minimalny_vek_hracov`, `Pocet_hracov_v_tyme`, `Pocet_tymov`, `Registracny_poplatok`) VALUES (20, 1, 10, "1000 €");
@@ -268,23 +268,39 @@ INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Ugly Horse
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Small Jack vs Spread Love", "SLOVNAFT hala BA", DATE("2019-07-15"), 5);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Pea vs Excalibur", "SLOVNAFT hala BA", DATE("2019-07-15"), 5);
 
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (1, 1, 2);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (2, 3, 4);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (3, 5, 6);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (4, 7, 8);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (5, 9, 10);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (6, 11, 12);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (7, 13, 14);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (8, 15, 16);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (9, 1, 6);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (10, 5, 4);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (11, 9, 12);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (12, 10, 11);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (13, 12, 10);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (14, 13, 9);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (15, 14, 11);
-INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`, `TimID`) VALUES (16, 15, 16);
-/*
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (1, 1);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (1, 2);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (2, 3);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (2, 4);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (3, 5);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (3, 6);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (4, 7);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (4, 8);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (5, 9);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (5, 10);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (6, 11);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (6, 12);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (7, 13);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (7, 4);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (8, 15);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (8, 16);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (9, 1);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (9, 6);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (10, 5);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (10, 4);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (11, 9);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (11, 12);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (12, 10);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (12, 11);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (13, 12);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (13, 10);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (14, 13);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (14, 9);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (15, 14);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (15, 11);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (16, 15);
+INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (16, 16);
+
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 1);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 2);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 3);
@@ -292,7 +308,7 @@ INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 4);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 5);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 6);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 7);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 8s);
+INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 8);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 9);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 10);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 11);
@@ -301,4 +317,3 @@ INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 13);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 14);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 15);
 INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 16);
-*/
