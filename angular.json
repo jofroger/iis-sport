@@ -32,12 +32,9 @@
               "src/assets"
             ],
             "styles": [
-<<<<<<< HEAD
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-=======
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
->>>>>>> d448438b1a9939b326206db8ca0f75667ae415e1
               "src/styles.css"
             ],
             "scripts": []
@@ -103,12 +100,9 @@
               "src/assets"
             ],
             "styles": [
-<<<<<<< HEAD
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-=======
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
->>>>>>> d448438b1a9939b326206db8ca0f75667ae415e1
               "src/styles.css"
             ],
             "scripts": []
