@@ -1,12 +1,17 @@
+* {
+  font-family: 'Autobus Bold', sans-serif;
+}
+
 .homepageContent {
   width:1080px;
   height:720px;
   max-width: 100vw;
   overflow: hidden;
-  margin: 20px auto auto auto;
+  margin: auto auto auto auto;
   /*-- Pre vizualizaciu priestoru --*/
-  border: 1px solid #d95138;
-  background-color:#d9d9d9;
+  /*border: 1px dashed #d95138;*/
+  border: 1px solid #e7e7e7;
+  background-color:#e7e7e7;
   /*--------------------------------*/
 }
 
@@ -15,31 +20,110 @@
   display: block;
   color: white;
   text-align: center;
-  padding: 11px 50px;
+  padding: 10px 50px;
   text-decoration: none;
+  font-size: 18px;
 }
 
 /* Right-aligned login button with corner rounding */
 .headerMenu a.loginButton {
   float: right;
-  border-bottom-right-radius: 10px;
-  border-top-right-radius: 10px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 /* Change color on hover */
 .headerMenu a:hover {
-  background-color: #39beff;
+  background-color: #0077ff;
   color: black;
 }
 
 /* Corner rounding of first child */
 .headerMenu a:first-child, a.active:first-child {
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 /* Active/current link */
 .headerMenu a.active {
-  background-color: #39beff;
+  background-color: #0077ff;
   color: white;
 }
+
+.tabulkaZapasy {
+  width: 100%;
+  height: auto;
+}
+
+table.tabulkaZapasy td {
+  border: 10px solid #e7e7e7;
+  border-left-width: 0;
+  border-top-width: 2px;
+}
+
+table.tabulkaZapasy td:last-child {
+  border-right-width: 0;
+}
+
+.tabulkaTimy {
+  width: 100%;
+  height: auto;
+  border: 1px solid #71e2ff;
+  border-radius: 5px;
+  text-align: center;
+  margin: auto;
+  background-color: #71e2ff;
+}
+
+.tabulkaTimyZoznam td {
+  border: 0 !important;
+  width: 100%;
+  font-size: 20px;
+}
+
+.zapas {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #00c3ff;
+  border-radius: 5px;
+  text-align: center;
+  margin: auto;
+  background-color: #00c3ff;
+}
+
+.zapasDatum {
+  font-size: 20px;
+  margin-top: 8%;
+}
+
+.zapasVysledok {
+  font-size: 50px;
+  margin-top: 5%;
+}
+
+.zapasTimy {
+  font-size: 25px;
+  margin-top: 5%;
+}
+
+.zapasMiesto {
+  font-size: 20px;
+  margin-top: 1%;
+}
+
+.zapasCas {
+  font-size: 20px;
+  margin-top: 1%;
+  margin-bottom: 5%;
+}
+
+.flagPlaceholder {
+  height: 75px;
+  width: 75px;
+}
+
+.teamFlagPlaceholder {
+  height: 25px;
+  width: 25px;
+}
+

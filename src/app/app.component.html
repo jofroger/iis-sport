@@ -1,35 +1,8 @@
-<div class="background">
-  <!--Uzivatelia
-
-  <form class="form">
-    Meno
-    <input type="text" placeholder="meno" id="meno" [(ngModel)]="currentUzivatel.meno" name="meno"/>
-    <br>
-    Priezvisko
-    <input type="text" placeholder="priezvisko" id="priezvisko" [(ngModel)]="currentUzivatel.priezvisko" name="priezvisko"/>
-    <br>
-    Vek
-    <input type="text" placeholder="vek" id="vek" [(ngModel)]="currentUzivatel.vek" name="vek"/>
-    <br>
-    Email
-    <input type="text" placeholder="email" id="email" [(ngModel)]="currentUzivatel.email" name="email"/>
-    <br>
-    Login
-    <input type="text" placeholder="login" id="login" [(ngModel)]="currentUzivatel.login" name="login"/>
-    <br>
-    Heslo
-    <input type="text" placeholder="heslo" id="heslo" [(ngModel)]="currentUzivatel.heslo" name="heslo"/>
-    <br><br>
-
-    <button  (click)="getUzivatel()">Show user with id 5</button>
-    <button  (click)="createUzivatel()">Create new user</button>
-    <button  (click)="updateUzivatel()">Update user with id 5</button>
-    <button  (click)="deleteUzivatel()">Delete user with id 5</button>
-  </form> -->
-
+<div class="background" style="background-color: #e7e7e7">
   <div class="homepageContent">
-    <div class="headerMenu" style="height: 50px; width: auto; margin: 30px 10px 10px 10px; border: 2px solid #000;
-    border-radius: 10px; background-color: dodgerblue">
+    <!--Navigacna lista ZACIATOK-->
+    <div class="headerMenu" style="height: 51px; width: auto; margin: 30px 0px 30px 0px; border: 2px solid #0077ff;
+    border-radius: 10px; background-color: #00c3ff">
       <!--Polozky menu ZACIATOK-->
       <a href="#" class="active">Domov</a>
       <a href="#">Zápasy</a>
@@ -40,29 +13,236 @@
       </a>
       <!---Polozky menu KONIEC--->
       <!--Kruh s logom ZACIATOK-->
-      <div style="height: 100px; width: 100px; border: 2px solid #000; border-radius: 100px;
-      margin: -25px auto auto 490px; background-color: dodgerblue;
+      <div style="height: 100px; width: 100px; border: 2px solid #0077ff; border-radius: 100px;
+      margin: -25px auto auto calc(50% - 50px); background-color: #00c3ff;
       /*just text alignment from here*/ text-align: center; vertical-align: middle; line-height: 90px">
         Logo
       </div>
       <!---Kruh s logom KONIEC--->
     </div>
+    <!---Navigacna lista KONIEC--->
 
+    <table class="tabulkaZapasy">
+      <th><h3>Program zápasov</h3></th>
+      <tr>
+        <td>
+          <div class="zapas">
+            <div class="zapasDatum">18. 11. 2019</div>
+            <div class="zapasVysledok">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-right: 15px; margin-top: -10px">
+              3:1
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-left: 15px; margin-top: -10px">
+            </div>
+            <div class="zapasTimy">Tím 1 vs Tím 2</div>
+            <div class="zapasMiesto">Miesto</div>
+            <div class="zapasCas">18:00</div>
+          </div>
+        </td>
+        <td>
+          <div class="zapas">
+            <div class="zapasDatum">18. 11. 2019</div>
+            <div class="zapasVysledok">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-right: 15px; margin-top: -10px">
+              3:1
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-left: 15px; margin-top: -10px">
+            </div>
+            <div class="zapasTimy">Tím 1 vs Tím 2</div>
+            <div class="zapasMiesto">Miesto</div>
+            <div class="zapasCas">18:00</div>
+          </div>
+        </td>
+        <td>
+          <div class="zapas">
+            <div class="zapasDatum">18. 11. 2019</div>
+            <div class="zapasVysledok">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-right: 15px; margin-top: -10px">
+              3:1
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-left: 15px; margin-top: -10px">
+            </div>
+            <div class="zapasTimy">Tím 1 vs Tím 2</div>
+            <div class="zapasMiesto">Miesto</div>
+            <div class="zapasCas">18:00</div>
+          </div>
+        </td>
+        <td rowspan="2" style="vertical-align: top">
+          <div class="tabulkaTimy">
+            <h3 style="margin-top: 20px">Tímy</h3>
+            <table class="tabulkaTimyZoznam" style="margin: 0px 5px 15px 5px">
+              <th style="column-span: 2; font-size: 20px">Tím</th>
+              <th style="font-size: 20px">Štatistiky</th>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr> <!-- Jeden tim -->
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg">
+                  Názov tímu
+                </td>
+                <td>
+                  5:2
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
 
-    <!--<div class="row">
-      <div class="col">
-        <div style="height: auto;width: auto;border: 2px solid #000; text-align: center">This is a rectangle</div>
-      </div>
-      <div class="col">
-        <div style="height: auto;width: auto;border: 2px solid #000">This is a rectangle</div>
-      </div>
-      <div class="col">
-        <div style="height: auto;width: auto;border: 2px solid #000">This is a rectangle</div>
-      </div>
-      <div class="col">
-        <div style="height: auto;width: auto;border: 2px solid #000">This is a rectangle</div>
-      </div>
-    </div>-->
+      <tr>
+        <td>
+          <div class="zapas">
+            <div class="zapasDatum">18. 11. 2019</div>
+            <div class="zapasVysledok">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-right: 15px; margin-top: -10px">
+              3:1
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-left: 15px; margin-top: -10px">
+            </div>
+            <div class="zapasTimy">Tím 1 vs Tím 2</div>
+            <div class="zapasMiesto">Miesto</div>
+            <div class="zapasCas">18:00</div>
+          </div>
+        </td>
+        <td>
+          <div class="zapas">
+            <div class="zapasDatum">18. 11. 2019</div>
+            <div class="zapasVysledok">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-right: 15px; margin-top: -10px">
+              3:1
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-left: 15px; margin-top: -10px">
+            </div>
+            <div class="zapasTimy">Tím 1 vs Tím 2</div>
+            <div class="zapasMiesto">Miesto</div>
+            <div class="zapasCas">18:00</div>
+          </div>
+        </td>
+        <td>
+          <div class="zapas">
+            <div class="zapasDatum">18. 11. 2019</div>
+            <div class="zapasVysledok">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-right: 15px; margin-top: -10px">
+              3:1
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="../assets/image-placeholder.jpg" style="margin-left: 15px; margin-top: -10px">
+            </div>
+            <div class="zapasTimy">Tím 1 vs Tím 2</div>
+            <div class="zapasMiesto">Miesto</div>
+            <div class="zapasCas">18:00</div>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 
 </div>
