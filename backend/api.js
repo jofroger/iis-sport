@@ -378,9 +378,14 @@ router.delete('/zapas/:id', function (req, res, next) {
 /* #endregion */
 
 /* #region  hra_v API */
-router.get('/hra_v', function (req, res) {
+router.get('/hra_v/uzivatel/:id', function (req, res) {
   db.query(
-    "SELECT * FROM hra_v",
+    "SELECT TimID, Nazov, Logo, Pocet_hracov \
+     FROM Uzivatel  \
+     INNER JOIN hra_v USING (UzivatelID) \
+     INNER JOIN Tim USING (TimID) \
+     WHERE UzivatelID=?",
+    [req.params.id],
     (error, results) => {
       if (error) {
         console.log(error);
@@ -392,9 +397,13 @@ router.get('/hra_v', function (req, res) {
   );
 });
 
-router.get('/hra_v/:id', function (req, res) {
+router.get('/hra_v/tim/:id', function (req, res) {
   db.query(
-    "SELECT * FROM hra_v WHERE hra_vID=?",
+    "SELECT UzivatelID, Meno, Priezvisko, Vek, Email \
+     FROM Tim  \
+     INNER JOIN hra_v USING (TimID) \
+     INNER JOIN Uzivatel USING (UzivatelID) \
+     WHERE TimID=?",
     [req.params.id],
     (error, results) => {
       if (error) {
@@ -422,24 +431,10 @@ router.post('/hra_v', (req, res) => {
   );
 });
 
-router.put('/hra_v/:id', function (req, res) {
+router.delete('/hra_v/:UzivatelID&:TimID', function (req, res) {
   db.query(
-    'UPDATE hra_v SET UzivatelID=?, TimID=? WHERE hra_vID=?',
-    [req.body.UzivatelID, req.body.TimID, req.params.id],
-    (error) => {
-      if (error) {
-        res.status(500).json({ status: 'error' });
-      } else {
-        res.status(200).json({ status: 'ok' });
-      }
-    }
-  );
-});
-
-router.delete('/hra_v/:id', function (req, res) {
-  db.query(
-    'DELETE FROM hra_v WHERE hra_vID=?',
-    [req.params.id],
+    'DELETE FROM hra_v WHERE UzivatelID=? AND TimID=?',
+    [req.params.UzivatelID, req.params.TimID],
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });
@@ -452,9 +447,14 @@ router.delete('/hra_v/:id', function (req, res) {
 /* #endregion */
 
 /* #region  sa_zucastni API */
-router.get('/sa_zucastni', function (req, res) {
+router.get('/sa_zucastni/zapas/:id', function (req, res) {
   db.query(
-    "SELECT * FROM sa_zucastni",
+    "SELECT TimID, Tim.Nazov, Logo, Pocet_hracov \
+     FROM Zapas  \
+     INNER JOIN sa_zucastni USING (ZapasID) \
+     INNER JOIN Tim USING (TimID) \
+     WHERE ZapasID=?",
+    [req.params.id],
     (error, results) => {
       if (error) {
         console.log(error);
@@ -466,9 +466,13 @@ router.get('/sa_zucastni', function (req, res) {
   );
 });
 
-router.get('/sa_zucastni/:id', function (req, res) {
+router.get('/sa_zucastni/tim/:id', function (req, res) {
   db.query(
-    "SELECT * FROM sa_zucastni WHERE sa_zucastniID=?",
+    "SELECT ZapasID, Zapas.Nazov, Miesto, Datum, TurnajID \
+     FROM Tim  \
+     INNER JOIN sa_zucastni USING (TimID) \
+     INNER JOIN Zapas USING (ZapasID) \
+     WHERE TimID=?",
     [req.params.id],
     (error, results) => {
       if (error) {
@@ -484,7 +488,7 @@ router.get('/sa_zucastni/:id', function (req, res) {
 router.post('/sa_zucastni', (req, res) => {
   db.query(
     "INSERT INTO sa_zucastni (ZapasID, TimID) VALUES (?,?)",
-    [req.body.UzivatelID, req.body.TimID],
+    [req.body.ZapasID, req.body.TimID],
     (error) => {
       if (error) {
         console.error(error);
@@ -496,27 +500,14 @@ router.post('/sa_zucastni', (req, res) => {
   );
 });
 
-router.put('/sa_zucastni/:id', function (req, res) {
+router.delete('/sa_zucastni/:ZapasID&:TimID', function (req, res) {
   db.query(
-    'UPDATE sa_zucastni SET ZapasID=?, TimID=? WHERE sa_zucastniID=?',
-    [req.body.UzivatelID, req.body.TimID, req.params.id],
+    'DELETE FROM sa_zucastni WHERE ZapasID=? AND TimID=?',
+    [req.params.ZapasID, req.params.TimID],
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });
-      } else {
-        res.status(200).json({ status: 'ok' });
-      }
-    }
-  );
-});
-
-router.delete('/sa_zucastni/:id', function (req, res) {
-  db.query(
-    'DELETE FROM sa_zucastni WHERE sa_zucastniID=?',
-    [req.params.id],
-    (error) => {
-      if (error) {
-        res.status(500).json({ status: 'error' });
+        throw error;
       } else {
         res.status(200).json({ status: 'ok' });
       }
@@ -526,23 +517,13 @@ router.delete('/sa_zucastni/:id', function (req, res) {
 /* #endregion */
 
 /* #region  rozhoduje_na API */
-router.get('/hra_v', function (req, res) {
+router.get('/rozhoduje_na/zapas/:id', function (req, res) {
   db.query(
-    "SELECT * FROM hra_v",
-    (error, results) => {
-      if (error) {
-        console.log(error);
-        res.status(500).json({ status: 'error' });
-      } else {
-        res.status(200).json(results);
-      }
-    }
-  );
-});
-
-router.get('/hra_v/:id', function (req, res) {
-  db.query(
-    "SELECT * FROM hra_v WHERE hra_vID=?",
+    "SELECT TimID, Tim.Nazov, Logo, Pocet_hracov \
+     FROM Zapas  \
+     INNER JOIN sa_zucastni USING (ZapasID) \
+     INNER JOIN Tim USING (TimID) \
+     WHERE ZapasID=?",
     [req.params.id],
     (error, results) => {
       if (error) {
@@ -555,10 +536,29 @@ router.get('/hra_v/:id', function (req, res) {
   );
 });
 
-router.post('/hra_v', (req, res) => {
+router.get('/sa_zucastni/tim/:id', function (req, res) {
   db.query(
-    "INSERT INTO hra_v (UzivatelID, TimID) VALUES (?,?)",
-    [req.body.UzivatelID, req.body.TimID],
+    "SELECT ZapasID, Zapas.Nazov, Miesto, Datum, TurnajID \
+     FROM Tim  \
+     INNER JOIN sa_zucastni USING (TimID) \
+     INNER JOIN Zapas USING (ZapasID) \
+     WHERE TimID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+router.post('/sa_zucastni', (req, res) => {
+  db.query(
+    "INSERT INTO sa_zucastni (ZapasID, TimID) VALUES (?,?)",
+    [req.body.ZapasID, req.body.TimID],
     (error) => {
       if (error) {
         console.error(error);
@@ -570,27 +570,14 @@ router.post('/hra_v', (req, res) => {
   );
 });
 
-router.put('/hra_v/:id', function (req, res) {
+router.delete('/sa_zucastni/:ZapasID&:TimID', function (req, res) {
   db.query(
-    'UPDATE hra_v SET UzivatelID=?, TimID=? WHERE hra_vID=?',
-    [req.body.UzivatelID, req.body.TimID, req.params.id],
+    'DELETE FROM sa_zucastni WHERE ZapasID=? AND TimID=?',
+    [req.params.ZapasID, req.params.TimID],
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });
-      } else {
-        res.status(200).json({ status: 'ok' });
-      }
-    }
-  );
-});
-
-router.delete('/hra_v/:id', function (req, res) {
-  db.query(
-    'DELETE FROM hra_v WHERE hra_vID=?',
-    [req.params.id],
-    (error) => {
-      if (error) {
-        res.status(500).json({ status: 'error' });
+        throw error;
       } else {
         res.status(200).json({ status: 'ok' });
       }
