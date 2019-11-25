@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Uzivatel, Podmienky_turnaja, Turnaj, Tim, Zapas } from './api.structures'
+import { Uzivatel, Podmienky_turnaja, Turnaj, Tim, Zapas } from './api.structures';
 
 @Injectable({
     providedIn: 'root'
@@ -131,6 +131,4 @@ export class ApiService {
         return this.request('DELETE', `${environment.serverUrl}/zapas/${zapas.id}`);
     }
     /* #endregion */
-
-    
 }
