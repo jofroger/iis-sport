@@ -18,6 +18,7 @@ import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { ChangePswComponent } from './change-psw/change-psw.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     TeamDetailComponent,
     UserDetailComponent,
     ChangePswComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
