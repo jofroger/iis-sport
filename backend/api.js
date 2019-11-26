@@ -43,7 +43,6 @@ router.post('/uzivatel', (req, res) => {
       if (error) {
         console.error(error);
         res.status(500).json({ status: 'error' });
-        throw error;
       } else {
         res.status(200).json({ status: 'ok' });
       }
@@ -72,7 +71,6 @@ router.delete('/uzivatel/:id', function (req, res, next) {
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });
-        throw error;
       } else {
         res.status(200).json({ status: 'ok' });
       }
@@ -507,7 +505,6 @@ router.delete('/sa_zucastni/:ZapasID&:TimID', function (req, res) {
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });
-        throw error;
       } else {
         res.status(200).json({ status: 'ok' });
       }
@@ -517,13 +514,13 @@ router.delete('/sa_zucastni/:ZapasID&:TimID', function (req, res) {
 /* #endregion */
 
 /* #region  rozhoduje_na API */
-router.get('/rozhoduje_na/zapas/:id', function (req, res) {
+router.get('/rozhoduje_na/turnaj/:id', function (req, res) {
   db.query(
-    "SELECT TimID, Tim.Nazov, Logo, Pocet_hracov \
-     FROM Zapas  \
-     INNER JOIN sa_zucastni USING (ZapasID) \
-     INNER JOIN Tim USING (TimID) \
-     WHERE ZapasID=?",
+    "SELECT Meno, Priezvisko, Vek, Email \
+     FROM Turnaj  \
+     INNER JOIN rozhoduje_na USING (TurnajID) \
+     INNER JOIN Uzivatel USING (UzivatelID) \
+     WHERE TurnajID=?",
     [req.params.id],
     (error, results) => {
       if (error) {
@@ -536,13 +533,13 @@ router.get('/rozhoduje_na/zapas/:id', function (req, res) {
   );
 });
 
-router.get('/sa_zucastni/tim/:id', function (req, res) {
+router.get('/rozhoduje_na/uzivatel/:id', function (req, res) {
   db.query(
-    "SELECT ZapasID, Zapas.Nazov, Miesto, Datum, TurnajID \
-     FROM Tim  \
-     INNER JOIN sa_zucastni USING (TimID) \
-     INNER JOIN Zapas USING (ZapasID) \
-     WHERE TimID=?",
+    "SELECT Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, Turnaj.UzivatelID \
+     FROM Uzivatel  \
+     INNER JOIN rozhoduje_na USING (UzivatelID) \
+     INNER JOIN Turnaj USING (TurnajID) \
+     WHERE UzivatelID=?",
     [req.params.id],
     (error, results) => {
       if (error) {
@@ -555,10 +552,10 @@ router.get('/sa_zucastni/tim/:id', function (req, res) {
   );
 });
 
-router.post('/sa_zucastni', (req, res) => {
+router.post('/rozhoduje_na', (req, res) => {
   db.query(
-    "INSERT INTO sa_zucastni (ZapasID, TimID) VALUES (?,?)",
-    [req.body.ZapasID, req.body.TimID],
+    "INSERT INTO rozhoduje_na (TurnajID, UzivatelID) VALUES (?,?)",
+    [req.body.TurnajID, req.body.UzivatelID],
     (error) => {
       if (error) {
         console.error(error);
@@ -570,14 +567,13 @@ router.post('/sa_zucastni', (req, res) => {
   );
 });
 
-router.delete('/sa_zucastni/:ZapasID&:TimID', function (req, res) {
+router.delete('/rozhoduje_na/:TurnajID&:UzivatelID', function (req, res) {
   db.query(
-    'DELETE FROM sa_zucastni WHERE ZapasID=? AND TimID=?',
-    [req.params.ZapasID, req.params.TimID],
+    'DELETE FROM rozhoduje_na WHERE TurnajID=? AND UzivatelID=?',
+    [req.params.TurnajID, req.params.UzivatelID],
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });
-        throw error;
       } else {
         res.status(200).json({ status: 'ok' });
       }

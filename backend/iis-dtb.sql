@@ -58,7 +58,7 @@ CREATE TABLE `Podmienky_turnaja`
 CREATE TABLE `rozhoduje_na`
 (
 	`UzivatelID` int NOT NULL,
-	`ZapasID` int NOT NULL
+	`TurnajID` int NOT NULL
 )
 
 ;
@@ -67,6 +67,12 @@ CREATE TABLE `sa_zucastni`
 (
 	`ZapasID` int NOT NULL,
 	`TimID` int NOT NULL
+)
+
+CREATE TABLE `registroval_sa_na`
+(
+	`UzivatelID` int NOT NULL,
+	`TurnajID` int NOT NULL
 )
 
 ;
@@ -141,8 +147,18 @@ ALTER TABLE `rozhoduje_na`
 ;
 
 ALTER TABLE `rozhoduje_na` 
- ADD CONSTRAINT `FK_rozhoduje_na_Zapas`
-	FOREIGN KEY (`ZapasID`) REFERENCES `Zapas` (`ZapasID`) ON DELETE No Action ON UPDATE No Action
+ ADD CONSTRAINT `FK_rozhoduje_na_Turnaj`
+	FOREIGN KEY (`TurnajID`) REFERENCES `Turnaj` (`TurnajID`) ON DELETE No Action ON UPDATE No Action
+;
+
+ALTER TABLE `registroval_sa_na` 
+ ADD CONSTRAINT `FK_registroval_sa_na_Uzivatel`
+	FOREIGN KEY (`UzivatelID`) REFERENCES `Uzivatel` (`UzivatelID`) ON DELETE No Action ON UPDATE No Action
+;
+
+ALTER TABLE `registroval_sa_na` 
+ ADD CONSTRAINT `FK_registroval_sa_na_Turnaj`
+	FOREIGN KEY (`TurnajID`) REFERENCES `Turnaj` (`TurnajID`) ON DELETE No Action ON UPDATE No Action
 ;
 
 ALTER TABLE `sa_zucastni` 
@@ -217,6 +233,7 @@ INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("G2", "cesta", 2);
 INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("Adamov", "cesta", 2);
 INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("Karči a Lajči", "cesta", 2);
 INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("Power Rangers", "cesta", 2);
+/*
 INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("FPX", "cesta", 1);
 INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("TSM", "cesta", 1);
 INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("Spread Love", "cesta", 1);
@@ -225,6 +242,7 @@ INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("Ugly Horses", "cest
 INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("Small Jack", "cesta", 1);
 INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("Pea", "cesta", 1);
 INSERT INTO `Tim` (`Nazov`, `Logo`, `Pocet_hracov`) VALUES ("Excalibur", "cesta", 1);
+*/
 
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (4, 1);
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (5, 1);
@@ -242,6 +260,7 @@ INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (16, 7);
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (17, 7);
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (18, 8);
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (19, 8);
+/*
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (20, 9);
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (4, 10);
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (6, 11);
@@ -250,17 +269,21 @@ INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (10, 13);
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (12, 14);
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (14, 15);
 INSERT INTO `hra_v` (`UzivatelID`, `TimID`) VALUES (16, 16);
+*/
 
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Rýchle šípy vs Daemon", "Trenčianska športová hala", DATE("2019-06-14"), 1);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Team Liquid vs Fnatic", "Trenčianska športová hala", DATE("2019-06-21"), 1);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("G2 vs Adamov", "Trenčianska športová hala", DATE("2019-06-28"), 1);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Karči a Lajči vs Power Rangers", "Trenčianska športová hala", DATE("2019-07-05"), 1);
+
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("FPX vs TSM", "Bratislava športová hala", DATE("2019-07-20"), 2);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Spread Love vs Unicorns", "Bratislava športová hala", DATE("2019-07-20"), 2);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Ugly Horses vs Small Jack", "Bratislava športová hala", DATE("2019-07-21"), 2);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Pea vs Excalibur", "Bratislava športová hala", DATE("2019-07-21"), 2);
+
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Rýchle šípy vs Adamov", "Hala radosť v Košiciach", DATE("2019-09-10"), 3);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("G2 vs Fnatic", "Hala radosť v Košiciach", DATE("2019-09-10"), 3);
+
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("FPX vs Unicorns", "SLOVNAFT hala BA", DATE("2019-05-5"), 4);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("TSM vs Spread Love", "SLOVNAFT hala BA", DATE("2019-05-12"), 4);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `TurnajID`) VALUES ("Unicorns vs TSM", "SLOVNAFT hala BA", DATE("2019-07-14"), 5);
@@ -301,19 +324,25 @@ INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (15, 11);
 INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (16, 15);
 INSERT INTO `sa_zucastni` (`ZapasID`, `TimID`) VALUES (16, 16);
 
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 1);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 2);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 3);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 4);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 5);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 6);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 7);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 8);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (2, 9);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 10);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 11);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 12);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 13);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 14);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (3, 15);
-INSERT INTO `rozhoduje_na` (`UzivatelID`, `ZapasID`) VALUES (1, 16);
+INSERT INTO `rozhoduje_na` (`UzivatelID`, `TurnajID`) VALUES (3, 1);
+INSERT INTO `rozhoduje_na` (`UzivatelID`, `TurnajID`) VALUES (2, 2);
+INSERT INTO `rozhoduje_na` (`UzivatelID`, `TurnajID`) VALUES (1, 3);
+INSERT INTO `rozhoduje_na` (`UzivatelID`, `TurnajID`) VALUES (2, 4);
+INSERT INTO `rozhoduje_na` (`UzivatelID`, `TurnajID`) VALUES (1, 5);
+
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);
+INSERT INTO `registroval_sa_na` (`UzivatelID`, `TurnajID`) VALUES (1, 1);

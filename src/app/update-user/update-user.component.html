@@ -1,0 +1,33 @@
+<div>
+    <mat-card>
+        
+        <mat-card-title>
+            Zmena údajov
+        </mat-card-title>
+
+        <form class="form"> 
+            <mat-form-field>
+                <input matInput type="text" placeholder="Meno" id="meno" [(ngModel)]="actUser.meno" name="meno"/>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <input matInput type="text" placeholder="Priezvisko" id="priezvisko" [(ngModel)]="actUser.priezvisko" name="priezvisko"/>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="text" placeholder="Vek" id="vek" [(ngModel)]="actUser.vek" name="vek"/>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="text" placeholder="Email" id="email" [(ngModel)]="actUser.email" name="email"/>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="text" placeholder="Login" id="login" [(ngModel)]="actUser.login" name="login"/>
+            </mat-form-field>
+
+            <button mat-raised-button (click)="updateUzivatel()">Aktualizuj údaje</button>
+        </form>
+
+    </mat-card>
+</div>

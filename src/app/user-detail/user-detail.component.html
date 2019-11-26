@@ -1,0 +1,30 @@
+<div> 
+    <mat-card>
+        <mat-card-title>
+            Môj účet
+        </mat-card-title>
+        <mat-card-content>
+            <mat-list >
+                <mat-list-item>
+                    <b>Meno:&emsp;</b> {{actUzivatel.meno}}
+                </mat-list-item>
+                <mat-list-item>
+                    <b>Priezvisko:&emsp;</b> {{actUzivatel.priezvisko}}
+                </mat-list-item>
+                <mat-list-item>
+                    <b>Vek:&emsp;</b> {{actUzivatel.vek}}
+                </mat-list-item>
+                <mat-list-item>
+                    <b>Email:&emsp;</b> {{actUzivatel.email}}
+                </mat-list-item>
+                <mat-list-item>
+                    <b>Login:&emsp;</b> {{actUzivatel.login}}
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+
+    <button mat-raised-button class="button" routerLink="/update-user">Zmeniť údaje</button>
+    <button mat-raised-button class="button" routerLink="/change-psw">Zmeniť heslo</button>
+</div>
+    

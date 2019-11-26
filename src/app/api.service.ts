@@ -132,5 +132,7 @@ export class ApiService {
     }
     /* #endregion */
 
-    
+    getTimByUzivatel(uzivatel : Uzivatel) {
+        return this.request('GET', `${environment.serverUrl}/hra_v/uzivatel/${uzivatel.id}`);
+    }
 }
