@@ -35,6 +35,21 @@ router.get('/uzivatel/:id', function (req, res) {
   );
 });
 
+router.get('/uzivatel/login/:login', function (req, res) {
+  db.query(
+    "SELECT * FROM Uzivatel WHERE Login=?",
+    [req.params.login],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 router.post('/uzivatel', (req, res) => {
   db.query(
     "INSERT INTO Uzivatel (Meno, Priezvisko, Vek, Email, Login, Heslo) VALUES (?,?,?,?,?,?)",
