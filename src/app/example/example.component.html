@@ -1,0 +1,29 @@
+<div class="background">
+    Uzivatelia
+  
+    <form class="form">
+      Meno
+      <input type="text" placeholder="meno" id="meno" [(ngModel)]="currentUzivatel.meno" name="meno"/>
+      <br>
+      Priezvisko
+      <input type="text" placeholder="priezvisko" id="priezvisko" [(ngModel)]="currentUzivatel.priezvisko" name="priezvisko"/>
+      <br>
+      Vek
+      <input type="text" placeholder="vek" id="vek" [(ngModel)]="currentUzivatel.vek" name="vek"/>
+      <br>
+      Email
+      <input type="text" placeholder="email" id="email" [(ngModel)]="currentUzivatel.email" name="email"/>
+      <br>
+      Login
+      <input type="text" placeholder="login" id="login" [(ngModel)]="currentUzivatel.login" name="login"/>
+      <br>
+      Heslo
+      <input type="text" placeholder="heslo" id="heslo" [(ngModel)]="currentUzivatel.heslo" name="heslo"/>
+      <br><br>   
+      
+      <button  (click)="getUzivatel()">Show user with id 5</button>
+      <button  (click)="createUzivatel()">Create new user</button>
+      <button  (click)="updateUzivatel()">Update user with id 5</button>
+      <button  (click)="deleteUzivatel()">Delete user with id 5</button>
+    </form>
+  </div>
