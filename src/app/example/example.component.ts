@@ -10,7 +10,7 @@ import { Uzivatel } from '../api.structures';
 export class ExampleComponent {
 
   uzivatelia: Uzivatel[] = [];
-  currentUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:''};
+  currentUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ:''};
   
 
   constructor(private server: ApiService) { }
@@ -51,7 +51,8 @@ export class ExampleComponent {
       vek: 17,
       email: 'hrasko@gmail.com',
       login: 'janko',
-      heslo: 'heslo123*'
+      heslo: 'heslo123*',
+      typ: 'normalny'
     }
     
     this.server.createUzivatel(newUzivatel).then( () => {
@@ -69,7 +70,8 @@ export class ExampleComponent {
       vek: this.currentUzivatel.vek,
       email: this.currentUzivatel.email,
       login: this.currentUzivatel.login,
-      heslo: this.currentUzivatel.heslo
+      heslo: this.currentUzivatel.heslo,
+      typ: this.currentUzivatel.typ
     }
 
     this.server.updateUzivatel(updatedUzivatel).then( () => {

@@ -1,1 +1,21 @@
-<p>change-psw works!</p>
+<div>
+    <mat-card>
+        
+        <mat-card-title>
+            Zmena hesla
+        </mat-card-title>
+
+        <form class="form"> 
+            <mat-form-field>
+                <input matInput type="text" placeholder="Nové heslo" id="nove_heslo" [(ngModel)]="nove_heslo" name="nove_heslo"/>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <input matInput type="text" placeholder="Zopakuj nové heslo" id="nove_heslo_again" [(ngModel)]="nove_heslo_again" name="nove_heslo_again"/>
+            </mat-form-field>
+
+            <button mat-raised-button (click)="updateUzivatel()">Zmeň heslo</button>
+        </form>
+
+    </mat-card>
+</div>

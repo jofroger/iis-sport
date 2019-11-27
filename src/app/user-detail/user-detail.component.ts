@@ -9,7 +9,7 @@ import { Uzivatel } from '../api.structures';
 })
 export class UserDetailComponent implements OnInit {
 
-  actUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:''};
+  actUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ: ''};
 
   constructor(private server: ApiService) { }
 

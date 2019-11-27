@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UpdateUserComponent implements OnInit {
 
-  actUser: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:''};
+  actUser: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ:''};
 
   constructor(private server: ApiService, private router: Router) { }
 

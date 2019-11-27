@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Uzivatel, Podmienky_turnaja, Turnaj, Tim, Zapas } from './api.structures'
+import { Uzivatel, Hrac, Rozhodca, Usporiadatel, Podmienky_turnaja, Turnaj, Tim, Zapas, Stav_zapasu } from './api.structures'
 
 @Injectable({
     providedIn: 'root'
@@ -31,6 +31,10 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/uzivatel/${uzivatel.id}`);
     }
 
+    getUzivatelByLogin(uzivatel: Uzivatel) {
+        return this.request('GET', `${environment.serverUrl}/uzivatel/login/${uzivatel.login}`);
+    }
+
     createUzivatel(uzivatel: Uzivatel) {
         return this.request('POST', `${environment.serverUrl}/uzivatel`, uzivatel);
     }
@@ -41,6 +45,72 @@ export class ApiService {
 
     deleteUzivatel(uzivatel: Uzivatel) {
         return this.request('DELETE', `${environment.serverUrl}/uzivatel/${uzivatel.id}`);
+    }
+    /* #endregion */
+
+    /* #region  Hrac API */
+    getAllHrac() {
+        return this.request('GET', `${environment.serverUrl}/hrac`);
+    }
+
+    getHrac(hrac: Hrac) {
+        return this.request('GET', `${environment.serverUrl}/hrac/${hrac.id}`);
+    }
+
+    createHrac(hrac: Hrac) {
+        return this.request('POST', `${environment.serverUrl}/hrac`, hrac);
+    }
+
+    updateHrac(hrac: Hrac) {
+        return this.request('PUT', `${environment.serverUrl}/hrac/${hrac.id}`, hrac);
+    }
+
+    deleteHrac(hrac: Hrac) {
+        return this.request('DELETE', `${environment.serverUrl}/hrac/${hrac.id}`);
+    }
+    /* #endregion */
+    
+    /* #region  Usporiadatel API */
+    getAllUsporiadatel() {
+        return this.request('GET', `${environment.serverUrl}/usporiadatel`);
+    }
+
+    getUsporiadatel(usporiadatel: Usporiadatel) {
+        return this.request('GET', `${environment.serverUrl}/usporiadatel/${usporiadatel.id}`);
+    }
+
+    createUsporiadatel(usporiadatel: Usporiadatel) {
+        return this.request('POST', `${environment.serverUrl}/usporiadatel`, usporiadatel);
+    }
+
+    updateUsporiadatel(usporiadatel: Usporiadatel) {
+        return this.request('PUT', `${environment.serverUrl}/usporiadatel/${usporiadatel.id}`, usporiadatel);
+    }
+
+    deleteUsporiadatel(usporiadatel: Usporiadatel) {
+        return this.request('DELETE', `${environment.serverUrl}/usporiadatel/${usporiadatel.id}`);
+    }
+    /* #endregion */
+
+    /* #region  Rozhodca API */
+    getAllRozhodca() {
+        return this.request('GET', `${environment.serverUrl}/rozhodca`);
+    }
+
+    getRozhodca(rozhodca: Rozhodca) {
+        return this.request('GET', `${environment.serverUrl}/rozhodca/${rozhodca.id}`);
+    }
+
+    createRozhodca(rozhodca: Rozhodca) {
+        return this.request('POST', `${environment.serverUrl}/rozhodca`, rozhodca);
+    }
+
+    updateRozhodca(rozhodca: Rozhodca) {
+        return this.request('PUT', `${environment.serverUrl}/rozhodca/${rozhodca.id}`, rozhodca);
+    }
+
+    deleteRozhodca(rozhodca: Rozhodca) {
+        return this.request('DELETE', `${environment.serverUrl}/rozhodca/${rozhodca.id}`);
     }
     /* #endregion */
 
@@ -132,6 +202,28 @@ export class ApiService {
     }
     /* #endregion */
 
+    /* #region  Stav_zapasu API */
+    getAllStav_zapasu() {
+        return this.request('GET', `${environment.serverUrl}/stav_zapasu`);
+    }
+
+    getStav_zapasu(stav_zapasu: Stav_zapasu) {
+        return this.request('GET', `${environment.serverUrl}/stav_zapasu/${stav_zapasu.id}`);
+    }
+
+    createStav_zapasu(stav_zapasu: Stav_zapasu) {
+        return this.request('POST', `${environment.serverUrl}/stav_zapasu`, stav_zapasu);
+    }
+
+    updateStav_zapasu(stav_zapasu: Stav_zapasu) {
+        return this.request('PUT', `${environment.serverUrl}/stav_zapasu/${stav_zapasu.id}`, stav_zapasu);
+    }
+
+    deleteStav_zapasu(stav_zapasu: Stav_zapasu) {
+        return this.request('DELETE', `${environment.serverUrl}/stav_zapasu/${stav_zapasu.id}`);
+    }
+    /* #endregion */
+    
     getTimByUzivatel(uzivatel : Uzivatel) {
         return this.request('GET', `${environment.serverUrl}/hra_v/uzivatel/${uzivatel.id}`);
     }
