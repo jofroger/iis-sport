@@ -363,10 +363,11 @@ router.post('/podmienky_turnaja', (req, res) => {
 
 router.put('/podmienky_turnaja/:id', function (req, res, next) {
   db.query(
-    'UPDATE Podmienky_turnaja SET Minimalny_vek_hracov=?, Pocet_hracov_v_tyme=?, Pocet_tymov=?, Registracny_poplatok=? Druh_hry=? WHERE Podmienky_turnajaID=?',
+    'UPDATE Podmienky_turnaja SET Minimalny_vek_hracov=?, Pocet_hracov_v_tyme=?, Pocet_tymov=?, Registracny_poplatok=?, Druh_hry=? WHERE Podmienky_turnajaID=?',
     [req.body.Minimalny_vek_hracov, req.body.Pocet_hracov_v_tyme, req.body.Pocet_tymov, req.body.Registracny_poplatok, req.body.Druh_hry, req.params.id],
     (error) => {
       if (error) {
+        console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -381,6 +382,7 @@ router.delete('/podmienky_turnaja/:id', function (req, res, next) {
     [req.params.id],
     (error) => {
       if (error) {
+        console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -441,6 +443,7 @@ router.put('/turnaj/:id', function (req, res, next) {
     [req.body.Nazov, req.body.Zaciatok, req.body.Koniec, req.body.Vyhra, req.body.Sponzori, req.body.Podmienky_turnajaID, req.body.UsporiadatelID, req.params.id],
     (error) => {
       if (error) {
+        console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -455,6 +458,7 @@ router.delete('/turnaj/:id', function (req, res, next) {
     [req.params.id],
     (error) => {
       if (error) {
+        console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -541,7 +545,7 @@ router.delete('/tim/:id', function (req, res, next) {
 /* #region  Zapas API */
 router.get('/zapas', function (req, res) {
   db.query(
-    "SELECT * FROM Zapas",
+    "SELECT * FROM Zapas ORDER BY Datum DESC",
     (error, results) => {
       if (error) {
         console.log(error);
@@ -570,7 +574,7 @@ router.get('/zapas/:id', function (req, res) {
 
 router.post('/zapas', (req, res) => {
   db.query(
-    "INSERT INTO Zapas (Nazov, Miesto, Datum, Stav, TurnajID) VALUES (?,?,?,?)",
+    "INSERT INTO Zapas (Nazov, Miesto, Datum, Stav, TurnajID) VALUES (?,?,?,?,?)",
     [req.body.Nazov, req.body.Miesto, req.body.Datum, req.body.Stav, req.body.TurnajID],
     (error) => {
       if (error) {
@@ -589,6 +593,7 @@ router.put('/zapas/:id', function (req, res, next) {
     [req.body.Nazov, req.body.Miesto, req.body.Datum, req.body.Stav, req.body.TurnajID, req.params.id],
     (error) => {
       if (error) {
+        console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -603,6 +608,7 @@ router.delete('/zapas/:id', function (req, res, next) {
     [req.params.id],
     (error) => {
       if (error) {
+        console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -659,10 +665,11 @@ router.post('/stav_zapasu', (req, res) => {
 
 router.put('/stav_zapasu/:id', function (req, res, next) {
   db.query(
-    'UPDATE Stav_zapasu SET Ziskane_sety=?, Ziskane_gemy=?, Ziskane_vymeny=?, HracID=?, TimID=? ZapasID=? WHERE Stav_zapasuID=?',
+    'UPDATE Stav_zapasu SET Ziskane_sety=?, Ziskane_gemy=?, Ziskane_vymeny=?, HracID=?, TimID=?, ZapasID=? WHERE Stav_zapasuID=?',
     [req.body.Ziskane_sety, req.body.Ziskane_gemy, req.body.Ziskane_vymeny, req.body.HracID, req.body.TimID, req.body.ZapasID, req.params.id],
     (error) => {
       if (error) {
+        console.log(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -677,6 +684,7 @@ router.delete('/stav_zapasu/:id', function (req, res, next) {
     [req.params.id],
     (error) => {
       if (error) {
+        console.log(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -690,7 +698,7 @@ router.delete('/stav_zapasu/:id', function (req, res, next) {
 /* #region  hrac_hra_v_time API */
 router.get('/hrac_hra_v_time/hrac/:id', function (req, res) {
   db.query(
-    "SELECT TimID, Nazov, Logo, Odohrane_zapasy, Pocet_vyhier, Pocet_hracov \
+    "SELECT TimID, Nazov, Logo, Tim.Odohrane_zapasy, Tim.Pocet_vyhier, Pocet_hracov \
      FROM Hrac  \
      INNER JOIN hrac_hra_v_time USING (HracID) \
      INNER JOIN Tim USING (TimID) \
@@ -709,7 +717,7 @@ router.get('/hrac_hra_v_time/hrac/:id', function (req, res) {
 
 router.get('/hrac_hra_v_time/tim/:id', function (req, res) {
   db.query(
-    "SELECT HracID, Odohrane_zapasy, Pocet_vyhier, UzivatelID \
+    "SELECT HracID, Hrac.Odohrane_zapasy, Hrac.Pocet_vyhier, UzivatelID \
      FROM Tim  \
      INNER JOIN hrac_hra_v_time USING (TimID) \
      INNER JOIN Hrac USING (HracID) \
@@ -729,7 +737,7 @@ router.get('/hrac_hra_v_time/tim/:id', function (req, res) {
 router.post('/hrac_hra_v_time', (req, res) => {
   db.query(
     "INSERT INTO hrac_hra_v_time (HracID, TimID) VALUES (?,?)",
-    [req.body.UzivatelID, req.body.TimID],
+    [req.body.HracID, req.body.TimID],
     (error) => {
       if (error) {
         console.error(error);
@@ -741,7 +749,7 @@ router.post('/hrac_hra_v_time', (req, res) => {
   );
 });
 
-router.delete('/hrac_hra_v_time/:UzivatelID&:TimID', function (req, res) {
+router.delete('/hrac_hra_v_time/:HracID&:TimID', function (req, res) {
   db.query(
     'DELETE FROM hrac_hra_v_time WHERE HracID=? AND TimID=?',
     [req.params.HracID, req.params.TimID],
@@ -759,7 +767,7 @@ router.delete('/hrac_hra_v_time/:UzivatelID&:TimID', function (req, res) {
 /* #region  tim_chce_hrat API */
 router.get('/tim_chce_hrat/turnaj/:id', function (req, res) {
   db.query(
-    "SELECT TimID, Nazov, Logo, Odohrane_zapasy, Pocet_vyhier, Pocet_hracov \
+    "SELECT TimID, Tim.Nazov, Logo, Odohrane_zapasy, Pocet_vyhier, Pocet_hracov \
      FROM Turnaj  \
      INNER JOIN tim_chce_hrat USING (TurnajID) \
      INNER JOIN Tim USING (TimID) \
@@ -778,7 +786,7 @@ router.get('/tim_chce_hrat/turnaj/:id', function (req, res) {
 
 router.get('/tim_chce_hrat/tim/:id', function (req, res) {
   db.query(
-    "SELECT TurnajID, Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
+    "SELECT TurnajID, Turnaj.Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
      FROM Tim  \
      INNER JOIN tim_chce_hrat USING (TimID) \
      INNER JOIN Turnaj USING (TurnajID) \
@@ -881,10 +889,11 @@ router.post('/hrac_chce_hrat', (req, res) => {
 
 router.delete('/hrac_chce_hrat/:TurnajID&:HracID', function (req, res) {
   db.query(
-    'DELETE FROM hra_v WHERE TurnajID=? AND HracID=?',
+    'DELETE FROM hrac_chce_hrat WHERE TurnajID=? AND HracID=?',
     [req.params.TurnajID, req.params.HracID],
     (error) => {
       if (error) {
+        console.log(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -897,7 +906,7 @@ router.delete('/hrac_chce_hrat/:TurnajID&:HracID', function (req, res) {
 /* #region  tim_hra_v_zapase API */
 router.get('/tim_hra_v_zapase/zapas/:id', function (req, res) {
   db.query(
-    "SELECT TimID, Nazov, Logo, Odohrane_zapasy, Pocet_vyhier, Pocet_hracov \
+    "SELECT TimID, Tim.Nazov, Logo, Odohrane_zapasy, Pocet_vyhier, Pocet_hracov \
      FROM Zapas  \
      INNER JOIN tim_hra_v_zapase USING (ZapasID) \
      INNER JOIN Tim USING (TimID) \
@@ -914,11 +923,11 @@ router.get('/tim_hra_v_zapase/zapas/:id', function (req, res) {
   );
 });
 
-router.get('/tim_chce_hrat/tim/:id', function (req, res) {
+router.get('/tim_hra_v_zapase/tim/:id', function (req, res) {
   db.query(
-    "SELECT TurnajID, Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
+    "SELECT ZapasID, Zapas.Nazov, Miesto, Datum, Stav, TurnajID \
      FROM Tim  \
-     INNER JOIN tim_chce_hrat USING (TimID) \
+     INNER JOIN tim_hra_v_zapase USING (TimID) \
      INNER JOIN Zapas USING (ZapasID) \
      WHERE TimID=?",
     [req.params.id],
@@ -933,9 +942,9 @@ router.get('/tim_chce_hrat/tim/:id', function (req, res) {
   );
 });
 
-router.post('/tim_chce_hrat', (req, res) => {
+router.post('/tim_hra_v_zapase', (req, res) => {
   db.query(
-    "INSERT INTO tim_chce_hrat (ZapasID, TimID) VALUES (?,?)",
+    "INSERT INTO tim_hra_v_zapase (ZapasID, TimID) VALUES (?,?)",
     [req.body.ZapasID, req.body.TimID],
     (error) => {
       if (error) {
@@ -948,9 +957,9 @@ router.post('/tim_chce_hrat', (req, res) => {
   );
 });
 
-router.delete('/tim_chce_hrat/:ZapasID&:TimID', function (req, res) {
+router.delete('/tim_hra_v_zapase/:ZapasID&:TimID', function (req, res) {
   db.query(
-    'DELETE FROM tim_chce_hrat WHERE ZapasID=? AND TimID=?',
+    'DELETE FROM tim_hra_v_zapase WHERE ZapasID=? AND TimID=?',
     [req.params.ZapasID, req.params.TimID],
     (error) => {
       if (error) {
@@ -985,10 +994,10 @@ router.get('/hrac_hra_v_zapase/zapas/:id', function (req, res) {
 
 router.get('/hrac_hra_v_zapase/hrac/:id', function (req, res) {
   db.query(
-    "SELECT TurnajID, Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
+    "SELECT ZapasID, Nazov, Miesto, Datum, Stav, TurnajID \
      FROM Hrac  \
      INNER JOIN hrac_hra_v_zapase USING (HracID) \
-     INNER JOIN Turnaj USING (ZapasID) \
+     INNER JOIN Zapas USING (ZapasID) \
      WHERE HracID=?",
     [req.params.id],
     (error, results) => {
@@ -1005,7 +1014,7 @@ router.get('/hrac_hra_v_zapase/hrac/:id', function (req, res) {
 router.post('/hrac_hra_v_zapase', (req, res) => {
   db.query(
     "INSERT INTO hrac_hra_v_zapase (ZapasID, HracID) VALUES (?,?)",
-    [req.body.TurnajID, req.body.HracID],
+    [req.body.ZapasID, req.body.HracID],
     (error) => {
       if (error) {
         console.error(error);
@@ -1032,7 +1041,6 @@ router.delete('/hrac_hra_v_zapase/:ZapasID&:HracID', function (req, res) {
 });
 /* #endregion */
 
-
 /* #region  rozhoduje_turnaj API */
 router.get('/rozhoduje_turnaj/turnaj/:id', function (req, res) {
   db.query(
@@ -1053,7 +1061,7 @@ router.get('/rozhoduje_turnaj/turnaj/:id', function (req, res) {
   );
 });
 
-router.get('/rozhoduje_turnaj/uzivatel/:id', function (req, res) {
+router.get('/rozhoduje_turnaj/rozhodca/:id', function (req, res) {
   db.query(
     "SELECT TurnajID, Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
      FROM Rozhodca  \
@@ -1096,6 +1104,37 @@ router.delete('/rozhoduje_turnaj/:TurnajID&:RozhodcaID', function (req, res) {
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
+      }
+    }
+  );
+});
+/* #endregion */
+
+
+/* #region  test API */
+router.get('/unsetkey', function (req, res) {
+  db.query(
+    "SET FOREIGN_KEY_CHECKS=0",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+router.get('/setkey', function (req, res) {
+  db.query(
+    "SET FOREIGN_KEY_CHECKS=1",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
       }
     }
   );

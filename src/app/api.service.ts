@@ -224,7 +224,113 @@ export class ApiService {
     }
     /* #endregion */
     
-    getTimByUzivatel(uzivatel : Uzivatel) {
-        return this.request('GET', `${environment.serverUrl}/hra_v/uzivatel/${uzivatel.id}`);
+
+    /* #region hrac_hra_v_time */
+    getTimByHrac(hrac: Hrac) {
+        return this.request('GET', `${environment.serverUrl}/hrac_hra_v_time/hrac/${hrac.id}`);
     }
+
+    getHracByTim(tim: Tim) {
+        return this.request('GET', `${environment.serverUrl}/hrac_hra_v_time/tim/${tim.id}`);
+    }
+
+    createHrac_hra_v_time(hrac: Hrac, tim: Tim) {
+        return this.request('POST', `${environment.serverUrl}/hrac_hra_v_time`, {"HracID": hrac.id, "TimID": tim.id});
+    }
+
+    deleteHrac_hra_v_time(hrac: Hrac, tim: Tim) {
+        return this.request('DELETE', `${environment.serverUrl}/hrac_hra_v_time/${hrac.id}&${tim.id}`);
+    }
+    /* #endregion */
+
+    /* #region tim_chce_hrat */
+    getTurnajByTim(turnaj: Turnaj) {
+        return this.request('GET', `${environment.serverUrl}/tim_chce_hrat/turnaj/${turnaj.id}`);
+    }
+
+    getTimByTurnaj(tim: Tim) {
+        return this.request('GET', `${environment.serverUrl}/tim_chce_hrat/tim/${tim.id}`);
+    }
+
+    createTim_chce_hrat(turnaj: Turnaj, tim: Tim) {
+        return this.request('POST', `${environment.serverUrl}/tim_chce_hrat`, {"TurnajID": turnaj.id, "TimID": tim.id});
+    }
+
+    deleteTim_chce_hrat(turnaj: Turnaj, tim: Tim) {
+        return this.request('DELETE', `${environment.serverUrl}/tim_chce_hrat/${turnaj.id}&${tim.id}`);
+    }
+    /* #endregion */
+
+    /* #region hrac_chce_hrat */
+    getHracByTurnaj(turnaj: Turnaj) {
+        return this.request('GET', `${environment.serverUrl}/hrac_chce_hrat/turnaj/${turnaj.id}`);
+    }
+
+    getTurnajByHrac(hrac: Hrac) {
+        return this.request('GET', `${environment.serverUrl}/hrac_chce_hrat/hrac/${hrac.id}`);
+    }
+
+    createHrac_chce_hrat(turnaj: Turnaj, hrac: Hrac) {
+        return this.request('POST', `${environment.serverUrl}/hrac_chce_hrat`, {"TurnajID": turnaj.id, "HracID": hrac.id});
+    }
+
+    deleteHrac_chce_hrat(turnaj: Turnaj, hrac: Hrac) {
+        return this.request('DELETE', `${environment.serverUrl}/hrac_chce_hrat/${turnaj.id}&${hrac.id}`);
+    }
+    /* #endregion */
+
+    /* #region tim_hra_v_zapase */
+    getTimByZapas(zapas: Zapas) {
+        return this.request('GET', `${environment.serverUrl}/tim_hra_v_zapase/zapas/${zapas.id}`);
+    }
+
+    getZapasByTim(tim: Tim) {
+        return this.request('GET', `${environment.serverUrl}/tim_hra_v_zapase/tim/${tim.id}`);
+    }
+
+    createTim_hra_v_zapase(zapas: Zapas, tim: Tim) {
+        return this.request('POST', `${environment.serverUrl}/tim_hra_v_zapase`, {"ZapasID": zapas.id, "Tim": tim.id});
+    }
+
+    deleteTim_hra_v_zapase(zapas: Zapas, tim: Tim) {
+        return this.request('DELETE', `${environment.serverUrl}/tim_hra_v_zapase/${zapas.id}&${tim.id}`);
+    }
+    /* #endregion */
+
+    /* #region hrac_hra_v_zapase */
+    getHracByZapas(zapas: Zapas) {
+        return this.request('GET', `${environment.serverUrl}/hrac_hra_v_zapase/zapas/${zapas.id}`);
+    }
+
+    getZapasByHrac(hrac: Hrac) {
+        return this.request('GET', `${environment.serverUrl}/hrac_hra_v_zapase/hrac/${hrac.id}`);
+    }
+
+    createHrac_hra_v_zapase(zapas: Zapas, hrac: Hrac) {
+        return this.request('POST', `${environment.serverUrl}/hrac_hra_v_zapase`, {"ZapasID": zapas.id, "HracID": hrac.id});
+    }
+
+    deleteHrac_hra_v_zapase(zapas: Zapas, hrac: Hrac) {
+        return this.request('DELETE', `${environment.serverUrl}/hrac_hra_v_zapase/${zapas.id}&${hrac.id}`);
+    }
+    /* #endregion */
+
+
+    /* #region rozhoduje_turnaj */
+    getRozhodcaByTurnaj(turnaj: Turnaj) {
+        return this.request('GET', `${environment.serverUrl}/rozhoduje_turnaj/turnaj/${turnaj.id}`);
+    }
+
+    getTurnajByRozhodca(rozhodca: Rozhodca) {
+        return this.request('GET', `${environment.serverUrl}/rozhoduje_turnaj/rozhodca/${rozhodca.id}`);
+    }
+
+    createRozhoduje_turnaj(turnaj: Turnaj, rozhodca: Rozhodca) {
+        return this.request('POST', `${environment.serverUrl}/rozhoduje_turnaj`, {"TurnajID": turnaj.id, "RozhodcaID": rozhodca.id});
+    }
+
+    deleteRozhoduje_turnaj(turnaj: Turnaj, rozhodca: Rozhodca) {
+        return this.request('DELETE', `${environment.serverUrl}/rozhoduje_turnaj/${turnaj.id}&${rozhodca.id}`);
+    }
+    /* #endregion */
 }

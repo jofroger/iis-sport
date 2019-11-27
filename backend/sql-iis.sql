@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS `hrac_hra_v_time` CASCADE
 DROP TABLE IF EXISTS `hrac_hra_v_zapase` CASCADE
 ;
 
-DROP TABLE IF EXISTS `chce_hrat` CASCADE
+DROP TABLE IF EXISTS `hrac_chce_hrat` CASCADE
 ;
 
 DROP TABLE IF EXISTS `Podmienky_turnaja` CASCADE
@@ -83,7 +83,7 @@ CREATE TABLE `hrac_hra_v_zapase`
 
 ;
 
-CREATE TABLE `chce_hrat`
+CREATE TABLE `hrac_chce_hrat`
 (
 	`TurnajID` int NOT NULL,
 	`HracID` int NOT NULL
@@ -249,13 +249,13 @@ ALTER TABLE `hrac_hra_v_zapase`
 	FOREIGN KEY (`HracID`) REFERENCES `Hrac` (`HracID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `chce_hrat` 
- ADD CONSTRAINT `FK_chce_hrat_Turnaj`
+ALTER TABLE `hrac_chce_hrat` 
+ ADD CONSTRAINT `FK_hrac_chce_hrat_Turnaj`
 	FOREIGN KEY (`TurnajID`) REFERENCES `Turnaj` (`TurnajID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `chce_hrat` 
- ADD CONSTRAINT `FK_chce_hrat_Hrac`
+ALTER TABLE `hrac_chce_hrat` 
+ ADD CONSTRAINT `FK_hrac_chce_hrat_Hrac`
 	FOREIGN KEY (`HracID`) REFERENCES `Hrac` (`HracID`) ON DELETE No Action ON UPDATE No Action
 ;
 
