@@ -4,8 +4,8 @@ export interface Uzivatel {
     priezvisko: String
     vek: Number
     email: String
-    login : String
-    heslo : String
+    login: String
+    heslo: String
 }
 
 export interface Turnaj {
@@ -14,9 +14,9 @@ export interface Turnaj {
     zaciatok: Date
     koniec: Date
     vyhra: String
-    sponzori : String
+    sponzori: String
     podmienky_turnajaID : Number
-    uzivatelID : Number
+    uzivatelID: Number
 }
 
 export interface Podmienky_turnaja {
