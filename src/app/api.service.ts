@@ -69,7 +69,7 @@ export class ApiService {
         return this.request('DELETE', `${environment.serverUrl}/hrac/${hrac.id}`);
     }
     /* #endregion */
-    
+
     /* #region  Usporiadatel API */
     getAllUsporiadatel() {
         return this.request('GET', `${environment.serverUrl}/usporiadatel`);
@@ -223,7 +223,7 @@ export class ApiService {
         return this.request('DELETE', `${environment.serverUrl}/stav_zapasu/${stav_zapasu.id}`);
     }
     /* #endregion */
-    
+
 
     /* #region hrac_hra_v_time */
     getTimByHrac(hrac: Hrac) {
