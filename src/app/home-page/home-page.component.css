@@ -63,19 +63,20 @@ table.tabulkaZapasy td:last-child {
 }
 
 .tabulkaTimy {
-  width: 100%;
+  width: calc(100% - 10px);
   height: auto;
   border: 1px solid #71e2ff;
   border-radius: 5px;
   text-align: center;
-  margin: auto;
+  margin: 5px auto 5px auto;
   background-color: #71e2ff;
+  box-shadow: 0 0 5px #000
 }
 
 .tabulkaTimyZoznam td {
   border: 0 !important;
   width: 33.33%;
-  font-size: 20px;
+  font-size: 19px;
 }
 
 .teamFlagPlaceholder {
@@ -90,12 +91,13 @@ table.tabulkaZapasy td:last-child {
 
 .zapas {
   height: 100%;
-  width: 100%;
+  width: calc(100% - 10px);
   border: 1px solid #00c3ff;
   border-radius: 5px;
   text-align: center;
   margin: auto;
   background-color: #00c3ff;
+  box-shadow: 0 0 5px #000
 }
 
 .zapasDatum {
@@ -104,13 +106,13 @@ table.tabulkaZapasy td:last-child {
 }
 
 .zapasVysledok {
-  font-size: 50px;
+  font-size: 40px;
   margin-top: 5%;
 }
 
 .zapasTimy {
   /*font-size: 25px;*/
-  font-size: 120%;
+  font-size: 110%;
   margin-top: 5%;
 }
 

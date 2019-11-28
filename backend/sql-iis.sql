@@ -4,7 +4,7 @@
 /*  DBMS       : MySql 						*/
 /* ---------------------------------------------------- */
 
-SET FOREIGN_KEY_CHECKS=0 
+SET FOREIGN_KEY_CHECKS=0
 ;
 
 /* Drop Tables */
@@ -174,7 +174,7 @@ CREATE TABLE `Turnaj`
 	`Vyhra` varchar(50),
 	`Sponzori` varchar(100),
     `Povrch` varchar(50),
-	`Podmienky_turnajaID` int NOT NULL,    
+	`Podmienky_turnajaID` int NOT NULL,
 	`UsporiadatelID`int NOT NULL,
 	CONSTRAINT `PK_Turnaj` PRIMARY KEY (`TurnajID` ASC)
 )
@@ -224,117 +224,117 @@ CREATE TABLE `Zapas`
 
 /* Create Foreign Key Constraints */
 
-ALTER TABLE `Hrac` 
+ALTER TABLE `Hrac`
  ADD CONSTRAINT `FK_Hrac_je_hrac`
 	FOREIGN KEY (`UzivatelID`) REFERENCES `Uzivatel` (`UzivatelID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `hrac_hra_v_time` 
+ALTER TABLE `hrac_hra_v_time`
  ADD CONSTRAINT `FK_hrac_hra_v_time_Hrac`
 	FOREIGN KEY (`HracID`) REFERENCES `Hrac` (`HracID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `hrac_hra_v_time` 
+ALTER TABLE `hrac_hra_v_time`
  ADD CONSTRAINT `FK_hrac_hra_v_time_Tim`
 	FOREIGN KEY (`TimID`) REFERENCES `Tim` (`TimID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `hrac_hra_v_zapase` 
+ALTER TABLE `hrac_hra_v_zapase`
  ADD CONSTRAINT `FK_hrac_hra_v_zapase_Zapas`
 	FOREIGN KEY (`ZapasID`) REFERENCES `Zapas` (`ZapasID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `hrac_hra_v_zapase` 
+ALTER TABLE `hrac_hra_v_zapase`
  ADD CONSTRAINT `FK_hrac_hra_v_zapase_Hrac`
 	FOREIGN KEY (`HracID`) REFERENCES `Hrac` (`HracID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `hrac_chce_hrat` 
+ALTER TABLE `hrac_chce_hrat`
  ADD CONSTRAINT `FK_hrac_chce_hrat_Turnaj`
 	FOREIGN KEY (`TurnajID`) REFERENCES `Turnaj` (`TurnajID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `hrac_chce_hrat` 
+ALTER TABLE `hrac_chce_hrat`
  ADD CONSTRAINT `FK_hrac_chce_hrat_Hrac`
 	FOREIGN KEY (`HracID`) REFERENCES `Hrac` (`HracID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `Rozhodca` 
+ALTER TABLE `Rozhodca`
  ADD CONSTRAINT `FK_Rozhodca_je_rozhodca`
 	FOREIGN KEY (`UzivatelID`) REFERENCES `Uzivatel` (`UzivatelID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `rozhoduje_turnaj` 
+ALTER TABLE `rozhoduje_turnaj`
  ADD CONSTRAINT `FK_rozhoduje_turnaj_Turnaj`
 	FOREIGN KEY (`TurnajID`) REFERENCES `Turnaj` (`TurnajID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `rozhoduje_turnaj` 
+ALTER TABLE `rozhoduje_turnaj`
  ADD CONSTRAINT `FK_rozhoduje_turnaj_Rozhodca`
 	FOREIGN KEY (`RozhodcaID`) REFERENCES `Rozhodca` (`RozhodcaID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `Stav_zapasu` 
+ALTER TABLE `Stav_zapasu`
  ADD CONSTRAINT `FK_Stav_zapasu_hrac_ma_stav`
 	FOREIGN KEY (`HracID`) REFERENCES `Hrac` (`HracID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `Stav_zapasu` 
+ALTER TABLE `Stav_zapasu`
  ADD CONSTRAINT `FK_Stav_zapasu_tim_ma_stav`
 	FOREIGN KEY (`TimID`) REFERENCES `Tim` (`TimID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `Stav_zapasu` 
+ALTER TABLE `Stav_zapasu`
  ADD CONSTRAINT `FK_Stav_zapasu_zapas_ma_stav`
 	FOREIGN KEY (`ZapasID`) REFERENCES `Zapas` (`ZapasID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `tim_hra_v_zapase` 
+ALTER TABLE `tim_hra_v_zapase`
  ADD CONSTRAINT `FK_tim_hra_v_zapase_Zapas`
 	FOREIGN KEY (`ZapasID`) REFERENCES `Zapas` (`ZapasID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `tim_hra_v_zapase` 
+ALTER TABLE `tim_hra_v_zapase`
  ADD CONSTRAINT `FK_tim_hra_v_zapase_Tim`
 	FOREIGN KEY (`TimID`) REFERENCES `Tim` (`TimID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `tim_chce_hrat` 
+ALTER TABLE `tim_chce_hrat`
  ADD CONSTRAINT `FK_tim_chce_hrat_Turnaj`
 	FOREIGN KEY (`TurnajID`) REFERENCES `Turnaj` (`TurnajID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `tim_chce_hrat` 
+ALTER TABLE `tim_chce_hrat`
  ADD CONSTRAINT `FK_tim_chce_hrat_Tim`
 	FOREIGN KEY (`TimID`) REFERENCES `Tim` (`TimID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `Turnaj` 
+ALTER TABLE `Turnaj`
  ADD CONSTRAINT `FK_Turnaj_turnaj_ma_podmienky`
 	FOREIGN KEY (`Podmienky_turnajaID`) REFERENCES `Podmienky_turnaja` (`Podmienky_turnajaID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `Turnaj` 
+ALTER TABLE `Turnaj`
  ADD CONSTRAINT `FK_Turnaj_usporaduva`
 	FOREIGN KEY (`UsporiadatelID`) REFERENCES `Usporiadatel` (`UsporiadatelID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `Usporiadatel` 
+ALTER TABLE `Usporiadatel`
  ADD CONSTRAINT `FK_Usporiadatel_je_usporiadatel`
 	FOREIGN KEY (`UzivatelID`) REFERENCES `Uzivatel` (`UzivatelID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `Zapas` 
+ALTER TABLE `Zapas`
  ADD CONSTRAINT `FK_Zapas_zapas_ma_stav`
 	FOREIGN KEY (`Stav_zapasuID`) REFERENCES `Stav_zapasu` (`Stav_zapasuID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-ALTER TABLE `Zapas` 
+ALTER TABLE `Zapas`
  ADD CONSTRAINT `FK_Zapas_sa_odohra`
 	FOREIGN KEY (`TurnajID`) REFERENCES `Turnaj` (`TurnajID`) ON DELETE No Action ON UPDATE No Action
 ;
 
-SET FOREIGN_KEY_CHECKS=1 
+SET FOREIGN_KEY_CHECKS=1
 ;
 
 
@@ -433,18 +433,18 @@ INSERT INTO `tim_chce_hrat` (`TurnajID`, `TimID`) VALUES (5, 6);
 INSERT INTO `tim_chce_hrat` (`TurnajID`, `TimID`) VALUES (5, 7);
 INSERT INTO `tim_chce_hrat` (`TurnajID`, `TimID`) VALUES (5, 8);
 
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Rýchle šípy vs Daemon", "Trenčianska športová hala", DATE("2019-06-14"), "ukončený", 1);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Team Liquid vs Fnatic", "Trenčianska športová hala", DATE("2019-06-21"), "ukončený", 1);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("G2 vs Adamov", "Trenčianska športová hala", DATE("2019-06-28"), "ukončený", 1);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Karči a Lajči vs Power Rangers", "Trenčianska športová hala", DATE("2019-07-05"), "ukončený", 1);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-20"), "plánovaný", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-20"), "plánovaný", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-21"), "plánovaný", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-21"), "plánovaný", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Rýchle šípy vs Adamov", "Hala radosť v Košiciach", DATE("2019-12-10"), "prebieha", 3);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("G2 vs Fnatic", "Hala radosť v Košiciach", DATE("2019-12-17"), "plánovaný", 3);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "SLOVNAFT hala BA", DATE("2020-05-5"), "plánovaný", 4);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "SLOVNAFT hala BA", DATE("2020-05-12"), "plánovaný", 4);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Rýchle šípy vs Daemon", "Trenčianska športová hala", DATE("2019-06-14"), "8:2", 1);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Team Liquid vs Fnatic", "Trenčianska športová hala", DATE("2019-06-21"), "1:4", 1);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("G2 vs Adamov", "Trenčianska športová hala", DATE("2019-06-28"), "5:3", 1);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Karči a Lajči vs Power Rangers", "Trenčianska športová hala", DATE("2019-07-05"), "3:2", 1);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-20"), "0:0x", 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-20"), "0:0x", 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-21"), "0:0x", 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-21"), "0:0x", 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Rýchle šípy vs Adamov", "Hala radosť v Košiciach", DATE("2019-12-10"), "2:1*", 3);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("G2 vs Fnatic", "Hala radosť v Košiciach", DATE("2019-12-17"), "0:0x", 3);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "SLOVNAFT hala BA", DATE("2020-05-5"), "0:0x", 4);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "SLOVNAFT hala BA", DATE("2020-05-12"), "0:0x", 4);
 
 INSERT INTO `tim_hra_v_zapase` (`ZapasID`, `TimID`) VALUES (1, 1);
 INSERT INTO `tim_hra_v_zapase` (`ZapasID`, `TimID`) VALUES (1, 2);
