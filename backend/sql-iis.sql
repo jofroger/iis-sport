@@ -6,7 +6,7 @@
 
 SET FOREIGN_KEY_CHECKS=0
 ;
-
+TMP;
 /* Drop Tables */
 
 DROP TABLE IF EXISTS `Hrac` CASCADE
