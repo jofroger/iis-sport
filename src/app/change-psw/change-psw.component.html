@@ -7,14 +7,14 @@
 
         <form class="form"> 
             <mat-form-field>
-                <input matInput type="text" placeholder="Nové heslo" id="nove_heslo" [(ngModel)]="nove_heslo" name="nove_heslo"/>
+                <input matInput type="password" placeholder="Nové heslo" id="noveHeslo" [(ngModel)]="noveHeslo" name="noveHeslo"/>
             </mat-form-field>
             
             <mat-form-field>
-                <input matInput type="text" placeholder="Zopakuj nové heslo" id="nove_heslo_again" [(ngModel)]="nove_heslo_again" name="nove_heslo_again"/>
+                <input matInput type="password" placeholder="Zopakuj nové heslo" id="noveHeslo_znova" [(ngModel)]="noveHeslo_znova" name="noveHeslo_znova"/>
             </mat-form-field>
 
-            <button mat-raised-button (click)="updateUzivatel()">Zmeň heslo</button>
+            <button mat-raised-button (click)="updateHeslo()">Zmeň heslo</button>
         </form>
 
     </mat-card>

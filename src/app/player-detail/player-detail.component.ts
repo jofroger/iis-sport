@@ -43,9 +43,9 @@ export class PlayerDetailComponent implements OnInit {
   }
 
   private getTimy() {
-    /*this.server.getTimByUzivatel(this.actUzivatel).then( (resp : any) => {
+    this.server.getTimByHrac(this.actHrac).then( (resp : any) => {
       this.timy = resp;
-    })*/
+    })
   }
 
 }

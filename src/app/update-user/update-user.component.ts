@@ -28,6 +28,7 @@ export class UpdateUserComponent implements OnInit {
       this.actUser.email = resp[0].Email;
       this.actUser.login = resp[0].Login;
       this.actUser.heslo = resp[0].Heslo;
+      this.actUser.typ = resp[0].Typ;
     });
   }
 
