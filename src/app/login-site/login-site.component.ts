@@ -18,14 +18,16 @@ import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 })
 
 export class LoginSiteComponent {
-  // hide: boolean;
+  hide: boolean;
   username: string;
   password: string;
 
   // uzivatelia: Uzivatel[] = [];
   currentUzivatel: Uzivatel = {id: null, meno: 'Andrej', priezvisko: '', email: '', vek: null, login: '', heslo: ''};
 
-  constructor(private server: ApiService) { }
+  constructor(private router: Router, private server: ApiService) {
+    this.hide = true;
+  }
 
   private ErrorMessage = {
     'Wrong-Password-msg' : 'Vase heslo moze byt nespravne.',
@@ -53,7 +55,7 @@ export class LoginSiteComponent {
               verifyPassw = true;
             }
             if (verifyPassw) {
-              console.log('pristup povoleny') //TODO spristupnit portal
+              console.log('pristup povoleny'); // TODO spristupnit portal
             } else {
               this.nameControl.setErrors({invalid: true});
             }
@@ -63,12 +65,6 @@ export class LoginSiteComponent {
         }
       });
   }
-
-  onRegister() {
-    console.log('OnRegister: DO NOTHING');
-
-  }
-
 
 //   // ziskame konkretneho uzivatela
 //   private getUzivatel() {

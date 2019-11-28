@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginSiteComponent } from './login-site/login-site.component';
 import {MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RegisterSiteComponent } from './register-site/register-site.component';
+import {EventEmitterService} from './event-emitter.service';
 
 
 
@@ -15,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   declarations: [
     AppComponent,
     LoginSiteComponent,
+    RegisterSiteComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatButtonModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    EventEmitterService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

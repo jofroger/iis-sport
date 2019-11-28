@@ -1,7 +1,11 @@
-<div>
+<div *ngIf='loginTable'>
   <app-login-site></app-login-site>
   <!-- <button mat-raised-button color="warn" [routerLink]="'/main-site'">Tohle je dočasné tlačítko na dostání se z přihlašovací tabulky na hlavní stránky</button>
   -->
+</div>
+
+<div *ngIf="!loginTable">
+  <app-register-site></app-register-site>
 </div>
 
 
