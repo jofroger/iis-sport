@@ -9,7 +9,8 @@ SET FOREIGN_KEY_CHECKS=0
 
 /* Drop Tables */
 
-
+DROP TABLE IF EXISTS `Hrac` CASCADE
+;
 
 DROP TABLE IF EXISTS `hrac_hra_v_time` CASCADE
 ;
