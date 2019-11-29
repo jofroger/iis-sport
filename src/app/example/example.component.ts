@@ -20,7 +20,7 @@ export class ExampleComponent {
   }
 
   // ziskame vsetkych uzivatelov a vypiseme ich do prikazovej riadky
-  private getUzivatelia() {
+  getUzivatelia() {
     this.server.getAllUzivatel().then( (resp:any) => {
       this.uzivatelia = resp;
       console.log(this.uzivatelia);
@@ -28,7 +28,7 @@ export class ExampleComponent {
   }
 
   // ziskame konkretneho uzivatela
-  private getUzivatel() {
+  getUzivatel() {
     this.currentUzivatel.id = 5;
 
     this.server.getUzivatel(this.currentUzivatel).then( (resp : any) => {
@@ -43,7 +43,7 @@ export class ExampleComponent {
 
   // pri create je potrebne vyplnit danu strukturu, pri tomto priklade uzivatel
   // a poslat ju pomocou API, po poslani si aktualizujeme zoznam aktualnych uzivatelov
-  private createUzivatel() {
+  createUzivatel() {
     let newUzivatel: Uzivatel = {
       id: null,                     // id pri vytvarani sa neberie do uvahy
       meno: 'Janko',
@@ -62,7 +62,7 @@ export class ExampleComponent {
 
   // pri update je potrebne vyplnit danu strukturu, pri tomto priklade uzivatel
   // a poslat ju pomocou API, po poslani si aktualizujeme zoznam aktualnych uzivatelov
-  private updateUzivatel() {
+  updateUzivatel() {
     let updatedUzivatel: Uzivatel = {
       id: this.currentUzivatel.id,                    
       meno: this.currentUzivatel.meno,
@@ -80,7 +80,7 @@ export class ExampleComponent {
   }
 
   // pri delete nam treba, len ID uzivatela, ktoreho chceme mazat
-  private deleteUzivatel() {
+  deleteUzivatel() {
     this.currentUzivatel.id = 5;
 
     this.server.deleteUzivatel(this.currentUzivatel).then( (resp:any) => {

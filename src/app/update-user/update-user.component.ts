@@ -32,7 +32,7 @@ export class UpdateUserComponent implements OnInit {
     });
   }
 
-  private updateUzivatel() {
+  updateUzivatel() {
     this.server.updateUzivatel(this.actUser).then( () => {
       this.router.navigate(['/user-detail']);
     });

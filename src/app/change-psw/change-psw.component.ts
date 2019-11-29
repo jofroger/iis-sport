@@ -35,7 +35,7 @@ export class ChangePswComponent implements OnInit {
     });
   }
 
-  private updateHeslo() {
+  updateHeslo() {
     if (this.noveHeslo === null || this.noveHeslo_znova === null) {
       alert("Nezadali ste nové heslo");
     }
