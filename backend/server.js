@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'root',
-  database : 'itu-sport'
+  database : 'iis_sport'
 });
 
 connection.connect((err) => {

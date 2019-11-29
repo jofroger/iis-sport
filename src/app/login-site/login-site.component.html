@@ -1,13 +1,13 @@
 <div class="background">
   <mat-card class="login-screen">
     <mat-card-title class="login-screen-title">
-      Sign in
+      Prihlásenie
     </mat-card-title>
 
     <form class="form">
 
       <mat-form-field>
-          <label for="username"></label><input matInput type="text" placeholder="Username" [formControl]="nameControl"
+          <label for="username"></label><input matInput type="text" placeholder="Prihlasovacie meno (login)" [formControl]="nameControl"
                                                required id="username" [(ngModel)]="username" name="username"/>
           <mat-error *ngIf="nameControl.hasError('invalid')">Login môže byť zlý!</mat-error>
       </mat-form-field>
@@ -16,7 +16,7 @@
 
       <mat-form-field>
           <label>
-            <input matInput placeholder="Enter your password"  [formControl]="nameControl"
+            <input matInput placeholder="Vožte heslo"  [formControl]="nameControl"
                      required [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password" />
           </label>
 
@@ -30,8 +30,8 @@
           </button>
       </mat-form-field>
 
-      <button mat-button (click)="onSignIn()">Sign in</button>
-      <button mat-button routerLink="/register" >Don't Have an Account? Sign up now!</button>
+      <button mat-button (click)="onSignIn()">Prihlásenie</button>
+      <button mat-button routerLink="/register" >Nemáte účet? Zaregistrujte sa!</button>
 
     </form>
   </mat-card>

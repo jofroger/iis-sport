@@ -23,7 +23,7 @@ export class LoginSiteComponent {
   password: string;
 
   // uzivatelia: Uzivatel[] = [];
-  currentUzivatel: Uzivatel = {id: null, meno: 'Andrej', priezvisko: '', email: '', vek: null, login: '', heslo: ''};
+  currentUzivatel: Uzivatel = {id: null, meno: 'Andrej', priezvisko: '', email: '', vek: null, login: '', heslo: '', typ: ''};
 
   constructor(private router: Router, private server: ApiService) {
     this.hide = true;

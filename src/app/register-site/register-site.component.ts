@@ -16,22 +16,21 @@ import {Uzivatel} from '../api.structures';
 
 
 export class RegisterSiteComponent {
-     // hide: boolean;
+     hide: boolean;
      login: string;
      name: string;
      surname: string;
+     age: number;
      email: string;
 
      password: string;
-     repeatPass: string;
 
 
 
   constructor(private eventEmitterService: EventEmitterService,
               private router: Router,
               private server: ApiService) {
-    // this.hide = true;
-
+    this.hide = true;
   }
 
 
@@ -40,9 +39,9 @@ export class RegisterSiteComponent {
   loginControl = new FormControl('');
   nameControl = new FormControl('');
   surnameControl = new FormControl('');
+  ageControl = new FormControl('');
   emailControl = new FormControl('');
   passwordControl = new FormControl('');
-  repeatPasswordControl = new FormControl('');
 
 
 
@@ -74,18 +73,19 @@ export class RegisterSiteComponent {
     if (this.surname === '') {
       this.surnameControl.setErrors({invalid: true});
     }
+    if (isNaN(this.age)) {
+      this.ageControl.setErrors({invalid: true});
+    }
     if (this.email === '') {
       this.emailControl.setErrors({invalid: true});
     }
     if (this.password === '') {
       this.passwordControl.setErrors({invalid: true});
     }
-    if (this.repeatPass === '') {
-      this.repeatPasswordControl.setErrors({invalid: true});
-    }
 
     // Overenie ze neexistuje uz rovnaky login v db
     this.server.getAllUzivatel().then( (resp: any) => {
+      console.log(resp);
       let verifyLogin: boolean;
       let verifyPassw: boolean;
       verifyLogin = false;
@@ -101,24 +101,27 @@ export class RegisterSiteComponent {
       }
     });
 
-    //
-    // let newUzivatel: Uzivatel = {
-    //   id: null,                     // id pri vytvarani sa neberie do uvahy
-    //   meno: this.name,
-    //   priezvisko: this.surname,
-    //   vek: 17,
-    //   email: this.email,
-    //   login: this.login,
-    //   heslo: this.password,
-    //   typ: 'normalny'
-    //   };
-    //
-    // this.server.createUzivatel(newUzivatel).then( () => {
-    //   this.getUzivatelia();
-    //   });
 
+    let newUzivatel: Uzivatel = {
+      id: null,                     // id pri vytvarani sa neberie do uvahy
+      meno: this.name,
+      priezvisko: this.surname,
+      vek: this.age,
+      email: this.email,
+      login: this.login,
+      heslo: this.password,
+      typ: 'normalny'
+      };
+
+    this.server.createUzivatel(newUzivatel).then( () => {
+      this.getUzivatelia();
+      });
+
+
+    this.server.getAllUzivatel().then( (resp: any) => {
+      console.log(resp);
+    });
   }
-
 
 
     alreadyHaveAccount() {
