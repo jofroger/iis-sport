@@ -55,12 +55,14 @@ export class HomePageComponent implements OnInit {
   }
 
   private loadTimy() { /*1-14*/
-    for (let i = 1; i <= 14; i++) {
+    for (let i = 1; i <= 6; i++) {
       this['tim' + i].id = i;
       this.server.getTim(this['tim' + i]).then( (resp: any) => {
         this['tim' + i].nazov = resp[0].Nazov;
+        this['tim' + i].logo = resp[0].Logo;
         this['tim' + i].pocet_vyhier = resp[0].Pocet_vyhier;
         this['tim' + i].odohrane_zapasy = resp[0].Odohrane_zapasy;
+        console.log(resp)
       }); /* TODO Pridat zobrazenie podla existencie timu z team-detaiil.component.ts*/
     }
   }

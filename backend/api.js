@@ -126,8 +126,8 @@ router.get('/hrac/:id', function (req, res) {
 
 router.post('/hrac', (req, res) => {
   db.query(
-    "INSERT INTO Hrac (Odohrane_zapasy, Pocet_vyhier, UzivatelID) VALUES (?,?,?)",
-    [req.body.Odohrane_zapasy, req.body.Pocet_vyhier, req.body.UzivatelID],
+    "INSERT INTO Hrac (Odohrane_zapasy, Pocet_vyhier, Fotka, UzivatelID) VALUES (?,?,?,?)",
+    [req.body.Odohrane_zapasy, req.body.Pocet_vyhier, req.body.Fotka, req.body.UzivatelID],
     (error) => {
       if (error) {
         console.error(error);
@@ -141,8 +141,8 @@ router.post('/hrac', (req, res) => {
 
 router.put('/hrac/:id', function (req, res, next) {
   db.query(
-    'UPDATE Hrac SET Odohrane_zapasy=?, Pocet_vyhier=?, UzivatelID=? WHERE HracID=?',
-    [req.body.Odohrane_zapasy, req.body.Pocet_vyhier, req.body.UzivatelID, req.params.id],
+    'UPDATE Hrac SET Odohrane_zapasy=?, Pocet_vyhier=?, Fotka=?, UzivatelID=? WHERE HracID=?',
+    [req.body.Odohrane_zapasy, req.body.Pocet_vyhier, req.body.Fotka, req.body.UzivatelID, req.params.id],
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });

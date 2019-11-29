@@ -19,7 +19,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   private getUzivatel() {
-    this.actUser.id = 7;
+    this.actUser.id = Number(localStorage.getItem('userId'));
 
     this.server.getUzivatel(this.actUser).then( (resp: any) => {
       this.actUser.meno = resp[0].Meno;

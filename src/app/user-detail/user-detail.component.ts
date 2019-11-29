@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Uzivatel } from '../api.structures';
+import { UserCtx } from '../user-ctx';
 
 @Component({
   selector: 'app-user-detail',
@@ -19,7 +20,8 @@ export class UserDetailComponent implements OnInit {
 
   // ziskame konkretneho uzivatela
   private getUzivatel() {
-    this.actUzivatel.id = 7;
+    console.log(localStorage.getItem('userId'));
+    this.actUzivatel.id = Number(localStorage.getItem('userId'));
 
     this.server.getUzivatel(this.actUzivatel).then( (resp: any) => {
       this.actUzivatel.meno = resp[0].Meno;

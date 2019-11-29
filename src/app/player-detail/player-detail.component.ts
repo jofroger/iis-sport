@@ -10,7 +10,7 @@ import { Hrac, Tim, Uzivatel } from '../api.structures';
 export class PlayerDetailComponent implements OnInit {
 
   actUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ:''};
-  actHrac: Hrac = {id: null, odohrane_zapasy: '', pocet_vyhier: null, uzivatelID: null};
+  actHrac: Hrac = {id: null, odohrane_zapasy: '', pocet_vyhier: null, fotka: '', uzivatelID: null};
   timy: Tim[] = [];
 
   constructor(private server : ApiService) { }

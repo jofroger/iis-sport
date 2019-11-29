@@ -61,6 +61,7 @@ CREATE TABLE `Hrac`
 	`HracID` int NOT NULL AUTO_INCREMENT,
 	`Odohrane_zapasy` int,
 	`Pocet_vyhier` int,
+	`Fotka` varchar(100),
     `UzivatelID` int NOT NULL,
 	CONSTRAINT `PK_Hrac` PRIMARY KEY (`HracID` ASC)
 )
@@ -380,32 +381,32 @@ INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrc
 INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrch`, `Podmienky_turnajaID`, `UsporiadatelID`) VALUES ("Liga ROKE", DATE("2019-05-05"), DATE("2019-09-06"), "2500 €", "SLOVNAFT, IKEA, ESET", "telocvičňa", 1, 5);
 INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrch`, `Podmienky_turnajaID`, `UsporiadatelID`) VALUES ("Priateľský turnaj", DATE("2018-07-14"), DATE("2019-07-17"), "500 €", "Mesto Košice, Rádio Košice, US Steel", "antuka", 2, 2);
 
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 4);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 5);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 6);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 7);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 8);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 9);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 10);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 11);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 12);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 13);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 14);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 15);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 16);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 17);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 18);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 19);
-INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `UzivatelID`) VALUES (0, 0, 20);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 4);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 5);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 6);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 7);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 8);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 9);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 10);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 11);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 12);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 13);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 14);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 15);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 16);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 17);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 18);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 19);
+INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 20);
 
-INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Rýchle šípy", "cesta", 1, 1, 2);
-INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Daemon", "cesta", 1, 0, 2);
-INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Team Liquid", "cesta", 1, 0, 2);
-INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Fnatic", "cesta", 1, 1, 2);
-INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("G2", "cesta", 1, 1, 2);
-INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Adamov", "cesta", 1, 0, 2);
-INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Karči a Lajči", "cesta", 1, 0, 2);
-INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Power Rangers", "cesta", 1, 1, 2);
+INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Rýchle šípy", "../../assets/loga_timov/rychle_sipy.jpg", 1, 1, 2);
+INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Daemon", "../../assets/loga_timov/daemon.jpg", 1, 0, 2);
+INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Team Liquid", "../../assets/loga_timov/team_liquid.png", 1, 0, 2);
+INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Fnatic", "../../assets/loga_timov/fnatic.png", 1, 1, 2);
+INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("G2", "../../assets/loga_timov/g2.png", 1, 1, 2);
+INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Adamov", "../../assets/loga_timov/adamov.png", 1, 0, 2);
+INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Karči a Lajči", "../../assets/loga_timov/karci_a_lajci.jpg", 1, 0, 2);
+INSERT INTO `Tim` (`Nazov`, `Logo`, `Odohrane_zapasy`, `Pocet_vyhier`, `Pocet_hracov`) VALUES ("Power Rangers", "../../assets/loga_timov/power_rangers.jpg", 1, 1, 2);
 
 INSERT INTO `hrac_hra_v_time` (`HracID`, `TimID`) VALUES (1, 1);
 INSERT INTO `hrac_hra_v_time` (`HracID`, `TimID`) VALUES (2, 1);
@@ -437,14 +438,14 @@ INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("R�
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Team Liquid vs Fnatic", "Trenčianska športová hala", DATE("2019-06-21"), "1:4", 1);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("G2 vs Adamov", "Trenčianska športová hala", DATE("2019-06-28"), "5:3", 1);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Karči a Lajči vs Power Rangers", "Trenčianska športová hala", DATE("2019-07-05"), "3:2", 1);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-20"), "0:0x", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-20"), "0:0x", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-21"), "0:0x", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "Bratislava športová hala", DATE("2020-07-21"), "0:0x", 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Robo Tomáš vs Jozef Kandráč", "Bratislava športová hala", DATE("2020-07-20"), "0:0x", 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Matej Hrdý vs Ján Krátky", "Bratislava športová hala", DATE("2020-07-20"), "0:0x", 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Ján Matovič vs Juraj Kotleta", "Bratislava športová hala", DATE("2020-07-21"), "0:0x", 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Andrej Zeman vs Alojz Marcin", "Bratislava športová hala", DATE("2020-07-21"), "0:0x", 2);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Rýchle šípy vs Adamov", "Hala radosť v Košiciach", DATE("2019-12-10"), "2:1*", 3);
 INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("G2 vs Fnatic", "Hala radosť v Košiciach", DATE("2019-12-17"), "0:0x", 3);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "SLOVNAFT hala BA", DATE("2020-05-5"), "0:0x", 4);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES (" vs ", "SLOVNAFT hala BA", DATE("2020-05-12"), "0:0x", 4);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("František Novák vs Marek Horvát", "SLOVNAFT hala BA", DATE("2020-05-5"), "0:0x", 4);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Nikolas Nikolev vs Daniel Malý", "SLOVNAFT hala BA", DATE("2020-05-12"), "0:0x", 4);
 
 INSERT INTO `tim_hra_v_zapase` (`ZapasID`, `TimID`) VALUES (1, 1);
 INSERT INTO `tim_hra_v_zapase` (`ZapasID`, `TimID`) VALUES (1, 2);

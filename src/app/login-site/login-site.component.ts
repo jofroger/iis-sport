@@ -6,6 +6,7 @@ import { ApiService } from '../api.service';
 import { Uzivatel } from '../api.structures';
 import {printLine} from 'tslint/lib/verify/lines';
 import {MyErrorStateMatcher} from '../default.error-matcher';
+import { UserCtx } from '../user-ctx';
 
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
@@ -23,7 +24,7 @@ export class LoginSiteComponent {
   password: string;
 
   // uzivatelia: Uzivatel[] = [];
-  currentUzivatel: Uzivatel = {id: null, meno: 'Andrej', priezvisko: '', email: '', vek: null, login: '', heslo: '', typ: ''};
+  currentUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo: '', typ: ''};
 
   constructor(private router: Router, private server: ApiService) {
     this.hide = true;
@@ -38,32 +39,35 @@ export class LoginSiteComponent {
 
   onSignIn() {
 
-      // Logika prihlasovania
-      this.server.getAllUzivatel().then( (resp: any) => {
-        let verifyLogin: boolean;
-        let verifyPassw: boolean;
-        verifyLogin = false;
-        verifyPassw = false;
-        for ( const Clovek of resp) {
-          if (Clovek.Meno === this.username) {
-            verifyLogin = true;
+    // Logika prihlasovania
+    this.server.getAllUzivatel().then( (resp: any) => {
+      
+
+
+      let verifyLogin: boolean;
+      let verifyPassw: boolean;
+      verifyLogin = false;
+      verifyPassw = false;
+
+      for ( const Clovek of resp) {
+
+        if (Clovek.Login === this.username) {
+          if (Clovek.Heslo === this.password) {
+            console.log('pristup povoleny'); // TODO spristupnit portal
+            localStorage.setItem('userId', Clovek.UzivatelID);
+            console.log(localStorage.getItem('userId'));
+            this.router.navigate(['/']);
+          }
+          else {
+            this.nameControl.setErrors({invalid: true});
+            break;
           }
         }
-        if (verifyLogin) {
-          for (const Clovek of resp) {
-            if (Clovek.Heslo === this.password) {
-              verifyPassw = true;
-            }
-            if (verifyPassw) {
-              console.log('pristup povoleny'); // TODO spristupnit portal
-            } else {
-              this.nameControl.setErrors({invalid: true});
-            }
-          }
-        } else {
+        else {
           this.nameControl.setErrors({invalid: true});
         }
-      });
+      }
+    })
   }
 
 //   // ziskame konkretneho uzivatela

@@ -13,6 +13,7 @@ export interface Hrac {
     id: Number
     odohrane_zapasy: String
     pocet_vyhier: Number
+    fotka: String
     uzivatelID: Number
 }
 
