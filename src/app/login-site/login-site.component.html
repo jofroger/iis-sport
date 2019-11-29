@@ -1,0 +1,38 @@
+<div class="background">
+  <mat-card class="login-screen">
+    <mat-card-title class="login-screen-title">
+      Prihlásenie
+    </mat-card-title>
+
+    <form class="form">
+
+      <mat-form-field>
+          <label for="username"></label><input matInput type="text" placeholder="Prihlasovacie meno (login)" [formControl]="nameControl"
+                                               required id="username" [(ngModel)]="username" name="username"/>
+          <mat-error *ngIf="nameControl.hasError('invalid')">Login môže byť zlý!</mat-error>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field>
+          <label>
+            <input matInput placeholder="Vožte heslo"  [formControl]="nameControl"
+                     required [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password" />
+          </label>
+
+          <mat-error *ngIf="nameControl.hasError('invalid')">Heslo môže byť zlé!</mat-error>
+
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          </button>
+      </mat-form-field>
+
+      <button mat-button (click)="onSignIn()">Prihlásenie</button>
+      <button mat-button routerLink="/register" >Nemáte účet? Zaregistrujte sa!</button>
+
+    </form>
+  </mat-card>
+</div>

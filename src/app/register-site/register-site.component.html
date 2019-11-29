@@ -1,0 +1,73 @@
+<div class="background">
+  <mat-card class="login-screen">
+      <mat-card-title class="login-screen-title">
+        Registrácia
+      </mat-card-title>
+
+     <form class="form">
+
+
+       <mat-form-field>
+         <label for="username"></label><input matInput type="text" placeholder="Prihlasovacie meno(login)" [formControl]="loginControl"
+                                              required id="username" [(ngModel)]="login" name="login"/>
+         <mat-error *ngIf="loginControl.hasError('invalid')">Prihlasovacie meno je obsadene!</mat-error>
+       </mat-form-field>
+
+
+       <mat-form-field>
+         <label for="Name"></label><input matInput type="text" placeholder="Meno" [formControl]="nameControl"
+                                          required id="Name" [(ngModel)]="name" name="name"/>
+
+       </mat-form-field>
+
+
+       <mat-form-field>
+         <label for="Surname"></label><input matInput type="text" placeholder="Priezvisko" [formControl]="surnameControl"
+                                          required id="Surname" [(ngModel)]="surname" name="surname"/>
+
+       </mat-form-field>
+
+       <mat-form-field>
+         <label for="Age"></label><input matInput type="text" placeholder="Vek" [formControl]="ageControl"
+                                          required id="Age" [(ngModel)]="age" name="age"/>
+
+       </mat-form-field>
+
+
+       <mat-form-field>
+         <label for="Email"></label><input matInput type="text" placeholder="Email" [formControl]="emailControl"
+                                          required id="Email" [(ngModel)]="email" name="email"/>
+
+       </mat-form-field>
+
+
+
+
+
+
+
+       <mat-form-field>
+         <label>
+           <input matInput placeholder="Vožte heslo"  [formControl]="passwordControl"
+                  required [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password" />
+         </label>
+
+         <mat-error *ngIf="passwordControl.hasError('invalid')">Heslo môže byť zlé!</mat-error>
+
+         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+         </button>
+
+         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+         </button>
+       </mat-form-field>
+
+
+          <button mat-button (click)="onCreateAccount()">Vytvoriť účet</button>
+          <br>
+          <button mat-button (click)="alreadyHaveAccount()" routerLink="/login" >Máte už účet? Prihláste sa</button>
+
+
+     </form>
+  </mat-card>
+</div>
