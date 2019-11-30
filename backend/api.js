@@ -1124,6 +1124,20 @@ router.get('/uzivatel-a-hrac', function (req, res) {
   );
 });
 
+router.get('/zapas/turnaj/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Zapas WHERE TurnajID=?;",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
 
 /* #region  test API */
 router.get('/unsetkey', function (req, res) {

@@ -336,4 +336,8 @@ export class ApiService {
     getUzivatelAndHrac() {
         return this.request('GET', `${environment.serverUrl}/uzivatel-a-hrac`);
     }
+
+    getZapasByTurnaj(turnaj : Turnaj) {
+        return this.request('GET', `${environment.serverUrl}/zapas/turnaj/${turnaj.id}`);
+    }
 }
