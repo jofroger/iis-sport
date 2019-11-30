@@ -1,0 +1,30 @@
+<div class="headerMenu">
+    <!--Polozky menu ZACIATOK-->
+    <a href="" class="active">Domov</a>
+    <a href="#">Turnaje</a>
+    <a href="">Zápasy</a>
+    <a href="player-list">Hráči</a>
+    
+    <div *ngIf="loginIsVisible">
+        <a href="login" ng-hide="" class="loginButton">
+            Prihlásiť sa
+            <img alt="account" src="../../assets/icon-material-account.svg" style="height: 20px; margin-top: -5px; margin-right: -6px">
+        </a>
+    </div>
+    <div *ngIf="logoutIsVisible">
+        <a href="/" class="loginButton" (click)="logoff()">Odhlásiť sa</a>
+    </div>
+    <div *ngIf="userDetailIsVisible">
+        <a href="user-detail" class="leftBar">Môj účet</a>
+    </div>
+    
+    <!---Polozky menu KONIEC--->
+
+    <!--Kruh s logom ZACIATOK-->
+    <div style="height: 100px; width: 100px; border: 2px solid #0077ff; border-radius: 100px;
+    margin: -25px auto auto calc(50% - 50px); background-color: #00c3ff; box-shadow: 0 0 5px #000;
+    /*just text alignment from here*/ text-align: center; vertical-align: middle; line-height: 90px">
+        <img alt="logo" src="../../assets/logo.png" style="height: 96px; width: 96px">
+    </div>
+    <!---Kruh s logom KONIEC--->
+</div>

@@ -9,6 +9,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import {HomePageComponent} from './home-page/home-page.component';
 import {LoginSiteComponent} from './login-site/login-site.component';
 import {RegisterSiteComponent} from './register-site/register-site.component';
+import { PlayerListComponent } from './player-list/player-list.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'update-user', component: UpdateUserComponent},
   {path: 'login', component: LoginSiteComponent},
   {path: 'register', component: RegisterSiteComponent},
+  {path: 'player-list', component: PlayerListComponent},
   {path: '', component: HomePageComponent}
 ];
 

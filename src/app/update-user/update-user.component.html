@@ -1,33 +1,36 @@
-<div>
-    <mat-card>
-        
-        <mat-card-title>
-            Zmena údajov
-        </mat-card-title>
+<div class="background">
+    <div class="homepageContent">
+        <app-header-menu></app-header-menu>
+        <div class="detailScreen">
+            <mat-card>
+                <mat-card-title>
+                    Zmena údajov
+                </mat-card-title>
+                <mat-divider></mat-divider>
+                <br>
+                <form class="form"> 
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Meno" id="meno" [(ngModel)]="actUser.meno" name="meno"/>
+                    </mat-form-field>
+                    
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Priezvisko" id="priezvisko" [(ngModel)]="actUser.priezvisko" name="priezvisko"/>
+                    </mat-form-field>
 
-        <form class="form"> 
-            <mat-form-field>
-                <input matInput type="text" placeholder="Meno" id="meno" [(ngModel)]="actUser.meno" name="meno"/>
-            </mat-form-field>
-            
-            <mat-form-field>
-                <input matInput type="text" placeholder="Priezvisko" id="priezvisko" [(ngModel)]="actUser.priezvisko" name="priezvisko"/>
-            </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Vek" id="vek" [(ngModel)]="actUser.vek" name="vek"/>
+                    </mat-form-field>
 
-            <mat-form-field>
-                <input matInput type="text" placeholder="Vek" id="vek" [(ngModel)]="actUser.vek" name="vek"/>
-            </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Email" id="email" [(ngModel)]="actUser.email" name="email"/>
+                    </mat-form-field>
 
-            <mat-form-field>
-                <input matInput type="text" placeholder="Email" id="email" [(ngModel)]="actUser.email" name="email"/>
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput type="text" placeholder="Login" id="login" [(ngModel)]="actUser.login" name="login"/>
-            </mat-form-field>
-
-            <button mat-raised-button (click)="updateUzivatel()">Aktualizuj údaje</button>
-        </form>
-
-    </mat-card>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Login" id="login" [(ngModel)]="actUser.login" name="login"/>
+                    </mat-form-field>
+                </form> 
+            </mat-card>
+            <button mat-raised-button class="button" (click)="updateUzivatel()">Aktualizuj údaje</button>
+        </div>
+    </div>
 </div>

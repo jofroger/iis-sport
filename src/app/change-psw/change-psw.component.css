@@ -19,3 +19,9 @@
   input.example-right-align {
     -moz-appearance: textfield;
   }
+
+.button {
+  margin-top: 2rem; 
+  margin-left: 2rem;
+  background-color: #00c3ff; 
+}

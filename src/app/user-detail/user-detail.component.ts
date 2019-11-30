@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Uzivatel } from '../api.structures';
-import { UserCtx } from '../user-ctx';
 
 @Component({
   selector: 'app-user-detail',

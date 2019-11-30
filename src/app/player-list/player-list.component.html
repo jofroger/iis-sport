@@ -1,0 +1,23 @@
+<div class="background">
+        <div class="homepageContent">
+            <app-header-menu></app-header-menu>
+
+            <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>
+                        <mat-card>
+                            <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+                                <div *cdkVirtualFor="let hrac of hraci" class="example-item">{{hrac.id}}</div>
+                                <!--<mat-list role="list" *cdkVirtualFor="let hrac of hraci">
+                                    <mat-list-item role="listitem">{{hrac.id}}</mat-list-item>
+                                </mat-list>-->
+                            </cdk-virtual-scroll-viewport>]
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card>
+
+                        </mat-card>
+                    </mat-grid-tile>
+            </mat-grid-list>
+    </div>
+</div>

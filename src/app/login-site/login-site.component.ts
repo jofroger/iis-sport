@@ -6,7 +6,6 @@ import { ApiService } from '../api.service';
 import { Uzivatel } from '../api.structures';
 import {printLine} from 'tslint/lib/verify/lines';
 import {MyErrorStateMatcher} from '../default.error-matcher';
-import { UserCtx } from '../user-ctx';
 
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 

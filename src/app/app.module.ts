@@ -7,7 +7,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatIconModule, MatInputModule} from '@angular/material';
+import { MatIconModule, MatInputModule } from '@angular/material';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,9 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import {LoginSiteComponent} from './login-site/login-site.component';
 import {RegisterSiteComponent} from './register-site/register-site.component';
+import { HeaderMenuComponent } from './header-menu/header-menu.component';
+import { PlayerListComponent } from './player-list/player-list.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -34,7 +38,9 @@ import {RegisterSiteComponent} from './register-site/register-site.component';
     UpdateUserComponent,
     HomePageComponent,
     LoginSiteComponent,
-    RegisterSiteComponent
+    RegisterSiteComponent,
+    HeaderMenuComponent,
+    PlayerListComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +56,9 @@ import {RegisterSiteComponent} from './register-site/register-site.component';
     MatListModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatGridListModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

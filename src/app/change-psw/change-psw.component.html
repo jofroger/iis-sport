@@ -1,21 +1,28 @@
-<div>
-    <mat-card>
-        
-        <mat-card-title>
-            Zmena hesla
-        </mat-card-title>
+<div class="background">
+    <div class="homepageContent">
+        <app-header-menu></app-header-menu>
+        <div class="detailScreen">
+            <mat-card>
+                
+                <mat-card-title>
+                    Zmena hesla
+                </mat-card-title>
 
-        <form class="form"> 
-            <mat-form-field>
-                <input matInput type="password" placeholder="Nové heslo" id="noveHeslo" [(ngModel)]="noveHeslo" name="noveHeslo"/>
-            </mat-form-field>
-            
-            <mat-form-field>
-                <input matInput type="password" placeholder="Zopakuj nové heslo" id="noveHeslo_znova" [(ngModel)]="noveHeslo_znova" name="noveHeslo_znova"/>
-            </mat-form-field>
+                <form class="form"> 
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Nové heslo" id="noveHeslo" [(ngModel)]="noveHeslo" name="noveHeslo"/>
+                    </mat-form-field>
+                    
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Zopakuj nové heslo" id="noveHeslo_znova" [(ngModel)]="noveHeslo_znova" name="noveHeslo_znova"/>
+                    </mat-form-field>
 
-            <button mat-raised-button (click)="updateHeslo()">Zmeň heslo</button>
-        </form>
+                    
+                </form>
 
-    </mat-card>
-</div>
+            </mat-card>
+
+            <button mat-raised-button class="button" (click)="updateHeslo()">Zmeň heslo</button>
+        </div>
+    </div>
+</div> 
