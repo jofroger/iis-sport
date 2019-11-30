@@ -2,21 +2,65 @@
         <div class="homepageContent">
             <app-header-menu></app-header-menu>
 
-            <mat-grid-list cols="2" rowHeight="2:1">
-                    <mat-grid-tile>
-                        <mat-card>
-                            <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-                                <div *cdkVirtualFor="let hrac of hraci" class="example-item">{{hrac.id}}</div>
-                                <!--<mat-list role="list" *cdkVirtualFor="let hrac of hraci">
-                                    <mat-list-item role="listitem">{{hrac.id}}</mat-list-item>
-                                </mat-list>-->
-                            </cdk-virtual-scroll-viewport>]
+            <h3>Zoznam hracov</h3>
+            <mat-grid-list cols="2" rowHeight="600px">
+                    <mat-grid-tile class="playerList">
+                        <mat-card class="scrollBar card-pos">
+                            <mat-list role="list" *ngFor="let uzivatel of uzivatelia; index as i">
+                                <mat-list-item role="listitem" (click)="setActPlayer(i)">{{uzivatel.meno}} {{uzivatel.priezvisko}}</mat-list-item>
+                                <mat-divider></mat-divider>
+                            </mat-list>
                         </mat-card>
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        <mat-card>
-
-                        </mat-card>
+                        <mat-card class="playerDetail">
+                            <mat-card-title>
+                                    {{actUzivatel.meno}} {{actUzivatel.priezvisko}}
+                                </mat-card-title>
+                                <mat-card-content class="photo">
+                                    <img src="{{actHrac.fotka}}" height="200px" width="150px"/>
+                                </mat-card-content>
+                                <mat-card-content class="photo position">
+                                    <mat-list>
+                                        <mat-list-item>
+                                            <b>Meno:&emsp;</b> {{actUzivatel.meno}}
+                                        </mat-list-item>
+                                        <mat-list-item>
+                                            <b>Priezvisko:&emsp;</b>{{actUzivatel.priezvisko}}
+                                        </mat-list-item>
+                                        <mat-list-item>
+                                            <b>Vek:&emsp;</b> {{actUzivatel.vek}}
+                                        </mat-list-item>
+                                    </mat-list>
+                                </mat-card-content>
+                                <br><br>
+                                
+                                <mat-card-subtitle>
+                                    Člen tímov
+                                </mat-card-subtitle>
+                                <mat-divider></mat-divider>
+                                <mat-card-content>
+                                    <mat-list *ngFor='let tim of timy'>
+                                        <mat-list-item>{{tim.nazov}}</mat-list-item>
+                                    </mat-list>
+                                </mat-card-content>
+                                <br>
+                        
+                                <mat-card-subtitle>
+                                    Štatistika
+                                </mat-card-subtitle>
+                                <mat-divider></mat-divider>
+                                <mat-card-content>
+                                    <mat-list>
+                                        <mat-list-item>
+                                            <b>Odohrane zapasy:&emsp;</b> {{actHrac.odohrane_zapasy}}
+                                        </mat-list-item>
+                                        <mat-list-item>
+                                            <b>Vyhry:&emsp;</b> {{actHrac.pocet_vyhier}}
+                                        </mat-list-item>
+                                    </mat-list>
+                                </mat-card-content>
+                            </mat-card>
                     </mat-grid-tile>
             </mat-grid-list>
     </div>

@@ -13,7 +13,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PlayerDetailComponent } from './player-detail/player-detail.component';
 import { ExampleComponent } from './example/example.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
@@ -30,7 +29,6 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [
     AppComponent,
-    PlayerDetailComponent,
     ExampleComponent,
     TeamDetailComponent,
     UserDetailComponent,

@@ -315,7 +315,6 @@ export class ApiService {
     }
     /* #endregion */
 
-
     /* #region rozhoduje_turnaj */
     getRozhodcaByTurnaj(turnaj: Turnaj) {
         return this.request('GET', `${environment.serverUrl}/rozhoduje_turnaj/turnaj/${turnaj.id}`);
@@ -333,4 +332,8 @@ export class ApiService {
         return this.request('DELETE', `${environment.serverUrl}/rozhoduje_turnaj/${turnaj.id}&${rozhodca.id}`);
     }
     /* #endregion */
+
+    getUzivatelAndHrac() {
+        return this.request('GET', `${environment.serverUrl}/uzivatel-a-hrac`);
+    }
 }

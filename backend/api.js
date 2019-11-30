@@ -1110,6 +1110,20 @@ router.delete('/rozhoduje_turnaj/:TurnajID&:RozhodcaID', function (req, res) {
 });
 /* #endregion */
 
+router.get('/uzivatel-a-hrac', function (req, res) {
+  db.query(
+    "SELECT * FROM hrac LEFT JOIN  uzivatel USING(UzivatelID);",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 
 /* #region  test API */
 router.get('/unsetkey', function (req, res) {
