@@ -49,7 +49,7 @@ export class HomePageComponent implements OnInit {
         this['Zapas' + i].datum = resp[0].Datum;
         this['Zapas' + i].stav = resp[0].Stav;
       });
-      this.server.getTimByZapas(this['Zapas' + i]).then( (resp: any) => {
+      this.server.getTimByZapas(this['Zapas' + i]).then( (resp: any) => { // Nastavenie loga timu pri zapasoch
         // tslint:disable-next-line:max-line-length
         (resp[0] !== undefined) ? this['tim' + (i * 2 - 1)].logo = resp[0].Logo : this['tim' + (i * 2 - 1)].logo = '../../assets/image-placeholder.jpg';
         // tslint:disable-next-line:max-line-length

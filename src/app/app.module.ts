@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,11 +20,12 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { ChangePswComponent } from './change-psw/change-psw.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import {LoginSiteComponent} from './login-site/login-site.component';
-import {RegisterSiteComponent} from './register-site/register-site.component';
+import { LoginSiteComponent } from './login-site/login-site.component';
+import { RegisterSiteComponent } from './register-site/register-site.component';
 import { HeaderMenuComponent } from './header-menu/header-menu.component';
 import { PlayerListComponent } from './player-list/player-list.component';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { GamesOverviewComponent } from './games-overview/games-overview.component';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     LoginSiteComponent,
     RegisterSiteComponent,
     HeaderMenuComponent,
-    PlayerListComponent
+    PlayerListComponent,
+    GamesOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatFormFieldModule,
     MatInputModule,
     MatGridListModule,
-    ScrollingModule
+    ScrollingModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
