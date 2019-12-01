@@ -30,6 +30,11 @@
 
             <button mat-raised-button class="button" routerLink="/update-user">Zmeniť údaje</button>
             <button mat-raised-button class="button" routerLink="/change-psw">Zmeniť heslo</button>
+            <br>
+            <div *ngIf="hracNonExists">
+                <button mat-raised-button class="button" (click)="uploadHracImg()">Stať sa hráčom</button>
+                <input id="photo" type="file"/>
+            </div>
         </div>
     </div>
 </div>

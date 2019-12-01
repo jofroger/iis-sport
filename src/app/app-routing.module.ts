@@ -9,6 +9,8 @@ import {HomePageComponent} from './home-page/home-page.component';
 import {LoginSiteComponent} from './login-site/login-site.component';
 import {RegisterSiteComponent} from './register-site/register-site.component';
 import { PlayerListComponent } from './player-list/player-list.component';
+import { AdminCentreComponent } from './admin-centre/admin-centre.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
   {path: 'example', component: ExampleComponent},
@@ -19,6 +21,8 @@ const routes: Routes = [
   {path: 'login', component: LoginSiteComponent},
   {path: 'register', component: RegisterSiteComponent},
   {path: 'player-list', component: PlayerListComponent},
+  {path: 'admin-centre', component: AdminCentreComponent},
+  {path: 'add-user', component: AddUserComponent},
   {path: '', component: HomePageComponent}
 ];
 

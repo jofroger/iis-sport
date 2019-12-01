@@ -124,10 +124,25 @@ router.get('/hrac/:id', function (req, res) {
   );
 });
 
+router.get('/hrac/uzivatel/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Hrac WHERE UzivatelID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 router.post('/hrac', (req, res) => {
   db.query(
     "INSERT INTO Hrac (Odohrane_zapasy, Pocet_vyhier, Fotka, UzivatelID) VALUES (?,?,?,?)",
-    [req.body.Odohrane_zapasy, req.body.Pocet_vyhier, req.body.Fotka, req.body.UzivatelID],
+    [req.body.odohrane_zapasy, req.body.pocet_vyhier, req.body.fotka, req.body.uzivatelID],
     (error) => {
       if (error) {
         console.error(error);
@@ -145,7 +160,8 @@ router.put('/hrac/:id', function (req, res, next) {
     [req.body.Odohrane_zapasy, req.body.Pocet_vyhier, req.body.Fotka, req.body.UzivatelID, req.params.id],
     (error) => {
       if (error) {
-        res.status(500).json({ status: 'error' });
+        res.status(500).
+        console.error(error);json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
       }
@@ -159,6 +175,7 @@ router.delete('/hrac/:id', function (req, res, next) {
     [req.params.id],
     (error) => {
       if (error) {
+        console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
         res.status(200).json({ status: 'ok' });
@@ -1168,6 +1185,26 @@ router.get('/setkey', function (req, res) {
   );
 });
 /* #endregion */
+
+
+var multer = require('multer');
+var DIR = '../../assets/fotky_hracov/';
+var upload = multer({dest: DIR}).single('photo');
+
+router.post('/upload-img', function (req, res, next) {
+  var path = '';
+  upload(req, res, function (err) {
+     if (err) {
+       // An error occurred when uploading
+       console.log(err);
+       return res.status(422).send("an Error occured")
+     }  
+    // No error occured.
+     path = req.file.path;
+     res.status(200).json({"Fotka": path}); 
+});     
+})
+
 
   return router;
 }

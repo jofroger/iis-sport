@@ -57,6 +57,10 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/hrac/${hrac.id}`);
     }
 
+    getHracByUzivatel(uzivatel: Uzivatel) {
+        return this.request('GET', `${environment.serverUrl}/hrac/uzivatel/${uzivatel.id}`);
+    }
+
     createHrac(hrac: Hrac) {
         return this.request('POST', `${environment.serverUrl}/hrac`, hrac);
     }
@@ -339,5 +343,9 @@ export class ApiService {
 
     getZapasByTurnaj(turnaj : Turnaj) {
         return this.request('GET', `${environment.serverUrl}/zapas/turnaj/${turnaj.id}`);
+    }
+
+    uploadImgHrac(formData : any) {
+        return this.request('POST', `${environment.serverUrl}/upload-img`, formData);
     }
 }

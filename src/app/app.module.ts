@@ -24,6 +24,9 @@ import {RegisterSiteComponent} from './register-site/register-site.component';
 import { HeaderMenuComponent } from './header-menu/header-menu.component';
 import { PlayerListComponent } from './player-list/player-list.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { FileSelectDirective } from 'ng2-file-upload';
+import { AdminCentreComponent } from './admin-centre/admin-centre.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 @NgModule({
@@ -38,7 +41,10 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     LoginSiteComponent,
     RegisterSiteComponent,
     HeaderMenuComponent,
-    PlayerListComponent
+    PlayerListComponent,
+    FileSelectDirective,
+    AdminCentreComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

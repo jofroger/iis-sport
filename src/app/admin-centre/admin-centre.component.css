@@ -1,0 +1,36 @@
+.userList {
+    overflow-y: scroll;
+    height: 600px;
+    width: 350px;
+}
+
+mat-list-item {
+    cursor: pointer;
+}
+
+.userDetail {
+    width: 100%;
+    background: transparent;
+    border: 0px;
+}
+
+button {
+    margin-top: 2rem; 
+    margin-right: 2rem;
+    background-color: #00c3ff; 
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    height: 600px;
+}
+
+.table-userList {
+    width: 30%;
+}
+
+
+

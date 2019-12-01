@@ -3,3 +3,7 @@
     margin-left: 2rem;
     background-color: #00c3ff; 
 }
+
+input {
+    margin: 20px;
+}

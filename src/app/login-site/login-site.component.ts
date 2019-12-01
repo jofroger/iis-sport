@@ -54,6 +54,7 @@ export class LoginSiteComponent {
           if (Clovek.Heslo === this.password) {
             console.log('pristup povoleny'); // TODO spristupnit portal
             localStorage.setItem('userId', Clovek.UzivatelID);
+            localStorage.setItem('userType', Clovek.Typ);
             console.log(localStorage.getItem('userId'));
             this.router.navigate(['/']);
           }

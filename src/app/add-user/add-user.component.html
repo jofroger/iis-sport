@@ -1,0 +1,41 @@
+<div class="background">
+        <div class="homepageContent">
+            <app-header-menu></app-header-menu>
+            <div class="detailScreen">
+                <mat-card>
+                    <mat-card-title>
+                        Pridanie nového užívateľa
+                    </mat-card-title>
+                    <mat-divider></mat-divider>
+                    <br>
+                    <form class="form"> 
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Meno" id="meno" [(ngModel)]="newUser.meno" name="meno"/>
+                        </mat-form-field>
+                        
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Priezvisko" id="priezvisko" [(ngModel)]="newUser.priezvisko" name="priezvisko"/>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Vek" id="vek" [(ngModel)]="newUser.vek" name="vek"/>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Email" id="email" [(ngModel)]="newUser.email" name="email" required/>
+                        </mat-form-field>
+    
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Login" id="login" [(ngModel)]="newUser.login" name="login" required/>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Heslo" id="heslo" [(ngModel)]="newUser.heslo" name="heslo" required/>
+                        </mat-form-field>
+                    </form> 
+                </mat-card>
+                <button mat-raised-button class="button" (click)="createUzivatel()">Vytvor užívateľa</button>
+            </div>
+        </div>
+    </div>
+    

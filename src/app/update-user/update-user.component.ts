@@ -19,7 +19,12 @@ export class UpdateUserComponent implements OnInit {
   }
 
   private getUzivatel() {
-    this.actUser.id = Number(localStorage.getItem('userId'));
+    if (localStorage.getItem('userIdForEdit') == null) {
+      this.actUser.id = Number(localStorage.getItem('userId'));
+    }
+    else {
+      this.actUser.id = Number(localStorage.getItem('userIdForEdit'));
+    }
 
     this.server.getUzivatel(this.actUser).then( (resp: any) => {
       this.actUser.meno = resp[0].Meno;
@@ -34,7 +39,13 @@ export class UpdateUserComponent implements OnInit {
 
   updateUzivatel() {
     this.server.updateUzivatel(this.actUser).then( () => {
-      this.router.navigate(['/user-detail']);
+      if (localStorage.getItem('userIdForEdit') == null) {
+        this.router.navigate(['/user-detail']);
+      }
+      else {
+        localStorage.removeItem('userIdForEdit')
+        this.router.navigate(['/admin-centre']);
+      }
     });
   }
 }

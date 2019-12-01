@@ -1,0 +1,27 @@
+.form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form > * {
+    width: 20%;
+  }
+  
+  .example-right-align {
+    text-align: right;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
+
+.button {
+  margin-top: 2rem; 
+  margin-left: 2rem;
+  background-color: #00c3ff; 
+}
