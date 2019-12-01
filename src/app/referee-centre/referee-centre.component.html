@@ -2,7 +2,7 @@
         <div class="homepageContent">
             <app-header-menu></app-header-menu>
     
-            <table>
+            <table class="tableMatchList">
                 <tr>
                     <td class="table-matchList">
                         <h3>Zoznam zápasov</h3>
@@ -14,42 +14,74 @@
                         </mat-card>
                     </td>
                     <td>
-                        <h3>{{actUzivatel.meno}} {{actUzivatel.priezvisko}}</h3>
+                        <h3>{{actZapas.nazov}}</h3>
                         <mat-list>
                             <mat-list-item>
-                                <b>Typ účtu:&emsp;</b> {{actUzivatel.typ}}
-                            </mat-list-item>
-                            <br>
-                            <mat-list-item>
-                                <b>Meno:&emsp;</b> {{actUzivatel.meno}}
+                                <b>Turnaj:&emsp;</b> {{actTurnaj.nazov}}
                             </mat-list-item>
                             <mat-list-item>
-                                <b>Priezvisko:&emsp;</b>{{actUzivatel.priezvisko}}
+                                <b>Miesto:&emsp;</b> {{actZapas.miesto}}
                             </mat-list-item>
                             <mat-list-item>
-                                <b>Vek:&emsp;</b> {{actUzivatel.vek}}
-                            </mat-list-item>
-                            <br>
-                            <mat-list-item>
-                                <b>Email:&emsp;</b> {{actUzivatel.email}}
-                            </mat-list-item>
-                            <br>
-                            <mat-list-item>
-                                <b>Login:&emsp;</b> {{actUzivatel.login}}
+                                <b>Dátum:&emsp;</b>{{actZapas.datum | date: 'dd. MM. yyyy'}}
                             </mat-list-item>
                             <mat-list-item>
-                                <b>Heslo:&emsp;</b> {{actUzivatel.heslo}}
+                                <b>Stav:&emsp;</b> {{actZapas.stav}}
                             </mat-list-item>
                         </mat-list>
     
-                        <button mat-raised-button class="button" (click)="makeAdmin()">Povýšiť na admina</button>
-                        <button mat-raised-button class="button" (click)="deleteAdmin()">Degradovať z admina</button>
-                        <button mat-raised-button class="button" (click)="updateUser()">Upraviť užívateľa</button>
-                        <button mat-raised-button class="button" (click)="deleteUser()">Odstrániť užívateľa</button>
+                        <button mat-raised-button class="button" (click)="startMatch()">Zahájiť zápas</button>
+                        <button mat-raised-button class="button" (click)="endMatch()">Ukonči zápas</button>
+                        <br>
+                        <br>
+                        
+                        <div *ngIf="isStarted">
+                            <h5>Stav zápasu</h5>
+                            <form class="form">
+                                <table class="tableForm">
+                                    <tr>
+                                        <th>{{meno1}}</th>
+                                        <th>{{meno2}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <mat-form-field>
+                                                <input matInput type="text" placeholder="Sety" id="sety1" [(ngModel)]="stavZapasu[0].ziskane_sety" name="sety1"/>
+                                            </mat-form-field>
+                                            
+                                            <mat-form-field>
+                                                <input matInput type="text" placeholder="Gemy" id="gemy1" [(ngModel)]="stavZapasu[0].ziskane_gemy" name="gemy1"/>
+                                            </mat-form-field>
+                        
+                                            <mat-form-field>
+                                                <input matInput type="text" placeholder="Výmeny" id="vymeny1" [(ngModel)]="stavZapasu[0].ziskane_vymeny" name="vymeny1"/>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field>
+                                                <input matInput type="text" placeholder="Sety" id="sety2" [(ngModel)]="stavZapasu[1].ziskane_sety" name="sety2"/>
+                                            </mat-form-field>
+                                            
+                                            <mat-form-field>
+                                                <input matInput type="text" placeholder="Gemy" id="gemy2" [(ngModel)]="stavZapasu[1].ziskane_gemy" name="gemy2"/>
+                                            </mat-form-field>
+                        
+                                            <mat-form-field>
+                                                <input matInput type="text" placeholder="Výmeny" id="vymeny2" [(ngModel)]="stavZapasu[1].ziskane_vymeny" name="vymeny2"/>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form> 
+                            <button mat-raised-button class="button" (click)="actMatch()">Aktualizuj stav</button>
+                        </div>
+                        <div *ngIf="isEnded">
+                            <h5>Výsledok zápasu</h5>
+                            {{meno1}} <b>{{stavZapasu[0].ziskane_sety}} : {{stavZapasu[1].ziskane_sety}}</b> {{meno2}} 
+                        </div>
                     </td>
                 </tr>
             </table>
-            <button mat-raised-button routerLink="/add-user">Pridať užívateľa</button>
         </div>
     </div>
     

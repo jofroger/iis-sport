@@ -680,10 +680,26 @@ router.get('/stav_zapasu/:id', function (req, res) {
   );
 });
 
+router.get('/stav_zapasu/zapas/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Stav_zapasu WHERE ZapasID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+
 router.post('/stav_zapasu', (req, res) => {
   db.query(
     "INSERT INTO Stav_zapasu (Ziskane_sety, Ziskane_gemy, Ziskane_vymeny, HracID, TimID, ZapasID) VALUES (?,?,?,?,?,?)",
-    [req.body.Ziskane_sety, req.body.Ziskane_gemy, req.body.Ziskane_vymeny, req.body.HracID, req.body.TimID, req.body.ZapasID],
+    [req.body.ziskane_sety, req.body.ziskane_gemy, req.body.ziskane_vymeny, req.body.hracID, req.body.timID, req.body.zapasID],
     (error) => {
       if (error) {
         console.error(error);
@@ -698,7 +714,7 @@ router.post('/stav_zapasu', (req, res) => {
 router.put('/stav_zapasu/:id', function (req, res, next) {
   db.query(
     'UPDATE Stav_zapasu SET Ziskane_sety=?, Ziskane_gemy=?, Ziskane_vymeny=?, HracID=?, TimID=?, ZapasID=? WHERE Stav_zapasuID=?',
-    [req.body.Ziskane_sety, req.body.Ziskane_gemy, req.body.Ziskane_vymeny, req.body.HracID, req.body.TimID, req.body.ZapasID, req.params.id],
+    [req.body.ziskane_sety, req.body.ziskane_gemy, req.body.ziskane_vymeny, req.body.hracID, req.body.timID, req.body.zapasID, req.params.id],
     (error) => {
       if (error) {
         console.log(error);

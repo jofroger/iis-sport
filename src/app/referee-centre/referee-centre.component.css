@@ -1,3 +1,25 @@
+.form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form > * {
+    width: 20%;
+  }
+  
+  .example-right-align {
+    text-align: right;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
+
 .matchList {
     overflow-y: scroll;
     height: 600px;
@@ -20,11 +42,13 @@ button {
     background-color: #00c3ff; 
 }
 
-table {
+.tableMatchList {
     width: 100%;
 }
 
-tr {
+
+
+.tableMatchList tr {
     height: 600px;
 }
 
@@ -32,5 +56,14 @@ tr {
     width: 30%;
 }
 
+.tableForm {
+    width: 100%;
+}
 
+.tableForm td th{
+    width: 100%;
+}
 
+.tableForm tr{
+    height: 20px;
+}

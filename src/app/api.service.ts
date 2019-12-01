@@ -223,6 +223,10 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/stav_zapasu/${stav_zapasu.id}`);
     }
 
+    getStav_zapasuByZapas(zapas: Zapas) {
+        return this.request('GET', `${environment.serverUrl}/stav_zapasu/zapas/${zapas.id}`);
+    }
+
     createStav_zapasu(stav_zapasu: Stav_zapasu) {
         return this.request('POST', `${environment.serverUrl}/stav_zapasu`, stav_zapasu);
     }
