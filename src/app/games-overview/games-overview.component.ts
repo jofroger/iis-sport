@@ -28,12 +28,12 @@ export class GamesOverviewComponent implements OnInit {
   tim11: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
   tim12: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
 
-  Zapas1: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', turnajID: null, stav_zapasuID: null};
-  Zapas2: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', turnajID: null, stav_zapasuID: null};
-  Zapas3: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', turnajID: null, stav_zapasuID: null};
-  Zapas4: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', turnajID: null, stav_zapasuID: null};
-  Zapas5: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', turnajID: null, stav_zapasuID: null};
-  Zapas6: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', turnajID: null, stav_zapasuID: null};
+  Zapas1: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
+  Zapas2: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
+  Zapas3: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
+  Zapas4: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
+  Zapas5: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
+  Zapas6: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
 
   constructor(private server: ApiService) { }
 
