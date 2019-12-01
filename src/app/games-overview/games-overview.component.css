@@ -1,52 +1,27 @@
-.tabulkaZapasy {
-  width: 100%;
+.tabulkaZapasyBackground {
+  width: calc(100% - 10px);
   height: auto;
+  background-color: #71e2ff;
+  border-radius: 10px;
+  border: 2px solid #0077ff;
+  border-collapse: separate;
+  margin: 35px 5px 5px 5px;
+  box-shadow: 0 0 5px #000
 }
 
-table.tabulkaZapasy td {
+.tabulkaZapasyOverview {
+  width: calc(100% - 13px);
+  height: auto;
+  margin: 10px 10px 10px 10px;
+}
+
+table.tabulkaZapasyOverview td {
   border: 1px solid transparent;
   width: 280px;
 }
 
-table.tabulkaZapasy td:last-child {
+table.tabulkaZapasyOverview td:last-child {
   border-right-width: 0;
-}
-
-.tabulkaTimy {
-  width: calc(100% - 10px);
-  height: auto;
-  border: 1px solid #71e2ff;
-  border-radius: 5px;
-  text-align: center;
-  margin: auto;
-  background-color: #71e2ff;
-  box-shadow: 0 0 5px #000
-}
-
-.tabulkaTimyZoznam td {
-  border: 0 !important;
-  width: 33.33%;
-  font-size: 19px;
-}
-
-.tabulkaTimyZoznam td:nth-child(odd) {
-  width: 66.66% !important;
-  text-align: left;
-}
-
-.teamFlagPlaceholder {
-  height: 25px;
-  width: 25px;
-  margin-left: 10px;
-}
-
-a:link, a:visited {
-  text-decoration: none;
-  color: black;
-}
-
-a:hover {
-  color: white;
 }
 
 .zapas {
@@ -55,7 +30,7 @@ a:hover {
   border: 1px solid #00c3ff;
   border-radius: 5px;
   text-align: center;
-  margin: 0 4px 10px 4px;
+  margin: 4px 4px 4px 4px;
   background-color: #00c3ff;
   box-shadow: 0 0 5px #000
 }
@@ -69,6 +44,7 @@ a:hover {
   font-size: 40px;
   margin-top: 5%;
 }
+
 .zapasTimy {
   /*font-size: 25px;*/
   font-size: 110%;
@@ -99,4 +75,18 @@ a:hover {
 .flagPlaceholder:nth-child(odd) {
   margin-left: 10px;
   margin-top: -10px;
+}
+
+.rotate180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+#calendar {
+  width: auto;
+  height: 50%;
+  margin: auto;
 }

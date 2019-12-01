@@ -23,7 +23,7 @@ export class HomePageComponent implements OnInit {
   tim11: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
   tim12: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
   tim13: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
-  tim14: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null}
+  tim14: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
 
 
   Zapas1: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
@@ -44,26 +44,38 @@ export class HomePageComponent implements OnInit {
     for (let i = 1; i <= 6; i++) {
       this['Zapas' + i].id = i;
       this.server.getZapas(this['Zapas' + i]).then( (resp: any) => {
-          console.log(resp[0]);
-          this['Zapas' + i].nazov = resp[0].Nazov;
-          this['Zapas' + i].miesto = resp[0].Miesto;
-          this['Zapas' + i].datum = resp[0].Datum;
-          this['Zapas' + i].stav = resp[0].Stav;
-        }
-      );
+        this['Zapas' + i].nazov = resp[0].Nazov;
+        this['Zapas' + i].miesto = resp[0].Miesto;
+        this['Zapas' + i].datum = resp[0].Datum;
+        this['Zapas' + i].stav = resp[0].Stav;
+      });
+      this.server.getTimByZapas(this['Zapas' + i]).then( (resp: any) => { // Nastavenie loga timu pri zapasoch
+        // tslint:disable-next-line:max-line-length
+        (resp[0] !== undefined) ? this['tim' + (i * 2 - 1)].logo = resp[0].Logo : this['tim' + (i * 2 - 1)].logo = '../../assets/image-placeholder.jpg';
+        // tslint:disable-next-line:max-line-length
+        (resp[1] !== undefined) ? this['tim' + (i * 2)].logo = resp[1].Logo : this['tim' + (i * 2)].logo = '../../assets/image-placeholder.jpg';
+        /*this['tim' + i * 2].logo = resp[1].Logo;*/
+      });
     }
   }
 
   private loadTimy() { /*1-14*/
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 14; i++) {
       this['tim' + i].id = i;
       this.server.getTim(this['tim' + i]).then( (resp: any) => {
-        this['tim' + i].nazov = resp[0].Nazov;
-        this['tim' + i].logo = resp[0].Logo;
-        this['tim' + i].pocet_vyhier = resp[0].Pocet_vyhier;
-        this['tim' + i].odohrane_zapasy = resp[0].Odohrane_zapasy;
-        console.log(resp)
-      }); /* TODO Pridat zobrazenie podla existencie timu z team-detaiil.component.ts*/
+        if (resp.length !== 0) {
+          this['tim' + i].nazov = resp[0].Nazov;
+          this['tim' + i].logo = resp[0].Logo;
+          this['tim' + i].pocet_vyhier = resp[0].Pocet_vyhier;
+          this['tim' + i].odohrane_zapasy = resp[0].Odohrane_zapasy;
+        } else {
+          document.getElementById('team' + i).style.display = 'none';
+        }
+      });
     }
+  }
+
+  private sendTeamNumber(teamNumber) {
+    localStorage.setItem('timID', teamNumber);
   }
 }

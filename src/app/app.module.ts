@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,15 +20,16 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { ChangePswComponent } from './change-psw/change-psw.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import {LoginSiteComponent} from './login-site/login-site.component';
-import {RegisterSiteComponent} from './register-site/register-site.component';
+import { LoginSiteComponent } from './login-site/login-site.component';
+import { RegisterSiteComponent } from './register-site/register-site.component';
 import { HeaderMenuComponent } from './header-menu/header-menu.component';
 import { PlayerListComponent } from './player-list/player-list.component';
-import {ScrollingModule} from '@angular/cdk/scrolling';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { AdminCentreComponent } from './admin-centre/admin-centre.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { RefereeCentreComponent } from './referee-centre/referee-centre.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { GamesOverviewComponent } from './games-overview/games-overview.component';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { RefereeCentreComponent } from './referee-centre/referee-centre.componen
     FileSelectDirective,
     AdminCentreComponent,
     AddUserComponent,
-    RefereeCentreComponent
+    RefereeCentreComponent,
+    GamesOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { RefereeCentreComponent } from './referee-centre/referee-centre.componen
     MatFormFieldModule,
     MatInputModule,
     MatGridListModule,
-    ScrollingModule
+    ScrollingModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

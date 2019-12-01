@@ -1,18 +1,18 @@
 <div class="background">
   <div class="homepageContent">
-    
+
     <app-header-menu></app-header-menu>
 
+    <h3 style="margin-left: 5px">Program zápasov</h3>
     <table class="tabulkaZapasy">
-      <th><h3>Program zápasov</h3></th>
       <tr>
         <td>
           <div class="zapas">
             <div class="zapasDatum">{{Zapas1.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim1.logo}}">
               {{Zapas1.stav}}
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim2.logo}}">
             </div>
             <div class="zapasTimy">{{Zapas1.nazov}}</div>
             <div class="zapasMiesto">{{Zapas1.miesto}}</div>
@@ -23,9 +23,9 @@
           <div class="zapas">
             <div class="zapasDatum">{{Zapas2.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim3.logo}}">
               {{Zapas2.stav}}
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim4.logo}}">
             </div>
             <div class="zapasTimy">{{Zapas2.nazov}}</div>
             <div class="zapasMiesto">{{Zapas2.miesto}}</div>
@@ -36,9 +36,9 @@
           <div class="zapas">
             <div class="zapasDatum">{{Zapas3.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim5.logo}}">
               {{Zapas3.stav}}
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim6.logo}}">
             </div>
             <div class="zapasTimy">{{Zapas3.nazov}}</div>
             <div class="zapasMiesto">{{Zapas3.miesto}}</div>
@@ -51,9 +51,9 @@
             <table class="tabulkaTimyZoznam" style="margin: 0px 5px 15px 5px">
               <th style="column-span: 2; font-size: 20px">Tím</th>
               <th style="font-size: 20px">Štatistiky</th>
-              <tr>
+              <tr id="team1">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(1)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim1.logo}}">
                     {{tim1.nazov}}
                   </a>
@@ -62,9 +62,9 @@
                   {{tim1.pocet_vyhier}}/{{tim1.odohrane_zapasy}}
                 </td>
               </tr> <!-- Jeden tim -->
-              <tr>
+              <tr id="team2">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(2)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim2.logo}}">
                     {{tim2.nazov}}
                   </a>
@@ -73,9 +73,9 @@
                   {{tim2.pocet_vyhier}}/{{tim2.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team3">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(3)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim3.logo}}">
                     {{tim3.nazov}}
                   </a>
@@ -84,9 +84,9 @@
                   {{tim3.pocet_vyhier}}/{{tim3.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team4">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(4)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim4.logo}}">
                     {{tim4.nazov}}
                   </a>
@@ -95,9 +95,9 @@
                   {{tim4.pocet_vyhier}}/{{tim4.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team5">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(5)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim5.logo}}">
                     {{tim5.nazov}}
                   </a>
@@ -106,9 +106,9 @@
                   {{tim5.pocet_vyhier}}/{{tim5.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team6">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(6)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim6.logo}}">
                     {{tim6.nazov}}
                   </a>
@@ -117,10 +117,10 @@
                   {{tim6.pocet_vyhier}}/{{tim6.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team7">
                 <td>
-                  <a href="team-detail">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+                  <a href="team-detail" (click)="sendTeamNumber(7)">
+                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim7.logo}}">
                     {{tim7.nazov}}
                   </a>
                 </td>
@@ -128,10 +128,10 @@
                   {{tim7.pocet_vyhier}}/{{tim7.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team8">
                 <td>
-                  <a href="team-detail">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+                  <a href="team-detail" (click)="sendTeamNumber(8)">
+                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim8.logo}}">
                     {{tim8.nazov}}
                   </a>
                 </td>
@@ -139,9 +139,9 @@
                   {{tim8.pocet_vyhier}}/{{tim8.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team9">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(9)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
                     {{tim9.nazov}}
                   </a>
@@ -150,9 +150,9 @@
                   {{tim9.pocet_vyhier}}/{{tim9.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team10">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(10)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
                     {{tim10.nazov}}
                   </a>
@@ -161,9 +161,9 @@
                   {{tim10.pocet_vyhier}}/{{tim10.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team11">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(11)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
                     {{tim11.nazov}}
                   </a>
@@ -172,9 +172,9 @@
                   {{tim11.pocet_vyhier}}/{{tim11.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team12">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(12)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
                     {{tim12.nazov}}
                   </a>
@@ -183,9 +183,9 @@
                   {{tim12.pocet_vyhier}}/{{tim12.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team13">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(13)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
                     {{tim13.nazov}}
                   </a>
@@ -194,9 +194,9 @@
                   {{tim13.pocet_vyhier}}/{{tim13.odohrane_zapasy}}
                 </td>
               </tr>
-              <tr>
+              <tr id="team14">
                 <td>
-                  <a href="team-detail">
+                  <a href="team-detail" (click)="sendTeamNumber(14)">
                     <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
                     {{tim14.nazov}}
                   </a>
@@ -215,9 +215,9 @@
           <div class="zapas">
             <div class="zapasDatum">{{Zapas4.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim7.logo}}">
               {{Zapas4.stav}}
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim8.logo}}">
             </div>
             <div class="zapasTimy">{{Zapas4.nazov}}</div>
             <div class="zapasMiesto">{{Zapas4.miesto}}</div>
@@ -228,9 +228,9 @@
           <div class="zapas">
             <div class="zapasDatum">{{Zapas5.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim9.logo}}">
               {{Zapas5.stav}}
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim10.logo}}">
             </div>
             <div class="zapasTimy">{{Zapas5.nazov}}</div>
             <div class="zapasMiesto">{{Zapas5.miesto}}</div>
@@ -241,9 +241,9 @@
           <div class="zapas">
             <div class="zapasDatum">{{Zapas6.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim11.logo}}">
               {{Zapas6.stav}}
-              <img class="flagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim12.logo}}">
             </div>
             <div class="zapasTimy">{{Zapas6.nazov}}</div>
             <div class="zapasMiesto">{{Zapas6.miesto}}</div>

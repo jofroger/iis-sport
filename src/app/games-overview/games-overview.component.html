@@ -1,0 +1,106 @@
+<div class="background">
+  <div class="homepageContent">
+    <app-header-menu></app-header-menu>
+
+    <div class="tabulkaZapasyBackground">
+      <table class="tabulkaZapasyOverview">
+        <tr>
+          <td rowspan="2">
+            <ejs-calendar id=calendar [value]='value' [min]='minDate' [max]='maxDate'></ejs-calendar>
+            <link href="https://cdn.syncfusion.com/ej2/ej2-base/styles/material.css" rel="stylesheet" />
+            <link href="https://cdn.syncfusion.com/ej2/ej2-buttons/styles/material.css" rel="stylesheet" />
+            <link href="https://cdn.syncfusion.com/ej2/ej2-popups/styles/material.css" rel="stylesheet" />
+            <link href="https://cdn.syncfusion.com/ej2/ej2-calendars/styles/material.css" rel="stylesheet" />
+          </td>
+          <td rowspan="2" style="width: 32px">
+            <img (click)="loadPreviousZapasy()" class="rotate180" style="width: 30px; height: 30px" alt="nextGames" src="../../assets/right_arrow.png">
+          </td>
+          <td>
+            <div class="zapas" id="zapas1">
+              <div class="zapasDatum">{{Zapas1.datum | date: 'dd. MM. yyyy'}}</div>
+              <div class="zapasVysledok">
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim1.logo}}">
+                {{Zapas1.stav}}
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim2.logo}}">
+              </div>
+              <div class="zapasTimy">{{Zapas1.nazov}}</div>
+              <div class="zapasMiesto">{{Zapas1.miesto}}</div>
+              <div class="zapasCas">{{Zapas1.datum | date: 'HH:mm'}}</div>
+            </div>
+          </td>
+          <td>
+            <div class="zapas" id="zapas2">
+              <div class="zapasDatum">{{Zapas2.datum | date: 'dd. MM. yyyy'}}</div>
+              <div class="zapasVysledok">
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim3.logo}}">
+                {{Zapas2.stav}}
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim4.logo}}">
+              </div>
+              <div class="zapasTimy">{{Zapas2.nazov}}</div>
+              <div class="zapasMiesto">{{Zapas2.miesto}}</div>
+              <div class="zapasCas">{{Zapas2.datum | date: 'HH:mm'}}</div>
+            </div>
+          </td>
+          <td>
+            <div class="zapas" id="zapas3">
+              <div class="zapasDatum">{{Zapas3.datum | date: 'dd. MM. yyyy'}}</div>
+              <div class="zapasVysledok">
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim5.logo}}">
+                {{Zapas3.stav}}
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim6.logo}}">
+              </div>
+              <div class="zapasTimy">{{Zapas3.nazov}}</div>
+              <div class="zapasMiesto">{{Zapas3.miesto}}</div>
+              <div class="zapasCas">{{Zapas3.datum | date: 'HH:mm'}}</div>
+            </div>
+          </td>
+          <td rowspan="2" style="width: 30px">
+            <img (click)="loadNextZapasy()" style="width: 30px; height: 30px" alt="previousGames" src="../../assets/right_arrow.png">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="zapas" id="zapas4">
+              <div class="zapasDatum">{{Zapas4.datum | date: 'dd. MM. yyyy'}}</div>
+              <div class="zapasVysledok">
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim7.logo}}">
+                {{Zapas4.stav}}
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim8.logo}}">
+              </div>
+              <div class="zapasTimy">{{Zapas4.nazov}}</div>
+              <div class="zapasMiesto">{{Zapas4.miesto}}</div>
+              <div class="zapasCas">{{Zapas4.datum | date: 'HH:mm'}}</div>
+            </div>
+          </td>
+          <td>
+            <div class="zapas" id="zapas5">
+              <div class="zapasDatum">{{Zapas5.datum | date: 'dd. MM. yyyy'}}</div>
+              <div class="zapasVysledok">
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim9.logo}}">
+                {{Zapas5.stav}}
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim10.logo}}">
+              </div>
+              <div class="zapasTimy">{{Zapas5.nazov}}</div>
+              <div class="zapasMiesto">{{Zapas5.miesto}}</div>
+              <div class="zapasCas">{{Zapas5.datum | date: 'HH:mm'}}</div>
+            </div>
+          </td>
+          <td>
+            <div class="zapas" id="zapas6">
+              <div class="zapasDatum">{{Zapas6.datum | date: 'dd. MM. yyyy'}}</div>
+              <div class="zapasVysledok">
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim11.logo}}">
+                {{Zapas6.stav}}
+                <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim12.logo}}">
+              </div>
+              <div class="zapasTimy">{{Zapas6.nazov}}</div>
+              <div class="zapasMiesto">{{Zapas6.miesto}}</div>
+              <div class="zapasCas">{{Zapas6.datum | date: 'HH:mm'}}</div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

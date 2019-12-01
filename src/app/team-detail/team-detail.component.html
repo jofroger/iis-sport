@@ -1,5 +1,5 @@
 <div class="background">
-  <div class="teamDetailContent">
+  <div class="homepageContent">
     <app-header-menu></app-header-menu>
 
     <table class="tabulkaTim">
@@ -8,7 +8,7 @@
       </th></tr>
       <tr>
         <td class="mainTeamStats">
-          <img alt="logoPlaceholder" src="../../assets/image-placeholder.jpg" style="height: 150px; width: 150px">
+          <img alt="logoPlaceholder" src="{{tim.logo}}" style="height: 150px; width: 150px">
         </td>
         <td class="mainTeamStats">
           <h5>Vyhraných zápasov</h5>
@@ -23,25 +23,25 @@
         <td>
           <div id="player1">
             <div style="float: left">
-              <img class="playerPlaceholder" alt="playerPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="playerPlaceholder" alt="playerPlaceholder" src="{{hrac1.fotka}}">
             </div>
             <div style="float: right">
               <table class="playerCard">
-                <th style="text-align: center" colspan="2"><h5>Meno hraca</h5></th>
+                <th style="text-align: center" colspan="2"><h5>{{uzivatel1.meno}} {{uzivatel1.priezvisko}}</h5></th>
                 <tr>
                   <td>
-                    Vek
+                    Vek:
                   </td>
                   <td>
-                    Pozícia
+                    {{uzivatel1.vek}}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Golova uspesnost
+                    Vyhrané zápasy
                   </td>
                   <td>
-                    Trestne min.
+                    {{hrac1.pocet_vyhier}}/{{hrac1.odohrane_zapasy}}
                   </td>
                 </tr>
               </table>
@@ -51,25 +51,25 @@
         <td>
           <div id="player2">
             <div style="float: left">
-              <img class="playerPlaceholder" alt="playerPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="playerPlaceholder" alt="playerPlaceholder" src="{{hrac2.fotka}}">
             </div>
             <div style="float: right">
               <table class="playerCard">
-                <th style="text-align: center" colspan="2"><h5>Meno hraca</h5></th>
+                <th style="text-align: center" colspan="2"><h5>{{uzivatel2.meno}} {{uzivatel2.priezvisko}}</h5></th>
                 <tr>
                   <td>
-                    Vek
+                    Vek:
                   </td>
                   <td>
-                    Pozícia
+                    {{uzivatel2.vek}}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Golova uspesnost
+                    Vyhrané zápasy
                   </td>
                   <td>
-                    Trestne min.
+                    {{hrac2.pocet_vyhier}}/{{hrac2.odohrane_zapasy}}
                   </td>
                 </tr>
               </table>
@@ -79,25 +79,25 @@
         <td>
           <div id="player3">
             <div style="float: left">
-              <img class="playerPlaceholder" alt="playerPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="playerPlaceholder" alt="playerPlaceholder" src="{{hrac3.fotka}}">
             </div>
             <div style="float: right">
               <table class="playerCard">
-                <th style="text-align: center" colspan="2"><h5>Meno hraca</h5></th>
+                <th style="text-align: center" colspan="2"><h5>{{uzivatel3.meno}} {{uzivatel3.priezvisko}}</h5></th>
                 <tr>
                   <td>
-                    Vek
+                    Vek:
                   </td>
                   <td>
-                    Pozícia
+                    {{uzivatel3.vek}}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Golova uspesnost
+                    Vyhrané zápasy
                   </td>
                   <td>
-                    Trestne min.
+                    {{hrac3.pocet_vyhier}}/{{hrac3.odohrane_zapasy}}
                   </td>
                 </tr>
               </table>
@@ -107,27 +107,28 @@
       </tr> <!--Hraci 1. riadok-->
       <tr class="players">
         <td>
+        <td>
           <div id="player4">
             <div style="float: left">
-              <img class="playerPlaceholder" alt="playerPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="playerPlaceholder" alt="playerPlaceholder" src="{{hrac4.fotka}}">
             </div>
             <div style="float: right">
               <table class="playerCard">
-                <th style="text-align: center" colspan="2"><h5>Meno hraca</h5></th>
+                <th style="text-align: center" colspan="2"><h5>{{uzivatel4.meno}} {{uzivatel4.priezvisko}}</h5></th>
                 <tr>
                   <td>
-                    Vek
+                    Vek:
                   </td>
                   <td>
-                    Pozícia
+                    {{uzivatel4.vek}}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Golova uspesnost
+                    Vyhrané zápasy
                   </td>
                   <td>
-                    Trestne min.
+                    {{hrac4.pocet_vyhier}}/{{hrac4.odohrane_zapasy}}
                   </td>
                 </tr>
               </table>
@@ -137,25 +138,25 @@
         <td>
           <div id="player5">
             <div style="float: left">
-              <img class="playerPlaceholder" alt="playerPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="playerPlaceholder" alt="playerPlaceholder" src="{{hrac5.fotka}}">
             </div>
             <div style="float: right">
               <table class="playerCard">
-                <th style="text-align: center" colspan="2"><h5>Meno hraca</h5></th>
+                <th style="text-align: center" colspan="2"><h5>{{uzivatel5.meno}} {{uzivatel5.priezvisko}}</h5></th>
                 <tr>
                   <td>
-                    Vek
+                    Vek:
                   </td>
                   <td>
-                    Pozícia
+                    {{uzivatel5.vek}}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Golova uspesnost
+                    Vyhrané zápasy
                   </td>
                   <td>
-                    Trestne min.
+                    {{hrac5.pocet_vyhier}}/{{hrac5.odohrane_zapasy}}
                   </td>
                 </tr>
               </table>
@@ -165,25 +166,25 @@
         <td>
           <div id="player6">
             <div style="float: left">
-              <img class="playerPlaceholder" alt="playerPlaceholder" src="../../assets/image-placeholder.jpg">
+              <img class="playerPlaceholder" alt="playerPlaceholder" src="{{hrac6.fotka}}">
             </div>
             <div style="float: right">
               <table class="playerCard">
-                <th style="text-align: center" colspan="2"><h5>Meno hraca</h5></th>
+                <th style="text-align: center" colspan="2"><h5>{{uzivatel6.meno}} {{uzivatel6.priezvisko}}</h5></th>
                 <tr>
                   <td>
-                    Vek
+                    Vek:
                   </td>
                   <td>
-                    Pozícia
+                    {{uzivatel6.vek}}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Golova uspesnost
+                    Vyhrané zápasy
                   </td>
                   <td>
-                    Trestne min.
+                    {{hrac6.pocet_vyhier}}/{{hrac6.odohrane_zapasy}}
                   </td>
                 </tr>
               </table>
