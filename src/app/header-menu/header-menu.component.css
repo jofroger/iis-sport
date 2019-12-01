@@ -1,10 +1,10 @@
 .headerMenu {
-    height: 51px; 
-    width: auto; 
-    margin: 30px 5px 30px 5px; 
+    height: 51px;
+    width: auto;
+    margin: 30px 5px 30px 5px;
     border: 2px solid #0077ff;
-    border-radius: 10px; 
-    background-color: #00c3ff; 
+    border-radius: 10px;
+    background-color: #00c3ff;
     box-shadow: 0 0 5px #000;
 }
 
@@ -13,7 +13,7 @@
     display: block;
     color: white;
     text-align: center;
-    padding: 10px 40px;
+    padding: 11px 40px;
     text-decoration: none;
     font-size: 18px;
   }
@@ -21,27 +21,26 @@
   .headerMenu a.leftBar {
     float: right;
   }
-  
+
   /* Right-aligned login button with corner rounding */
   .headerMenu a.loginButton {
     float: right;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
+    border-radius: 0 5px 5px 0 !important;
   }
 
-  
+
   /* Change color on hover */
   .headerMenu a:hover {
     background-color: #0077ff;
     color: black;
   }
-  
+
   /* Corner rounding of first child */
   .headerMenu a:first-child, a.active:first-child {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
   }
-  
+
   /* Active/current link */
   .headerMenu a.active {
     background-color: #0077ff;

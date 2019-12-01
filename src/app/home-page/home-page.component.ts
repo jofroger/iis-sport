@@ -23,7 +23,7 @@ export class HomePageComponent implements OnInit {
   tim11: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
   tim12: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
   tim13: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
-  tim14: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null}
+  tim14: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
 
 
   Zapas1: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', turnajID: null, stav_zapasuID: null};
@@ -44,7 +44,6 @@ export class HomePageComponent implements OnInit {
     for (let i = 1; i <= 6; i++) {
       this['Zapas' + i].id = i;
       this.server.getZapas(this['Zapas' + i]).then( (resp: any) => {
-          console.log(resp[0]);
           this['Zapas' + i].nazov = resp[0].Nazov;
           this['Zapas' + i].miesto = resp[0].Miesto;
           this['Zapas' + i].datum = resp[0].Datum;
@@ -55,15 +54,23 @@ export class HomePageComponent implements OnInit {
   }
 
   private loadTimy() { /*1-14*/
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 14; i++) {
       this['tim' + i].id = i;
       this.server.getTim(this['tim' + i]).then( (resp: any) => {
-        this['tim' + i].nazov = resp[0].Nazov;
-        this['tim' + i].logo = resp[0].Logo;
-        this['tim' + i].pocet_vyhier = resp[0].Pocet_vyhier;
-        this['tim' + i].odohrane_zapasy = resp[0].Odohrane_zapasy;
-        console.log(resp)
-      }); /* TODO Pridat zobrazenie podla existencie timu z team-detaiil.component.ts*/
+        console.log(resp.length);
+        if (resp.length !== 0) {
+          this['tim' + i].nazov = resp[0].Nazov;
+          this['tim' + i].logo = resp[0].Logo;
+          this['tim' + i].pocet_vyhier = resp[0].Pocet_vyhier;
+          this['tim' + i].odohrane_zapasy = resp[0].Odohrane_zapasy;
+        } else {
+          document.getElementById('team' + i).style.display = 'none';
+        }
+      });
     }
+  }
+
+  private sendTeamNumber(teamNumber) {
+    localStorage.setItem('timID', teamNumber);
   }
 }

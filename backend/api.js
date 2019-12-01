@@ -717,7 +717,7 @@ router.get('/hrac_hra_v_time/hrac/:id', function (req, res) {
 
 router.get('/hrac_hra_v_time/tim/:id', function (req, res) {
   db.query(
-    "SELECT HracID, Hrac.Odohrane_zapasy, Hrac.Pocet_vyhier, UzivatelID \
+    "SELECT HracID, Hrac.Odohrane_zapasy, Hrac.Pocet_vyhier, Hrac.Fotka, UzivatelID \
      FROM Tim  \
      INNER JOIN hrac_hra_v_time USING (TimID) \
      INNER JOIN Hrac USING (HracID) \
