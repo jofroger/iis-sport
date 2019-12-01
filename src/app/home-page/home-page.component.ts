@@ -44,12 +44,18 @@ export class HomePageComponent implements OnInit {
     for (let i = 1; i <= 6; i++) {
       this['Zapas' + i].id = i;
       this.server.getZapas(this['Zapas' + i]).then( (resp: any) => {
-          this['Zapas' + i].nazov = resp[0].Nazov;
-          this['Zapas' + i].miesto = resp[0].Miesto;
-          this['Zapas' + i].datum = resp[0].Datum;
-          this['Zapas' + i].stav = resp[0].Stav;
-        }
-      );
+        this['Zapas' + i].nazov = resp[0].Nazov;
+        this['Zapas' + i].miesto = resp[0].Miesto;
+        this['Zapas' + i].datum = resp[0].Datum;
+        this['Zapas' + i].stav = resp[0].Stav;
+      });
+      this.server.getTimByZapas(this['Zapas' + i]).then( (resp: any) => {
+        // tslint:disable-next-line:max-line-length
+        (resp[0] !== undefined) ? this['tim' + (i * 2 - 1)].logo = resp[0].Logo : this['tim' + (i * 2 - 1)].logo = '../../assets/image-placeholder.jpg';
+        // tslint:disable-next-line:max-line-length
+        (resp[1] !== undefined) ? this['tim' + (i * 2)].logo = resp[1].Logo : this['tim' + (i * 2)].logo = '../../assets/image-placeholder.jpg';
+        /*this['tim' + i * 2].logo = resp[1].Logo;*/
+      });
     }
   }
 
@@ -57,7 +63,6 @@ export class HomePageComponent implements OnInit {
     for (let i = 1; i <= 14; i++) {
       this['tim' + i].id = i;
       this.server.getTim(this['tim' + i]).then( (resp: any) => {
-        console.log(resp.length);
         if (resp.length !== 0) {
           this['tim' + i].nazov = resp[0].Nazov;
           this['tim' + i].logo = resp[0].Logo;

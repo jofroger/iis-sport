@@ -40,6 +40,15 @@ table.tabulkaZapasy td:last-child {
   margin-left: 10px;
 }
 
+a:link, a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: white;
+}
+
 .zapas {
   height: 100%;
   width: calc(100% - 10px);
@@ -60,7 +69,6 @@ table.tabulkaZapasy td:last-child {
   font-size: 40px;
   margin-top: 5%;
 }
-
 .zapasTimy {
   /*font-size: 25px;*/
   font-size: 110%;
@@ -91,14 +99,4 @@ table.tabulkaZapasy td:last-child {
 .flagPlaceholder:nth-child(odd) {
   margin-left: 10px;
   margin-top: -10px;
-}
-
-/*Team links*/
-a:link, a:visited {
-  text-decoration: none;
-  color: black;
-}
-
-a:hover {
-  color: white;
 }
