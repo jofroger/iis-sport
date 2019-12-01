@@ -289,6 +289,21 @@ router.get('/rozhodca/:id', function (req, res) {
   );
 });
 
+router.get('/rozhodca/uzivatel/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Rozhodca WHERE UzivatelID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 router.post('/rozhodca', (req, res) => {
   db.query(
     "INSERT INTO Rozhodca (Typ, UzivatelID) VALUES (?,?)",
@@ -591,8 +606,8 @@ router.get('/zapas/:id', function (req, res) {
 
 router.post('/zapas', (req, res) => {
   db.query(
-    "INSERT INTO Zapas (Nazov, Miesto, Datum, Stav, TurnajID) VALUES (?,?,?,?,?)",
-    [req.body.Nazov, req.body.Miesto, req.body.Datum, req.body.Stav, req.body.TurnajID],
+    "INSERT INTO Zapas (Nazov, Miesto, Datum, Stav, Vyherca, Uroven_zapasu, TurnajID) VALUES (?,?,?,?,?,?,?)",
+    [req.body.nazov, req.body.miesto, req.body.datum, req.body.stav, req.body.vyherca, req.body.uroven_zapasu, req.body.turnajID],
     (error) => {
       if (error) {
         console.error(error);
@@ -607,7 +622,7 @@ router.post('/zapas', (req, res) => {
 router.put('/zapas/:id', function (req, res, next) {
   db.query(
     'UPDATE Zapas SET Nazov=?, Miesto=?, Datum=?, Stav=?, TurnajID=? WHERE ZapasID=?',
-    [req.body.Nazov, req.body.Miesto, req.body.Datum, req.body.Stav, req.body.TurnajID, req.params.id],
+    [req.body.nazov, req.body.miesto, req.body.datum, req.body.stav, req.body.vyherca, req.body.uroven_zapasu, req.body.turnajID, req.params.id],
     (error) => {
       if (error) {
         console.error(error);
@@ -1144,6 +1159,25 @@ router.get('/uzivatel-a-hrac', function (req, res) {
 router.get('/zapas/turnaj/:id', function (req, res) {
   db.query(
     "SELECT * FROM Zapas WHERE TurnajID=?;",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+router.get('/zapas/rozhodca/:id', function (req, res) {
+  db.query(
+    "SELECT * \
+     FROM Rozhodca \
+     INNER JOIN rozhoduje_turnaj USING(RozhodcaID) \
+     INNER JOIN Zapas USING(TurnajID) \
+     WHERE RozhodcaID=?;",
     [req.params.id],
     (error, results) => {
       if (error) {

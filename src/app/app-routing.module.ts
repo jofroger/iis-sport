@@ -11,6 +11,8 @@ import {RegisterSiteComponent} from './register-site/register-site.component';
 import { PlayerListComponent } from './player-list/player-list.component';
 import { AdminCentreComponent } from './admin-centre/admin-centre.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { RefereeCentreComponent } from './referee-centre/referee-centre.component';
+
 
 const routes: Routes = [
   {path: 'example', component: ExampleComponent},
@@ -23,6 +25,7 @@ const routes: Routes = [
   {path: 'player-list', component: PlayerListComponent},
   {path: 'admin-centre', component: AdminCentreComponent},
   {path: 'add-user', component: AddUserComponent},
+  {path: 'referee-centre', component: RefereeCentreComponent},
   {path: '', component: HomePageComponent}
 ];
 

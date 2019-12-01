@@ -27,6 +27,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { AdminCentreComponent } from './admin-centre/admin-centre.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { RefereeCentreComponent } from './referee-centre/referee-centre.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { AddUserComponent } from './add-user/add-user.component';
     PlayerListComponent,
     FileSelectDirective,
     AdminCentreComponent,
-    AddUserComponent
+    AddUserComponent,
+    RefereeCentreComponent
   ],
   imports: [
     BrowserModule,

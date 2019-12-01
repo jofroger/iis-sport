@@ -105,6 +105,10 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/rozhodca/${rozhodca.id}`);
     }
 
+    getRozhodcaByUzivatel(uzivatel: Uzivatel) {
+        return this.request('GET', `${environment.serverUrl}/rozhodca/uzivatel/${uzivatel.id}`);
+    }
+
     createRozhodca(rozhodca: Rozhodca) {
         return this.request('POST', `${environment.serverUrl}/rozhodca`, rozhodca);
     }
@@ -191,6 +195,10 @@ export class ApiService {
 
     getZapas(zapas: Zapas) {
         return this.request('GET', `${environment.serverUrl}/zapas/${zapas.id}`);
+    }
+
+    getZapasByRozhodca(rozhodca: Rozhodca) {
+        return this.request('GET', `${environment.serverUrl}/zapas/rozhodca/${rozhodca.id}`);
     }
 
     createZapas(zapas: Zapas) {

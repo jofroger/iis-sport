@@ -64,7 +64,7 @@ export class AdminCentreComponent implements OnInit {
       this.index = 0;
       this.getUzivatelia();
     })
-    waits(2000);
+    
     if (cantDelete) alert("Užívateľa nie je možné odstrániť. Je registrovaný ako hráč, usporiadateľ alebo rozhodca.");
   }
 

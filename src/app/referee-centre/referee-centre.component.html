@@ -1,0 +1,55 @@
+<div class="background">
+        <div class="homepageContent">
+            <app-header-menu></app-header-menu>
+    
+            <table>
+                <tr>
+                    <td class="table-matchList">
+                        <h3>Zoznam zápasov</h3>
+                        <mat-card class="matchList">
+                            <mat-list role="list" *ngFor="let zapas of zapasy; index as i">
+                                <mat-list-item role="listitem" (click)="setActZapas(i)">{{zapas.nazov}}</mat-list-item>               
+                                <mat-divider></mat-divider>
+                            </mat-list>
+                        </mat-card>
+                    </td>
+                    <td>
+                        <h3>{{actUzivatel.meno}} {{actUzivatel.priezvisko}}</h3>
+                        <mat-list>
+                            <mat-list-item>
+                                <b>Typ účtu:&emsp;</b> {{actUzivatel.typ}}
+                            </mat-list-item>
+                            <br>
+                            <mat-list-item>
+                                <b>Meno:&emsp;</b> {{actUzivatel.meno}}
+                            </mat-list-item>
+                            <mat-list-item>
+                                <b>Priezvisko:&emsp;</b>{{actUzivatel.priezvisko}}
+                            </mat-list-item>
+                            <mat-list-item>
+                                <b>Vek:&emsp;</b> {{actUzivatel.vek}}
+                            </mat-list-item>
+                            <br>
+                            <mat-list-item>
+                                <b>Email:&emsp;</b> {{actUzivatel.email}}
+                            </mat-list-item>
+                            <br>
+                            <mat-list-item>
+                                <b>Login:&emsp;</b> {{actUzivatel.login}}
+                            </mat-list-item>
+                            <mat-list-item>
+                                <b>Heslo:&emsp;</b> {{actUzivatel.heslo}}
+                            </mat-list-item>
+                        </mat-list>
+    
+                        <button mat-raised-button class="button" (click)="makeAdmin()">Povýšiť na admina</button>
+                        <button mat-raised-button class="button" (click)="deleteAdmin()">Degradovať z admina</button>
+                        <button mat-raised-button class="button" (click)="updateUser()">Upraviť užívateľa</button>
+                        <button mat-raised-button class="button" (click)="deleteUser()">Odstrániť užívateľa</button>
+                    </td>
+                </tr>
+            </table>
+            <button mat-raised-button routerLink="/add-user">Pridať užívateľa</button>
+        </div>
+    </div>
+    

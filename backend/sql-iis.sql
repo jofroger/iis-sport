@@ -213,9 +213,10 @@ CREATE TABLE `Zapas`
 	`Nazov` varchar(50),
     `Miesto` varchar(50),
     `Datum` date,
+	`Vyherca` int,
+	`Uroven_zapasu` int,
     `Stav` varchar(50),
 	`TurnajID` int NOT NULL,
-	`Stav_zapasuID` int,
 	CONSTRAINT `PK_Zapas` PRIMARY KEY (`ZapasID` ASC)
 )
 
@@ -326,11 +327,6 @@ ALTER TABLE `Usporiadatel`
 ;
 
 ALTER TABLE `Zapas`
- ADD CONSTRAINT `FK_Zapas_zapas_ma_stav`
-	FOREIGN KEY (`Stav_zapasuID`) REFERENCES `Stav_zapasu` (`Stav_zapasuID`) ON DELETE No Action ON UPDATE No Action
-;
-
-ALTER TABLE `Zapas`
  ADD CONSTRAINT `FK_Zapas_sa_odohra`
 	FOREIGN KEY (`TurnajID`) REFERENCES `Turnaj` (`TurnajID`) ON DELETE No Action ON UPDATE No Action
 ;
@@ -434,18 +430,18 @@ INSERT INTO `tim_chce_hrat` (`TurnajID`, `TimID`) VALUES (5, 6);
 INSERT INTO `tim_chce_hrat` (`TurnajID`, `TimID`) VALUES (5, 7);
 INSERT INTO `tim_chce_hrat` (`TurnajID`, `TimID`) VALUES (5, 8);
 
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Rýchle šípy vs Daemon", "Trenčianska športová hala", DATE("2019-06-14"), "8:2", 1);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Team Liquid vs Fnatic", "Trenčianska športová hala", DATE("2019-06-21"), "1:4", 1);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("G2 vs Adamov", "Trenčianska športová hala", DATE("2019-06-28"), "5:3", 1);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Karči a Lajči vs Power Rangers", "Trenčianska športová hala", DATE("2019-07-05"), "3:2", 1);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Robo Tomáš vs Jozef Kandráč", "Bratislava športová hala", DATE("2020-07-20"), "0:0x", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Matej Hrdý vs Ján Krátky", "Bratislava športová hala", DATE("2020-07-20"), "0:0x", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Ján Matovič vs Juraj Kotleta", "Bratislava športová hala", DATE("2020-07-21"), "0:0x", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Andrej Zeman vs Alojz Marcin", "Bratislava športová hala", DATE("2020-07-21"), "0:0x", 2);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Rýchle šípy vs Adamov", "Hala radosť v Košiciach", DATE("2019-12-10"), "2:1*", 3);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("G2 vs Fnatic", "Hala radosť v Košiciach", DATE("2019-12-17"), "0:0x", 3);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("František Novák vs Marek Horvát", "SLOVNAFT hala BA", DATE("2020-05-5"), "0:0x", 4);
-INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `TurnajID`) VALUES ("Nikolas Nikolev vs Daniel Malý", "SLOVNAFT hala BA", DATE("2020-05-12"), "0:0x", 4);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("Rýchle šípy vs Daemon", "Trenčianska športová hala", DATE("2019-06-14"), "ukonceny", 1, 1, 1);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("Team Liquid vs Fnatic", "Trenčianska športová hala", DATE("2019-06-21"), "ukonceny", 4, 1, 1);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("G2 vs Adamov", "Trenčianska športová hala", DATE("2019-06-28"), "ukonceny", 5, 1, 1);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("Karči a Lajči vs Power Rangers", "Trenčianska športová hala", DATE("2019-07-05"), "ukonceny", 8, 1, 1);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("Robo Tomáš vs Jozef Kandráč", "Bratislava športová hala", DATE("2020-07-20"), "planovany", null, 1, 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("Matej Hrdý vs Ján Krátky", "Bratislava športová hala", DATE("2020-07-20"), "planovany", null, 1, 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("Ján Matovič vs Juraj Kotleta", "Bratislava športová hala", DATE("2020-07-21"), "planovany", null, 1, 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("Andrej Zeman vs Alojz Marcin", "Bratislava športová hala", DATE("2020-07-21"), "planovany", null, 1, 2);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("Rýchle šípy vs Adamov", "Hala radosť v Košiciach", DATE("2019-12-10"), "prebieha", null, 1, 3);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("G2 vs Fnatic", "Hala radosť v Košiciach", DATE("2019-12-17"), "planovany", null, 1, 3);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("František Novák vs Marek Horvát", "SLOVNAFT hala BA", DATE("2020-05-5"), "planovany", null, 1, 4);
+INSERT INTO `Zapas` (`Nazov`, `Miesto`, `Datum`, `Stav`, `Vyherca`, `Uroven_zapasu`, `TurnajID`) VALUES ("Nikolas Nikolev vs Daniel Malý", "SLOVNAFT hala BA", DATE("2020-05-12"), "planovany", null, 1, 4);
 
 INSERT INTO `tim_hra_v_zapase` (`ZapasID`, `TimID`) VALUES (1, 1);
 INSERT INTO `tim_hra_v_zapase` (`ZapasID`, `TimID`) VALUES (1, 2);

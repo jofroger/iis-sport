@@ -65,8 +65,9 @@ export interface Zapas {
     miesto: String
     datum: Date
     stav: String
+    vyherca: Number
+    uroven_zapasu: Number
     turnajID: Number
-    stav_zapasuID: Number
 }
 
 export interface Stav_zapasu {

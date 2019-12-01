@@ -4,7 +4,7 @@
 
         <table>
             <tr>
-                <th class="table-userList">
+                <td class="table-userList">
                     <h3>Zoznam užívateľov</h3>
                     <mat-card class="userList">
                         <mat-list role="list" *ngFor="let uzivatel of uzivatelia; index as i">
@@ -12,8 +12,8 @@
                             <mat-divider></mat-divider>
                         </mat-list>
                     </mat-card>
-                </th>
-                <th>
+                </td>
+                <td>
                     <h3>{{actUzivatel.meno}} {{actUzivatel.priezvisko}}</h3>
                     <mat-list>
                         <mat-list-item>
@@ -46,7 +46,7 @@
                     <button mat-raised-button class="button" (click)="deleteAdmin()">Degradovať z admina</button>
                     <button mat-raised-button class="button" (click)="updateUser()">Upraviť užívateľa</button>
                     <button mat-raised-button class="button" (click)="deleteUser()">Odstrániť užívateľa</button>
-                </th>
+                </td>
             </tr>
         </table>
         <button mat-raised-button routerLink="/add-user">Pridať užívateľa</button>
