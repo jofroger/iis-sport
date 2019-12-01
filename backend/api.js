@@ -621,7 +621,7 @@ router.post('/zapas', (req, res) => {
 
 router.put('/zapas/:id', function (req, res, next) {
   db.query(
-    'UPDATE Zapas SET Nazov=?, Miesto=?, Datum=?, Stav=?, TurnajID=? WHERE ZapasID=?',
+    'UPDATE Zapas SET Nazov=?, Miesto=?, Datum=?, Stav=?, Vyherca=?, Uroven_zapasu=?, TurnajID=? WHERE ZapasID=?',
     [req.body.nazov, req.body.miesto, req.body.datum, req.body.stav, req.body.vyherca, req.body.uroven_zapasu, req.body.turnajID, req.params.id],
     (error) => {
       if (error) {
