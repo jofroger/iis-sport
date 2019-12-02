@@ -11,6 +11,8 @@ import {ApiService} from '../api.service';
 })
 export class HomePageComponent implements OnInit {
 
+  timy: Tim[] = [];
+
   tim1: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
   tim2: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
   tim3: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
@@ -89,6 +91,17 @@ export class HomePageComponent implements OnInit {
   }
 
   private loadTimy() { /*1-14*/
+    
+    this.server.getAllTim().then( (resp: any) => {
+      this.timy = resp.map( (tim) => {
+        tim.nazov = tim.Nazov;
+        tim.logo = tim.Logo;
+        tim.pocet_vyhier = tim.Pocet_vyhier;
+        tim.odohrane_zapasy = tim.Odohrane_zapasy;
+        return tim;
+      })
+    })
+    /*
     for (let i = 1; i <= 14; i++) {
       this['tim' + i].id = i;
       this.server.getTim(this['tim' + i]).then( (resp: any) => {
@@ -101,10 +114,10 @@ export class HomePageComponent implements OnInit {
           document.getElementById('team' + i).style.display = 'none';
         }
       });
-    }
+    }*/
   }
 
   private sendTeamNumber(teamNumber) {
-    localStorage.setItem('timID', teamNumber);
+    localStorage.setItem('timID', teamNumber+1);
   }
 }

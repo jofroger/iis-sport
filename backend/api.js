@@ -157,7 +157,7 @@ router.post('/hrac', (req, res) => {
 router.put('/hrac/:id', function (req, res, next) {
   db.query(
     'UPDATE Hrac SET Odohrane_zapasy=?, Pocet_vyhier=?, Fotka=?, UzivatelID=? WHERE HracID=?',
-    [req.body.Odohrane_zapasy, req.body.Pocet_vyhier, req.body.Fotka, req.body.UzivatelID, req.params.id],
+    [req.body.odohrane_zapasy, req.body.pocet_vyhier, req.body.fotka, req.body.uzivatelID, req.params.id],
     (error) => {
       if (error) {
         res.status(500).
@@ -218,7 +218,7 @@ router.get('/usporiadatel/:id', function (req, res) {
 router.post('/usporiadatel', (req, res) => {
   db.query(
     "INSERT INTO Usporiadatel (Organizacia, UzivatelID) VALUES (?,?)",
-    [req.body.Organizacia, req.body.UzivatelID],
+    [req.body.organizacia, req.body.uzivatelID],
     (error) => {
       if (error) {
         console.error(error);
@@ -233,7 +233,7 @@ router.post('/usporiadatel', (req, res) => {
 router.put('/usporiadatel/:id', function (req, res, next) {
   db.query(
     'UPDATE Usporiadatel SET Organizacia=?, UzivatelID=? WHERE UsporiadatelID=?',
-    [req.body.Organizacia, req.body.UzivatelID, req.params.id],
+    [req.body.organizacia, req.body.uzivatelID, req.params.id],
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });
@@ -307,7 +307,7 @@ router.get('/rozhodca/uzivatel/:id', function (req, res) {
 router.post('/rozhodca', (req, res) => {
   db.query(
     "INSERT INTO Rozhodca (Typ, UzivatelID) VALUES (?,?)",
-    [req.body.Typ, req.body.UzivatelID],
+    [req.body.typ, req.body.uzivatelID],
     (error) => {
       if (error) {
         console.error(error);
@@ -322,7 +322,7 @@ router.post('/rozhodca', (req, res) => {
 router.put('/rozhodca/:id', function (req, res, next) {
   db.query(
     'UPDATE Rozhodca SET Typ=?, UzivatelID=? WHERE RozhodcaID=?',
-    [req.body.Typ, req.body.UzivatelID, req.params.id],
+    [req.body.typ, req.body.uzivatelID, req.params.id],
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });
@@ -381,7 +381,7 @@ router.get('/podmienky_turnaja/:id', function (req, res) {
 router.post('/podmienky_turnaja', (req, res) => {
   db.query(
     "INSERT INTO Podmienky_turnaja (Minimalny_vek_hracov, Pocet_hracov_v_tyme, Pocet_tymov, Registracny_poplatok, Druh_hry) VALUES (?,?,?,?,?)",
-    [req.body.Minimalny_vek_hracov, req.body.Pocet_hracov_v_tyme, req.body.Pocet_tymov, req.body.Registracny_poplatok, req.body.Druh_hry],
+    [req.body.minimalny_vek_hracov, req.body.pocet_hracov_v_tyme, req.body.pocet_tymov, req.body.registracny_poplatok, req.body.druh_hry],
     (error) => {
       if (error) {
         console.error(error);
@@ -396,7 +396,7 @@ router.post('/podmienky_turnaja', (req, res) => {
 router.put('/podmienky_turnaja/:id', function (req, res, next) {
   db.query(
     'UPDATE Podmienky_turnaja SET Minimalny_vek_hracov=?, Pocet_hracov_v_tyme=?, Pocet_tymov=?, Registracny_poplatok=?, Druh_hry=? WHERE Podmienky_turnajaID=?',
-    [req.body.Minimalny_vek_hracov, req.body.Pocet_hracov_v_tyme, req.body.Pocet_tymov, req.body.Registracny_poplatok, req.body.Druh_hry, req.params.id],
+    [req.body.minimalny_vek_hracov, req.body.pocet_hracov_v_tyme, req.body.pocet_tymov, req.body.registracny_poplatok, req.body.druh_hry, req.params.id],
     (error) => {
       if (error) {
         console.error(error);
@@ -457,7 +457,7 @@ router.get('/turnaj/:id', function (req, res) {
 router.post('/turnaj', (req, res) => {
   db.query(
     "INSERT INTO Turnaj (Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID) VALUES (?,?,?,?,?,?,?)",
-    [req.body.Nazov, req.body.Zaciatok, req.body.Koniec, req.body.Vyhra, req.body.Sponzori, req.body.Podmienky_turnajaID, req.body.UsporiadatelID],
+    [req.body.nazov, req.body.zaciatok, req.body.koniec, req.body.vyhra, req.body.sponzori, req.body.podmienky_turnajaID, req.body.usporiadatelID],
     (error) => {
       if (error) {
         console.error(error);
@@ -472,7 +472,7 @@ router.post('/turnaj', (req, res) => {
 router.put('/turnaj/:id', function (req, res, next) {
   db.query(
     'UPDATE Turnaj SET Nazov=?, Zaciatok=?, Koniec=?, Vyhra=?, Sponzori=?, Podmienky_turnajaID=?, UsporiadatelID=? WHERE TurnajID=?',
-    [req.body.Nazov, req.body.Zaciatok, req.body.Koniec, req.body.Vyhra, req.body.Sponzori, req.body.Podmienky_turnajaID, req.body.UsporiadatelID, req.params.id],
+    [req.body.nazov, req.body.zaciatok, req.body.koniec, req.body.vyhra, req.body.sponzori, req.body.podmienky_turnajaID, req.body.usporiadatelID, req.params.id],
     (error) => {
       if (error) {
         console.error(error);
@@ -785,7 +785,7 @@ router.get('/hrac_hra_v_time/tim/:id', function (req, res) {
 router.post('/hrac_hra_v_time', (req, res) => {
   db.query(
     "INSERT INTO hrac_hra_v_time (HracID, TimID) VALUES (?,?)",
-    [req.body.HracID, req.body.TimID],
+    [req.body.hracID, req.body.timID],
     (error) => {
       if (error) {
         console.error(error);
@@ -854,7 +854,7 @@ router.get('/tim_chce_hrat/tim/:id', function (req, res) {
 router.post('/tim_chce_hrat', (req, res) => {
   db.query(
     "INSERT INTO tim_chce_hrat (TurnajID, TimID) VALUES (?,?)",
-    [req.body.TurnajID, req.body.TimID],
+    [req.body.turnajID, req.body.timID],
     (error) => {
       if (error) {
         console.error(error);
@@ -923,7 +923,7 @@ router.get('/hrac_chce_hrat/hrac/:id', function (req, res) {
 router.post('/hrac_chce_hrat', (req, res) => {
   db.query(
     "INSERT INTO hrac_chce_hrat (TurnajID, HracID) VALUES (?,?)",
-    [req.body.TurnajID, req.body.HracID],
+    [req.body.turnajID, req.body.hracID],
     (error) => {
       if (error) {
         console.error(error);
@@ -993,7 +993,7 @@ router.get('/tim_hra_v_zapase/tim/:id', function (req, res) {
 router.post('/tim_hra_v_zapase', (req, res) => {
   db.query(
     "INSERT INTO tim_hra_v_zapase (ZapasID, TimID) VALUES (?,?)",
-    [req.body.ZapasID, req.body.TimID],
+    [req.body.zapasID, req.body.timID],
     (error) => {
       if (error) {
         console.error(error);
@@ -1062,7 +1062,7 @@ router.get('/hrac_hra_v_zapase/hrac/:id', function (req, res) {
 router.post('/hrac_hra_v_zapase', (req, res) => {
   db.query(
     "INSERT INTO hrac_hra_v_zapase (ZapasID, HracID) VALUES (?,?)",
-    [req.body.ZapasID, req.body.HracID],
+    [req.body.zapasID, req.body.hracID],
     (error) => {
       if (error) {
         console.error(error);
@@ -1131,7 +1131,7 @@ router.get('/rozhoduje_turnaj/rozhodca/:id', function (req, res) {
 router.post('/rozhoduje_turnaj', (req, res) => {
   db.query(
     "INSERT INTO rozhoduje_turnaj (TurnajID, RozhodcaID) VALUES (?,?)",
-    [req.body.TurnajID, req.body.RozhodcaID],
+    [req.body.turnajID, req.body.rozhodcaID],
     (error) => {
       if (error) {
         console.error(error);
@@ -1238,12 +1238,12 @@ router.get('/setkey', function (req, res) {
 
 
 var multer = require('multer');
-var DIR_H = '../../assets/fotky_hracov/';
+var DIR_H = '../src/assets/fotky_hracov/';
 var uploadHrac = multer({dest: DIR_H}).single('photo');
 
 router.post('/upload-img/hrac', function (req, res, next) {
   var path = '';
-  upload(req, res, function (err) {
+  uploadHrac(req, res, function (err) {
      if (err) {
        // An error occurred when uploading
        console.log(err);
@@ -1251,11 +1251,11 @@ router.post('/upload-img/hrac', function (req, res, next) {
      }  
     // No error occured.
      path = req.file.path;
-     res.status(200).json({"Fotka": path}); 
+     res.status(200).json({"Fotka": "../../assets/fotky_hracov/"+req.file.filename}); 
   });     
 })
 
-var DIR_T = '../../assets/loga_timov/'; 
+var DIR_T = '../src/assets/loga_timov/'; 
 var uploadTim = multer({dest: DIR_T}).single('photo');
 
 router.post('/upload-img/tim', function (req, res, next) {
@@ -1268,7 +1268,7 @@ router.post('/upload-img/tim', function (req, res, next) {
      }  
     // No error occured.
      path = req.file.path;
-     res.status(200).json({"Fotka": path}); 
+     res.status(200).json({"Fotka": "../../assets/loga_timov/"+req.file.filename}); 
   });     
 })
   return router;

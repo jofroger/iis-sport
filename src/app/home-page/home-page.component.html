@@ -46,168 +46,27 @@
           </div>
         </td>
         <td rowspan="2" style="vertical-align: top">
+          
           <div class="tabulkaTimy">
             <h3 style="margin-top: 20px">Tímy</h3>
+            
             <table class="tabulkaTimyZoznam" style="margin: 0px 5px 15px 5px">
               <th style="column-span: 2; font-size: 20px">Tím</th>
               <th style="font-size: 20px">Štatistiky</th>
-              <tr id="team1">
+
+              <tr *ngFor='let tim of timy; index as i'>
                 <td>
-                  <a href="team-detail" (click)="sendTeamNumber(1)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim1.logo}}">
-                    {{tim1.nazov}}
+                  <a href="team-detail" (click)="sendTeamNumber(i)">
+                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim.logo}}">
+                    {{tim.nazov}}
                   </a>
                 </td>
                 <td>
-                  {{tim1.pocet_vyhier}}/{{tim1.odohrane_zapasy}}
+                  {{tim.pocet_vyhier}}/{{tim.odohrane_zapasy}}
                 </td>
-              </tr> <!-- Jeden tim -->
-              <tr id="team2">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(2)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim2.logo}}">
-                    {{tim2.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim2.pocet_vyhier}}/{{tim2.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team3">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(3)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim3.logo}}">
-                    {{tim3.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim3.pocet_vyhier}}/{{tim3.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team4">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(4)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim4.logo}}">
-                    {{tim4.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim4.pocet_vyhier}}/{{tim4.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team5">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(5)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim5.logo}}">
-                    {{tim5.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim5.pocet_vyhier}}/{{tim5.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team6">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(6)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim6.logo}}">
-                    {{tim6.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim6.pocet_vyhier}}/{{tim6.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team7">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(7)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim7.logo}}">
-                    {{tim7.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim7.pocet_vyhier}}/{{tim7.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team8">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(8)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="{{tim8.logo}}">
-                    {{tim8.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim8.pocet_vyhier}}/{{tim8.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team9">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(9)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
-                    {{tim9.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim9.pocet_vyhier}}/{{tim9.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team10">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(10)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
-                    {{tim10.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim10.pocet_vyhier}}/{{tim10.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team11">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(11)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
-                    {{tim11.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim11.pocet_vyhier}}/{{tim11.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team12">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(12)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
-                    {{tim12.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim12.pocet_vyhier}}/{{tim12.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team13">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(13)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
-                    {{tim13.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim13.pocet_vyhier}}/{{tim13.odohrane_zapasy}}
-                </td>
-              </tr>
-              <tr id="team14">
-                <td>
-                  <a href="team-detail" (click)="sendTeamNumber(14)">
-                    <img class="teamFlagPlaceholder" alt="flagPlaceholder" src="../../assets/image-placeholder.jpg">
-                    {{tim14.nazov}}
-                  </a>
-                </td>
-                <td>
-                  {{tim14.pocet_vyhier}}/{{tim14.odohrane_zapasy}}
-                </td>
-              </tr>
+              </tr> 
             </table>
           </div>
-          <br>
           <div *ngIf="enAddTeam">
               <button mat-raised-button class="button" routerLink="/add-team">Pridať tím</button>
           </div>
