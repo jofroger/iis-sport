@@ -1,13 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Uzivatel, Hrac } from '../api.structures';
-//import the file-upload plugin
-//import the native angular http and respone libraries
 import { HttpClient, HttpResponse } from '@angular/common/http';
-//import the do function to be used with the http library.
-//import "rxjs/add/operator/do";
-//import the map function to be used with the http library
-//import "rxjs/add/operator/map";
+
 
 @Component({
   selector: 'app-user-detail',
