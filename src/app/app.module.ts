@@ -7,7 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule, MatInputModule } from '@angular/material';
+import {MatIconModule, MatInputModule, MatRadioModule} from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatTableModule} from '@angular/material';
 import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
@@ -81,7 +81,8 @@ import { TournamentDetailComponent } from './tournament-detail/tournament-detail
     MatTableModule,
     MatGridListModule,
     ScrollingModule,
-    CalendarModule
+    CalendarModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
