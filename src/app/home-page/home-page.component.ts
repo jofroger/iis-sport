@@ -1,5 +1,6 @@
+/* tslint:disable:max-line-length */
 import { Component, OnInit } from '@angular/core';
-import { Tim } from '../api.structures';
+import {Stav_zapasu, Tim} from '../api.structures';
 import { Zapas } from '../api.structures';
 import {ApiService} from '../api.service';
 
@@ -25,13 +26,25 @@ export class HomePageComponent implements OnInit {
   tim13: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
   tim14: Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
 
-
   Zapas1: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
   Zapas2: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
   Zapas3: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
   Zapas4: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
   Zapas5: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
   Zapas6: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
+
+  stavZapasu1: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu2: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu3: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu4: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu5: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu6: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu7: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu8: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu9: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu10: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu11: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu12: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
 
   constructor(private server: ApiService) { }
 
@@ -47,7 +60,20 @@ export class HomePageComponent implements OnInit {
         this['Zapas' + i].nazov = resp[0].Nazov;
         this['Zapas' + i].miesto = resp[0].Miesto;
         this['Zapas' + i].datum = resp[0].Datum;
-        this['Zapas' + i].stav = resp[0].Stav;
+
+        if (resp[0].Stav === 'planovany') {
+          this['stavZapasu' + (i * 2 - 1)].ziskane_sety = 'x';
+          this['stavZapasu' + (i * 2 - 1)].ziskane_gemy = 'x';
+          this['stavZapasu' + (i * 2)].ziskane_sety = 'x';
+          this['stavZapasu' + (i * 2)].ziskane_gemy = 'x';
+        } else {
+          this.server.getStav_zapasuByZapas(this['Zapas' + i]).then( (resp: any) => {
+            this['stavZapasu' + (i * 2 - 1)].ziskane_sety = resp[0].Ziskane_sety;
+            this['stavZapasu' + (i * 2 - 1)].ziskane_gemy = resp[0].Ziskane_gemy;
+            this['stavZapasu' + (i * 2)].ziskane_sety = resp[1].Ziskane_sety;
+            this['stavZapasu' + (i * 2)].ziskane_gemy = resp[1].Ziskane_gemy;
+          });
+        }
       });
       this.server.getTimByZapas(this['Zapas' + i]).then( (resp: any) => { // Nastavenie loga timu pri zapasoch
         // tslint:disable-next-line:max-line-length
