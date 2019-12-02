@@ -454,6 +454,21 @@ router.get('/turnaj/:id', function (req, res) {
   );
 });
 
+router.get('/turnaj/usporiadatel/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Turnaj WHERE UsporiadatelID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 router.post('/turnaj', (req, res) => {
   db.query(
     "INSERT INTO Turnaj (Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID) VALUES (?,?,?,?,?,?,?)",
@@ -593,6 +608,21 @@ router.get('/zapas/:id', function (req, res) {
   db.query(
     "SELECT * FROM Zapas WHERE ZapasID=?",
     [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+router.get('/zapas/turnaj-uroven/:id&:uroven', function (req, res) {
+  db.query(
+    "SELECT * FROM Zapas WHERE TurnajID=? AND Uroven_zapasu=?",
+    [req.params.id, req.params.uroven],
     (error, results) => {
       if (error) {
         console.log(error);
@@ -1047,6 +1077,26 @@ router.get('/hrac_hra_v_zapase/hrac/:id', function (req, res) {
      INNER JOIN hrac_hra_v_zapase USING (HracID) \
      INNER JOIN Zapas USING (ZapasID) \
      WHERE HracID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+router.get('/uzivatel_hra_v_zapase/zapas/:id', function (req, res) {
+  db.query(
+    "SELECT * \
+     FROM Zapas  \
+     INNER JOIN hrac_hra_v_zapase USING (ZapasID) \
+     INNER JOIN Hrac USING (HracID) \
+     INNER JOIN Uzivatel USING (UzivatelID) \
+     WHERE ZapasID=?",
     [req.params.id],
     (error, results) => {
       if (error) {

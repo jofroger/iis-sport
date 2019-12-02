@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ApiService} from '../api.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Stav_zapasu, Tim, Turnaj, Usporiadatel, Zapas} from '../api.structures';
+import {Stav_zapasu, Tim, Turnaj, Usporiadatel, Zapas, Podmienky_turnaja} from '../api.structures';
 import * as Collections from 'typescript-collections';
 import * as binarySearchTree from '@datastructures-js/binary-search-tree';
+import { FileSelectDirective } from 'ng2-file-upload';
 
-
+interface TreeBox {
+    nazov: String
+    score: Number
+}
 
 @Component({
   selector: 'app-championship-tree',
@@ -21,800 +25,135 @@ import * as binarySearchTree from '@datastructures-js/binary-search-tree';
   ],
 })
 
-
-
-
-
-
-
-
 export class ChampionshipTreeComponent implements OnInit {
+  index : any = 0;
 
-  a: Tim[] = [];
-  //Tabulky pre dvojice
-  Dvojice1Uroven: Tim[] = [];
-  Dvojice2Uroven: Tim[] = [];
-  Dvojice3Uroven: Tim[] = [];
-  Dvojice4Uroven: Tim[] = [];
-  //Pocitadla pre dvojice
-  u1 = 0;
-  u2 = 0;
-  u3 = 0;
-  u4 = 0;
+  actZapas: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: null, vyherca: null, uroven_zapasu: null, turnajID: null};
+  zapasy: Zapas[] = [];
+  
+  actTurnaj: Turnaj = {id: null, nazov:'', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID: null, uzivatelID: null};
+  turnaje: Turnaj[] = [];
 
-  //Tabulky pre skore
-  Skore1Uroven: Stav_zapasu[] = [];
-  Skore2Uroven: Stav_zapasu[] = [];
-  Skore3Uroven: Stav_zapasu[] = [];
-  Skore4Uroven: Stav_zapasu[] = [];
-  //Pocitadla pre skore
-  s1 = 0;
-  s2 = 0;
-  s3 = 0;
-  s4 = 0;
+  zapasyUroven1 : Zapas[] = [];
+  zapasyUroven2 : Zapas[] = [];
+  zapasyUroven3 : Zapas[] = [];
 
+  boxyUroven1 : TreeBox[] = new Array<TreeBox>(8);
+  boxyUroven2 : TreeBox[] = new Array<TreeBox>(4);
+  boxyUroven3 : TreeBox = {nazov:'', score: null};
 
+  constructor(private router: Router, private server: ApiService) { }
 
-
-  //Zapasy
-  //Finalovy zapas
-  zapas10000 = new Vysledky('', '', '', '');
-
-  //Zapasy pod finalovym
-  zapas3040 = new Vysledky('', '', '', '');
-  zapas1020 = new Vysledky('', '', '', '');
-
-  //Zakadne zapasy
-  zapas78 = new Vysledky('', '', '', '');
-  zapas56 = new Vysledky('', '', '', '');
-  zapas34 = new Vysledky('', '', '', '');
-  zapas12 = new Vysledky('', '', '', '');
-
-
-
-
-
-  copyZapas: Zapas = {
-    id: null,
-    nazov: '',
-    miesto: '',
-    datum: null,
-    stav: '',
-    vyherca: null,
-    uroven_zapasu: null,
-    turnajID: null,
-  };
-
-  currentTurnaj: Turnaj = {
-    id: null,
-    nazov: '',
-    zaciatok: null,
-    koniec: null,
-    vyhra: '',
-    sponzori: '',
-    povrch: '',
-    podmienky_turnajaID: null,
-    uzivatelID: null
-  };
-
-  // currentZapas: Zapas = {id: null,
-  //                        nazov: '',
-  //                        miesto: '',
-  //                        datum: null,
-  //                        stav: '',
-  //                        turnajID: null,
-  // };
-
-
-  dbTurnajData: Turnaj[] = [];
-
-  dataSource: Turnaj[] = [];
-  columnsToDisplay = ['Liga', 'zaciatok', 'zaciatokCTurnaju', 'ukoncenie', 'koniecCTurnaju'];
-  expandedElement: Turnaj | null;
-
-
-  constructor(private router: Router, private server: ApiService) {
+  ngOnInit() {
+    this.getTurnaje();
   }
 
-  // Funkcia pre taublku, hlavicka, nazvy ligy atd
-  fu() {
-    this.server.getAllTurnaj().then((resp: any) => {
-      console.log(resp);
-      let ZaciatokDatumCut;
-      let KoniecDatumCut;
-
-      let ZaciatokCasCut;
-      let KoniecCasCut;
-
-      this.dbTurnajData = resp.map((turnaj) => {
-        turnaj.Liga = turnaj.Nazov;
-
-        ZaciatokDatumCut = turnaj.Zaciatok.substring(0, 10);
-        turnaj.zaciatok = ZaciatokDatumCut;
-
-        KoniecDatumCut = turnaj.Koniec.substring(0, 10);
-        turnaj.ukoncenie = KoniecDatumCut;
-
-        ZaciatokCasCut = turnaj.Zaciatok.substring(11, 16);
-        turnaj.zaciatokCTurnaju = ZaciatokCasCut;
-
-
-        KoniecCasCut = turnaj.Koniec.substring(11, 16);
-        turnaj.koniecCTurnaju = KoniecCasCut;
-
-
-        return turnaj;
-      });
-      console.log(this.dbTurnajData);
-      this.dataSource = this.dbTurnajData;
-
-    });
-
+  getTurnaje() {
+    this.server.getAllTurnaj().then( (resp:any) => {
+      this.turnaje = resp.map( (tu) => {
+        tu.id = tu.TurnajID;
+        tu.nazov = tu.Nazov;
+        tu.zaciatok = tu.Zaciatok; 
+        tu.koniec = tu.Koniec;
+        tu.vyhra = tu.Vyhra;
+        tu.sponzori = tu.Sponzori;
+        tu.povrch = tu.Povrch;
+        tu.podmienky_turnajaID = tu.Podmienky_turnajaID;
+        tu.uzivatelID = tu.UzivatelID;
+        return tu;
+      })
+      
+      this.setActTurnaj(this.index);
+    })
   }
 
-  ngOnInit(): void {
-    this.fu();
+  setActTurnaj(idx) {
+    this.index = idx;
+    this.actTurnaj = this.turnaje[this.index];
+    this.fillTree();
   }
 
+  fillTree() {
+    this.getZapasyByUroven();
+    //this.fillUrovne();
+  }
 
-// Zavislost
-// https://www.npmjs.com/package/typescript-collections
-// npm install typescript-collections --save
-  async reloadTreeTable(el) {
-
-    //Vynulovanie, kvoli dalsiemu volaniu pri stlaceni
-    this.Dvojice1Uroven = [];
-    this.u1 = 0;
-    this.s1 = 0;
-
-    this.Dvojice2Uroven = [];
-    this.u2 = 0;
-    this.s2 = 0;
-
-    this.Dvojice3Uroven = [];
-    this.u3 = 0;
-    this.s3 = 0;
-
-    this.Dvojice4Uroven = [];
-    this.u4 = 0;
-    this.s4 = 0;
-
-
-    //Ziskany turnaj z kliknutia
-    this.currentTurnaj.id = el.TurnajID;
-    this.currentTurnaj.nazov = el.Nazov;
-    this.currentTurnaj.zaciatok = el.Zaciatok;
-    this.currentTurnaj.koniec = el.Koniec;
-    this.currentTurnaj.vyhra = el.Vyhra;
-    this.currentTurnaj.sponzori = el.Sponzori;
-    this.currentTurnaj.povrch = el.Povrch;
-    this.currentTurnaj.podmienky_turnajaID = el.Podmienky_turnajaID;
-    this.currentTurnaj.uzivatelID = el.UzivatelID;
-
-    //Hladam zapasy
-    this.server.getZapasByTurnaj(this.currentTurnaj).then((resp1: any) => {
-      for (const DetailZapasu of resp1) {
-        console.log(DetailZapasu.uroven_zapasu);
-
-        this.copyZapas.id = DetailZapasu.ZapasID;
-        this.copyZapas.nazov = DetailZapasu.Nazov;
-        this.copyZapas.miesto = DetailZapasu.Miesto;
-        this.copyZapas.datum = DetailZapasu.Datum;
-        this.copyZapas.stav = DetailZapasu.Stav;
-        this.copyZapas.vyherca = DetailZapasu.Vyherca;
-        this.copyZapas.uroven_zapasu = DetailZapasu.Uroven_zapasu;
-        this.copyZapas.turnajID = DetailZapasu.TurnajID;
-
-        //Ziskaj tym
-        this.server.getTimByZapas(this.copyZapas).then((TimyVZapase3: any) => {
-
-          if (DetailZapasu.Uroven_zapasu === 3) {
-
-            // console.log("Zapas");
-            // console.log(this.copyZapas);
-            // console.log("Tymy");
-            // console.log(TimyVZapase3);
-
-            this.Dvojice3Uroven[this.u3] = TimyVZapase3[0];
-            this.u3 = this.u3 + 1;
-            this.Dvojice3Uroven[this.u3] = TimyVZapase3[1];
-            this.u3 = this.u3 + 1;
-
-            // console.log("dvojice3");
-            // console.log(this.Dvojice3Uroven);
-
-            // this.server.getStav_zapasuByZapas(this.copyZapas).then((StavZapasu3: any) => {
-            //   console.log("stav zapasu");
-            //   console.log(StavZapasu3);
-            //
-            //   this.Skore3Uroven[this.s3] = StavZapasu3[0];
-            //   this.s3 = this.s3 + 1;
-            //   this.Skore3Uroven[this.s3] = StavZapasu3[1];
-            //   this.s3 = this.s3 + 1;
-            //
-            // });
-
-          }
-          if (DetailZapasu.Uroven_zapasu === 2) {
-
-            this.Dvojice2Uroven[this.u2] = TimyVZapase3[0];
-            this.u2 = this.u2 + 1;
-            this.Dvojice2Uroven[this.u2] = TimyVZapase3[1];
-            this.u2 = this.u2 + 1;
-
-
-            // console.log("dvojice2");
-            // console.log(this.Dvojice2Uroven);
-            // this.a[0] = this.Dvojice1Uroven[0];
-
-            // this.server.getStav_zapasuByZapas(this.copyZapas).then((StavZapasu2: any) => {
-            //   // console.log("stav zapasu");
-            //   // console.log(StavZapasu);
-            //
-            //   this.Skore2Uroven[this.s2] = StavZapasu2[0];
-            //   this.s2 = this.s2 + 1;
-            //   this.Skore2Uroven[this.s2] = StavZapasu2[1];
-            //   this.s2 = this.s2 + 1;
-            //
-            // });
-
-          }
-
-          if (DetailZapasu.Uroven_zapasu === 1) {
-            this.Dvojice1Uroven[this.u1] = TimyVZapase3[0];
-            this.u1 = this.u1 + 1;
-            this.Dvojice1Uroven[this.u1] = TimyVZapase3[1];
-            this.u1 = this.u1 + 1;
-
-            // console.log(TimyVZapase);
-
-            // this.server.getStav_zapasuByZapas(this.copyZapas).then((StavZapasu1: any) => {
-            //   // console.log("stav zapasu");
-            //   // console.log(StavZapasu);
-            //
-            //   this.Skore1Uroven[this.s1] = StavZapasu1[0];
-            //   this.s1 = this.s1 + 1;
-            //   this.Skore1Uroven[this.s1] = StavZapasu1[1];
-            //   this.s1 = this.s1 + 1;
-            //
-            // });
-          }
-          // console.log(this.Dvojice3Uroven[0]);
-
-          // this.zapas10000.TEAM1 = this.Dvojice3Uroven[0].nazov;
-          // this.zapas10000.TEAM2 = this.Dvojice3Uroven[1].nazov;
-
-          // console.log(this.zapas10000.TEAM1);
-
-          // console.log(TimyVZapase);
+  getZapasyByUroven() {
+    this.server.getZapasByTurnajAndUroven(this.actTurnaj, 1).then( (resp:any) => {
+      this.zapasyUroven1 = resp.map( (za) => {
+          za.id = za.ZapasID;
+          za.nazov = za.Nazov;
+          za.miesto = za.Miesto;
+          za.datum = za.Datum;
+          za.stav = za.Stav;
+          za.vyherca = za.Vyherca;
+          za.uroven_zapasu = za.Uroven_zapasu;
+          za.turnajID = za.TurnajID;
+          return za;
         });
 
-        if (DetailZapasu.Uroven_zapasu === 3) {
-
-          this.server.getStav_zapasuByZapas(this.copyZapas).then((StavZapasu3: any) => {
-
-            this.Skore3Uroven[this.s3] = StavZapasu3[0];
-            this.s3 = this.s3 + 1;
-            this.Skore3Uroven[this.s3] = StavZapasu3[1];
-            this.s3 = this.s3 + 1;
-
-          });
-        }
-
-        if (DetailZapasu.Uroven_zapasu === 2) {
-
-          this.server.getStav_zapasuByZapas(this.copyZapas).then((StavZapasu2: any) => {
-            // console.log("stav zapasu");
-            // console.log(StavZapasu);
-
-            this.Skore2Uroven[this.s2] = StavZapasu2[0];
-            this.s2 = this.s2 + 1;
-            this.Skore2Uroven[this.s2] = StavZapasu2[1];
-            this.s2 = this.s2 + 1;
-
-          });
-        }
-
-        if (DetailZapasu.Uroven_zapasu === 1) {
-          this.server.getStav_zapasuByZapas(this.copyZapas).then((StavZapasu1: any) => {
-            // console.log("stav zapasu");
-            // console.log(StavZapasu);
-
-            this.Skore1Uroven[this.s1] = StavZapasu1[0];
-            this.s1 = this.s1 + 1;
-            this.Skore1Uroven[this.s1] = StavZapasu1[1];
-            this.s1 = this.s1 + 1;
-
-          });
-        }
-        // }
-        // if (DetailZapasu.Uroven_zapasu === 2 ) {
-        //     this.server.getTimByZapas(this.copyZapas).then((TimyVZapase2: any) => {
-        //
-        //       this.Dvojice2Uroven[this.u2] = TimyVZapase2[0];
-        //       this.u2 = this.u2 + 1;
-        //       this.Dvojice2Uroven[this.u2] = TimyVZapase2[1];
-        //       this.u2 = this.u2 + 1;
-        //
-        //
-        //       console.log("dvojice2");
-        //       console.log(this.Dvojice2Uroven);
-        //       this.a[0] = this.Dvojice1Uroven[0];
-        //
-        //       // console.log(TimyVZapase);
-        //     });
-        // }
-
-        // if (DetailZapasu.Uroven_zapasu === 1 ) {
-        //     this.server.getTimByZapas(this.copyZapas).then((TimyVZapase1: any) => {
-        //
-        //       this.Dvojice1Uroven[this.u1] = TimyVZapase1[0];
-        //       this.u1 = this.u1 + 1;
-        //       this.Dvojice1Uroven[this.u1] = TimyVZapase1[1];
-        //       this.u1 = this.u1 + 1;
-        //
-        //       // console.log(TimyVZapase);
-        //     });
-        // }
-
-      }
+        this.fillUrovne();
     });
 
-    // delay kvoly synchronizacii
-    await delay(300);
+    this.server.getZapasByTurnajAndUroven(this.actTurnaj, 2).then( (resp:any) => {
+      this.zapasyUroven2 = resp.map( (za) => {
+          za.id = za.ZapasID;
+          za.nazov = za.Nazov;
+          za.miesto = za.Miesto;
+          za.datum = za.Datum;
+          za.stav = za.Stav;
+          za.vyherca = za.Vyherca;
+          za.uroven_zapasu = za.Uroven_zapasu;
+          za.turnajID = za.TurnajID;
+          return za;
+        });
+    });
 
+    this.server.getZapasByTurnajAndUroven(this.actTurnaj, 3).then( (resp:any) => {
+      this.zapasyUroven3 = resp.map( (za) => {
+          za.id = za.ZapasID;
+          za.nazov = za.Nazov;
+          za.miesto = za.Miesto;
+          za.datum = za.Datum;
+          za.stav = za.Stav;
+          za.vyherca = za.Vyherca;
+          za.uroven_zapasu = za.Uroven_zapasu;
+          za.turnajID = za.TurnajID;
+          return za;
+        });
+    });
+  }
 
-    // console.log('anoo33', this.Dvojice1Uroven);
-    // this.a[0] = this.Dvojice1Uroven[0];
-    // console.log('aaa', this.a);
-
-    // console.log("Dvojica3");
-    // console.log(this.Dvojice3Uroven);
-    // console.log("Skore3");
-    // console.log(this.Skore3Uroven);
-    // console.log(this.Dvojice3Uroven[0].Nazov);
-
-    // console.log(this.Dvojice3Uroven[0].Nazov);
-
-
-
-
-
-    //Naplnenie
-
-
-    //najvyssi zapas ak existuje
-    if (this.Dvojice3Uroven.length !== 0) {
-      this.zapas10000.TEAM1 = this.Dvojice3Uroven[0].Nazov;
-      this.zapas10000.SKORE1 = this.Skore3Uroven[0].Ziskane_sety;
-      this.zapas10000.TEAM2 = this.Dvojice3Uroven[1].Nazov;
-      this.zapas10000.SKORE2 = this.Skore3Uroven[1].Ziskane_sety;
-    } else {
-      this.zapas10000.TEAM1 = '';
-      this.zapas10000.SKORE1 = '';
-      this.zapas10000.TEAM2 = '';
-      this.zapas10000.SKORE2 = '';
-
+  fillUrovne() {
+    let podm: Podmienky_turnaja = {
+      id: this.actTurnaj.podmienky_turnajaID,
+      minimalny_vek_hracov: null,
+      pocet_hracov_v_tyme: null,
+      pocet_tymov: null,
+      registracny_poplatok: '',
+      druh_hry: ''
     }
 
-    console.log('Dlzka dvojice 2 ', this.Dvojice2Uroven.length);
+    this.server.getPodmienky_turnaja(podm).then( (resp:any) => {
+      podm.pocet_hracov_v_tyme = resp[0].Pocet_hracov_v_tyme;
 
-    //Ak existuju zapasy v 2 urovni
-    if (this.Dvojice2Uroven.length !== 0) {
-
-      console.log('Dlzka', this.Dvojice2Uroven.length);
-      console.log('Timy', this.Dvojice2Uroven);
-
-      let Najdeny1 = 0;
-      let Najdeny2 = 0;
-
-      // Ak uz sa hralo Finale
-      if (this.Dvojice3Uroven.length === 2) {
-        for (const NazovTymu of this.Dvojice3Uroven) {
-          console.log(NazovTymu.Nazov);
-
-          // Hladam postupujuceho z nizsej urovni
-          // s jeho nazvom tymu, teda dvojicu v jeho nizsej urovni
-          if (NazovTymu.Nazov === this.zapas10000.TEAM1) {
-            console.log("rovna sa TEAM1");
-
-            // Hladam zapas kde postupil
-            for (const NajdiZapas of this.Dvojice2Uroven) {
-              if (NajdiZapas.Nazov === NazovTymu.Nazov) {
-                console.log(NajdiZapas);
-                // Ak je pozicia parna, jeho super je pozicia+1
-                // Ak je pozicia neparna, jeho super je pozicia-1
-                const polePozicia = this.Dvojice2Uroven.indexOf(NajdiZapas);
-                console.log(polePozicia % 2);
-
-                Najdeny2 = 1;
-
-                if ((polePozicia % 2) === 1) {
-                  this.zapas3040.TEAM1 = this.Dvojice2Uroven[polePozicia - 1].Nazov;
-                  this.zapas3040.SKORE1 = this.Skore2Uroven[polePozicia - 1].Ziskane_sety;
-                  this.zapas3040.TEAM2 = this.Dvojice2Uroven[polePozicia].Nazov;
-                  this.zapas3040.SKORE2 = this.Skore2Uroven[polePozicia].Ziskane_sety;
-                } else {
-                  this.zapas3040.TEAM1 = this.Dvojice2Uroven[polePozicia].Nazov;
-                  this.zapas3040.SKORE1 = this.Skore2Uroven[polePozicia].Ziskane_sety;
-                  this.zapas3040.TEAM2 = this.Dvojice2Uroven[polePozicia + 1].Nazov;
-                  this.zapas3040.SKORE2 = this.Skore2Uroven[polePozicia + 1].Ziskane_sety;
-                }
-
-
-              }
-            }
-
-          } else if (Najdeny2 === 0) {
-            this.zapas3040.TEAM1 = '';
-            this.zapas3040.SKORE1 = '';
-            this.zapas3040.TEAM2 = '';
-            this.zapas3040.SKORE2 = '';
-          }
-
-          if (NazovTymu.Nazov === this.zapas10000.TEAM2) {
-            console.log("rovna sa TEAM2");
-
-            for (const NajdiZapas of this.Dvojice2Uroven) {
-              if (NajdiZapas.Nazov === NazovTymu.Nazov) {
-                console.log(NajdiZapas);
-                // Ak je pozicia parna, jeho super je pozicia+1
-                // Ak je pozicia neparna, jeho super je pozicia-1
-                const polePozicia = this.Dvojice2Uroven.indexOf(NajdiZapas);
-                console.log(polePozicia % 2);
-
-                Najdeny1 = 1;
-
-                if ((polePozicia % 2) === 1) {
-                  this.zapas1020.TEAM1 = this.Dvojice2Uroven[polePozicia - 1].Nazov;
-                  this.zapas1020.SKORE1 = this.Skore2Uroven[polePozicia - 1].Ziskane_sety;
-                  this.zapas1020.TEAM2 = this.Dvojice2Uroven[polePozicia].Nazov;
-                  this.zapas1020.SKORE2 = this.Skore2Uroven[polePozicia].Ziskane_sety;
-                } else {
-                  this.zapas1020.TEAM1 = this.Dvojice2Uroven[polePozicia].Nazov;
-                  this.zapas1020.SKORE1 = this.Skore2Uroven[polePozicia].Ziskane_sety;
-                  this.zapas1020.TEAM2 = this.Dvojice2Uroven[polePozicia + 1].Nazov;
-                  this.zapas1020.SKORE2 = this.Skore2Uroven[polePozicia + 1].Ziskane_sety;
-                }
-
-                console.log("prvy zapas");
-                console.log(this.zapas1020.TEAM1);
-                console.log(this.zapas1020.TEAM2);
-
-              }
-            }
-
-          } else if (Najdeny1 === 0) {
-            this.zapas1020.TEAM1 = '';
-            this.zapas1020.SKORE1 = '';
-            this.zapas1020.TEAM2 = '';
-            this.zapas1020.SKORE2 = '';
-          }
-
+      if (podm.pocet_hracov_v_tyme === 1) {
+        let boxIdx = 0;
+        for (let i = 0; i < this.zapasyUroven1.length; i++) {
+          this.server.getUzivatelByZapas(this.zapasyUroven1[i]).then( (resp:any) => {
+            this.boxyUroven1[boxIdx++].nazov = resp[0].Meno + resp[0].Priezvisko;
+            this.boxyUroven1[boxIdx++].nazov = resp[1].Meno + resp[1].Priezvisko;
+          })
         }
-
-        // AK sa nehralo finale
-      } else {
-        console.log("nehralo sa");
-        console.log(this.Dvojice2Uroven);
-
-        if (this.Dvojice2Uroven.length === 4) {
-
-          this.zapas1020.TEAM1 = this.Dvojice2Uroven[0].Nazov;
-          this.zapas1020.SKORE1 = this.Skore2Uroven[0].Ziskane_sety;
-          this.zapas1020.TEAM2 = this.Dvojice2Uroven[1].Nazov;
-          this.zapas1020.SKORE2 = this.Skore2Uroven[1].Ziskane_sety;
-
-          this.zapas3040.TEAM1 = this.Dvojice2Uroven[2].Nazov;
-          this.zapas3040.SKORE1 = this.Skore2Uroven[2].Ziskane_sety;
-          this.zapas3040.TEAM2 = this.Dvojice2Uroven[3].Nazov;
-          this.zapas3040.SKORE2 = this.Skore2Uroven[3].Ziskane_sety;
-
-        } else if (this.Dvojice2Uroven.length === 2) {
-
-          this.zapas1020.TEAM1 = this.Dvojice2Uroven[0].Nazov;
-          this.zapas1020.SKORE1 = this.Skore2Uroven[0].Ziskane_sety;
-          this.zapas1020.TEAM2 = this.Dvojice2Uroven[1].Nazov;
-          this.zapas1020.SKORE2 = this.Skore2Uroven[1].Ziskane_sety;
-
-        }
+        console.log(this.boxyUroven1);
       }
+      else {
 
-
-      // this.zapas3040.TEAM1 = this.Dvojice2Uroven[0].Nazov;
-      // this.zapas3040.SKORE1 = this.Skore2Uroven[0].Ziskane_sety;
-      // this.zapas3040.TEAM2 = this.Dvojice2Uroven[1].Nazov;
-      // this.zapas3040.SKORE2 = this.Skore2Uroven[1].Ziskane_sety;
-    } else {
-      this.zapas1020.TEAM1 = '';
-      this.zapas1020.SKORE1 = '';
-      this.zapas1020.TEAM2 = '';
-      this.zapas1020.SKORE2 = '';
-
-      this.zapas3040.TEAM1 = '';
-      this.zapas3040.SKORE1 = '';
-      this.zapas3040.TEAM2 = '';
-      this.zapas3040.SKORE2 = '';
-    }
-
-
-    console.log('Dvojica1 pocet: ', this.Dvojice1Uroven.length);
-
-    if (this.Dvojice1Uroven.length !== 0) {
-
-      console.log('Dlzka', this.Dvojice1Uroven.length);
-      console.log('Timy', this.Dvojice1Uroven);
-
-      let Najdeny1 = 0;
-      let Najdeny2 = 0;
-      let Najdeny3 = 0;
-      let Najdeny4 = 0;
-
-      // Odohrane vsetky zapasy vyssej urovne
-      if (this.Dvojice2Uroven.length === 4) {
-        for (const NazovTymu of this.Dvojice2Uroven) {
-          console.log(NazovTymu);
-
-          // Hladam postupujuceho z nizsej urovni
-          if (NazovTymu.Nazov === this.zapas1020.TEAM1) {
-            console.log("-------zapas1020 NazovTymu", NazovTymu);
-
-            for (const NajdiZapas of this.Dvojice1Uroven) {
-              if (NajdiZapas.Nazov === NazovTymu.Nazov) {
-                console.log('-------zapas1020 Najdi zapas', NajdiZapas);
-
-                // Ak je pozicia parna, jeho super je pozicia+1
-                // Ak je pozicia neparna, jeho super je pozicia-1
-                const polePozicia = this.Dvojice1Uroven.indexOf(NajdiZapas);
-                console.log(polePozicia);
-
-                Najdeny1 = 1;
-
-
-                console.log('-------------D1 ', NazovTymu.Nazov);
-                console.log('-------------D1 ', this.Dvojice1Uroven);
-                console.log('-------------S1', this.Skore1Uroven)
-
-
-                if ((polePozicia % 2) === 1) {
-                  this.zapas12.TEAM1 = this.Dvojice1Uroven[polePozicia - 1].Nazov;
-                  this.zapas12.SKORE1 = this.Skore1Uroven[polePozicia - 1].Ziskane_sety;
-                  this.zapas12.TEAM2 = this.Dvojice1Uroven[polePozicia].Nazov;
-                  this.zapas12.SKORE2 = this.Skore1Uroven[polePozicia].Ziskane_sety;
-                } else {
-                  this.zapas12.TEAM1 = this.Dvojice1Uroven[polePozicia].Nazov;
-                  this.zapas12.SKORE1 = this.Skore1Uroven[polePozicia].Ziskane_sety;
-                  this.zapas12.TEAM2 = this.Dvojice1Uroven[polePozicia + 1].Nazov;
-                  this.zapas12.SKORE2 = this.Skore1Uroven[polePozicia + 1].Ziskane_sety;
-                }
-
-              }
-
-            }
-          }
-          if (NazovTymu.Nazov === this.zapas1020.TEAM2) {
-            console.log("rovna sa TEAM", NazovTymu);
-
-            for (const NajdiZapas of this.Dvojice1Uroven) {
-              if (NajdiZapas.Nazov === NazovTymu.Nazov) {
-                console.log('Najdi zapas', NajdiZapas);
-
-                // Ak je pozicia parna, jeho super je pozicia+1
-                // Ak je pozicia neparna, jeho super je pozicia-1
-                const polePozicia = this.Dvojice1Uroven.indexOf(NajdiZapas);
-                console.log(polePozicia);
-
-                Najdeny2 = 1;
-
-                // console.log('-------------S3', this.Skore3Uroven)
-                // console.log('-------------S2', this.Skore2Uroven)
-                // console.log('-------------S1', this.Skore1Uroven)
-
-
-                if ((polePozicia % 2) === 1) {
-                  this.zapas34.TEAM1 = this.Dvojice1Uroven[polePozicia - 1].Nazov;
-                  this.zapas34.SKORE1 = this.Skore1Uroven[polePozicia - 1].Ziskane_sety;
-                  this.zapas34.TEAM2 = this.Dvojice1Uroven[polePozicia].Nazov;
-                  this.zapas34.SKORE2 = this.Skore1Uroven[polePozicia].Ziskane_sety;
-                } else {
-                  this.zapas34.TEAM1 = this.Dvojice1Uroven[polePozicia].Nazov;
-                  this.zapas34.SKORE1 = this.Skore1Uroven[polePozicia].Ziskane_sety;
-                  this.zapas34.TEAM2 = this.Dvojice1Uroven[polePozicia + 1].Nazov;
-                  this.zapas34.SKORE2 = this.Skore1Uroven[polePozicia + 1].Ziskane_sety;
-                }
-
-              }
-
-            }
-          }
-          if (NazovTymu.Nazov === this.zapas3040.TEAM1) {
-            console.log("rovna sa TEAM", NazovTymu);
-
-            for (const NajdiZapas of this.Dvojice1Uroven) {
-              if (NajdiZapas.Nazov === NazovTymu.Nazov) {
-                console.log('Najdi zapas', NajdiZapas);
-
-                // Ak je pozicia parna, jeho super je pozicia+1
-                // Ak je pozicia neparna, jeho super je pozicia-1
-                const polePozicia = this.Dvojice1Uroven.indexOf(NajdiZapas);
-                console.log(polePozicia);
-
-                Najdeny3 = 1;
-
-                console.log('-------------D3 ', NazovTymu.Nazov);
-                console.log('-------------D3 ', this.Dvojice1Uroven);
-                console.log('-------------S3', this.Skore1Uroven)
-
-                if ((polePozicia % 2) === 1) {
-                  this.zapas56.TEAM1 = this.Dvojice1Uroven[polePozicia - 1].Nazov;
-                  this.zapas56.SKORE1 = this.Skore1Uroven[polePozicia - 1].Ziskane_sety;
-                  this.zapas56.TEAM2 = this.Dvojice1Uroven[polePozicia].Nazov;
-                  this.zapas56.SKORE2 = this.Skore1Uroven[polePozicia].Ziskane_sety;
-                } else {
-                  console.log('---------TEAM1 NAZOV ',this.Dvojice1Uroven[polePozicia].Nazov)
-                  this.zapas56.TEAM1 = this.Dvojice1Uroven[polePozicia].Nazov;
-                  console.log('---------TEAM1 SETY ',this.Skore1Uroven[polePozicia].Ziskane_sety)
-                  this.zapas56.SKORE1 = this.Skore1Uroven[polePozicia].Ziskane_sety;
-                  this.zapas56.TEAM2 = this.Dvojice1Uroven[polePozicia + 1].Nazov;
-                  this.zapas56.SKORE2 = this.Skore1Uroven[polePozicia + 1].Ziskane_sety;
-                }
-
-              }
-            }
-            }
-
-            if (NazovTymu.Nazov === this.zapas3040.TEAM2) {
-              console.log("rovna sa TEAM", NazovTymu);
-
-              for (const NajdiZapas of this.Dvojice1Uroven) {
-                if (NajdiZapas.Nazov === NazovTymu.Nazov) {
-                  console.log('Najdi zapas', NajdiZapas);
-
-                  // Ak je pozicia parna, jeho super je pozicia+1
-                  // Ak je pozicia neparna, jeho super je pozicia-1
-                  const polePozicia = this.Dvojice1Uroven.indexOf(NajdiZapas);
-                  console.log(polePozicia);
-
-                  Najdeny3 = 1;
-
-                  // console.log('-------------S3', this.Skore3Uroven)
-                  // console.log('-------------S2', this.Skore2Uroven)
-                  // console.log('-------------S1', this.Skore1Uroven)
-
-
-                  if ((polePozicia % 2) === 1) {
-                    this.zapas78.TEAM1 = this.Dvojice1Uroven[polePozicia - 1].Nazov;
-                    this.zapas78.SKORE1 = this.Skore1Uroven[polePozicia - 1].Ziskane_sety;
-                    this.zapas78.TEAM2 = this.Dvojice1Uroven[polePozicia].Nazov;
-                    this.zapas78.SKORE2 = this.Skore1Uroven[polePozicia].Ziskane_sety;
-                  } else {
-                    this.zapas78.TEAM1 = this.Dvojice1Uroven[polePozicia].Nazov;
-                    this.zapas78.SKORE1 = this.Skore1Uroven[polePozicia].Ziskane_sety;
-                    this.zapas78.TEAM2 = this.Dvojice1Uroven[polePozicia + 1].Nazov;
-                    this.zapas78.SKORE2 = this.Skore1Uroven[polePozicia + 1].Ziskane_sety;
-                  }
-
-                }
-              }
-            }
-
-              console.log("KONIEC VYPISU");
-
-
-
-
-
-        }
-
-
-      } else {
-        this.zapas12.TEAM1 = '';
-        this.zapas12.SKORE1 = '';
-        this.zapas12.TEAM2 = '';
-        this.zapas12.SKORE2 = '';
-
-        this.zapas34.TEAM1 = '';
-        this.zapas34.SKORE1 = '';
-        this.zapas34.TEAM2 = '';
-        this.zapas34.SKORE2 = '';
-
-        this.zapas56.TEAM1 = '';
-        this.zapas56.SKORE1 = '';
-        this.zapas56.TEAM2 = '';
-        this.zapas56.SKORE2 = '';
-
-        this.zapas78.TEAM1 = '';
-        this.zapas78.SKORE1 = '';
-        this.zapas78.TEAM2 = '';
-        this.zapas78.SKORE2 = '';
       }
-
-
-      // const ChampTree8 = binarySearchTree();
-      // // ChampTree8.node(200, this.zapas10000);
-      //
-      // ChampTree8.insert(150, '100');
-      // ChampTree8.insert(250, '200');
-      //
-      // ChampTree8.insert(125, '10');
-      // ChampTree8.insert(175, '20');
-      // ChampTree8.insert(225, '30');
-      // ChampTree8.insert(275, '40');
-      //
-      // ChampTree8.insert(120, '1');
-      // ChampTree8.insert(130, '2');
-      // ChampTree8.insert(170, '3');
-      // ChampTree8.insert(180, '4');
-      // ChampTree8.insert(220, '5');
-      // ChampTree8.insert(230, '6');
-      // ChampTree8.insert(270, '7');
-      // ChampTree8.insert(280, '8');
-
-
-      // const n = ChampTree8.search(150);
-      // console.log(n.getValue());
-
-
-      // this.currentZapas.id = resp1[0].ZapasID;
-      // this.currentZapas.nazov = resp1[0].Nazov;
-      // this.currentZapas.miesto = resp1[0].Miesto;
-      // this.currentZapas.datum = resp1[0].Datum;
-      // this.currentZapas.stav = resp1[0].Stav;
-      // this.currentZapas.turnajID = resp1[0].TurnajID;
-      // this.currentZapas.stav_zapasuID = resp1[0].Stav_zapasuID;
-
-      // this.server.getTimByZapas(this.currentZapas).then( (resp2: any) => {
-
-      // console.log(resp2);
-      //
-      // this.currentZapas.id = resp1[0].ZapasID;
-
-      // this.server.getTimByZapas(this.currentZapas).then((resp3: any) => {
-      //   console.log(resp3);
-      //
-      // });
-      // });
-    }
-
-
+    })
   }
 }
 
-
-function delay(ms: number) {
-  return new Promise( resolve => setTimeout(resolve, ms) );
-}
-
-
-class Vysledky {
-  constructor(public TEAM1: string, public SKORE1: string, public TEAM2: string, public SKORE2: string) {
-  }
-  getTEAM1() {
-    toString()
-    {
-      return this.TEAM1;
-    }
-  }
-  getTEAM2() {
-    toString()
-    {
-      return this.TEAM2;
-    }
-  }
-  getSKORE1() {
-    toString()
-    {
-      return this.SKORE1;
-    }
-  }
-  getSKORE2() {
-    toString()
-    {
-      return this.SKORE2;
-    }
-  }
-
-}
 
 
 
