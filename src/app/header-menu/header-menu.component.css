@@ -13,13 +13,15 @@
     display: block;
     color: white;
     text-align: center;
-    padding: 11px 40px;
+    padding: 10px 40px;
     text-decoration: none;
     font-size: 18px;
   }
 
   .headerMenu a.leftBar {
     float: right;
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
   }
 
   /* Right-aligned login button with corner rounding */
