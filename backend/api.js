@@ -533,7 +533,7 @@ router.get('/tim/:id', function (req, res) {
 router.post('/tim', (req, res) => {
   db.query(
     "INSERT INTO Tim (Nazov, Logo, Odohrane_zapasy, Pocet_vyhier, Pocet_hracov) VALUES (?,?,?,?,?)",
-    [req.body.Nazov, req.body.Logo, req.body.Odohrane_zapasy, req.body.Pocet_vyhier, req.body.Pocet_hracov],
+    [req.body.nazov, req.body.logo, req.body.odohrane_zapasy, req.body.pocet_vyhier, req.body.pocet_hracov],
     (error) => {
       if (error) {
         console.error(error);
@@ -548,7 +548,7 @@ router.post('/tim', (req, res) => {
 router.put('/tim/:id', function (req, res, next) {
   db.query(
     'UPDATE Tim SET Nazov=?, Logo=?, Odohrane_zapasy=?, Pocet_vyhier=?, Pocet_hracov=? WHERE TimID=?',
-    [req.body.Nazov, req.body.Logo, , req.body.Odohrane_zapasy, req.body.Pocet_vyhier, req.body.Pocet_hracov, req.params.id],
+    [req.body.nazov, req.body.logo, req.body.odohrane_zapasy, req.body.pocet_vyhier, req.body.pocet_hracov, req.params.id],
     (error) => {
       if (error) {
         res.status(500).json({ status: 'error' });
@@ -1238,10 +1238,10 @@ router.get('/setkey', function (req, res) {
 
 
 var multer = require('multer');
-var DIR = '../../assets/fotky_hracov/';
-var upload = multer({dest: DIR}).single('photo');
+var DIR_H = '../../assets/fotky_hracov/';
+var uploadHrac = multer({dest: DIR_H}).single('photo');
 
-router.post('/upload-img', function (req, res, next) {
+router.post('/upload-img/hrac', function (req, res, next) {
   var path = '';
   upload(req, res, function (err) {
      if (err) {
@@ -1252,10 +1252,25 @@ router.post('/upload-img', function (req, res, next) {
     // No error occured.
      path = req.file.path;
      res.status(200).json({"Fotka": path}); 
-});     
+  });     
 })
 
+var DIR_T = '../../assets/loga_timov/'; 
+var uploadTim = multer({dest: DIR_T}).single('photo');
 
+router.post('/upload-img/tim', function (req, res, next) {
+  var path = '';
+  uploadTim(req, res, function (err) {
+     if (err) {
+       // An error occurred when uploading
+       console.log(err);
+       return res.status(422).send("an Error occured")
+     }  
+    // No error occured.
+     path = req.file.path;
+     res.status(200).json({"Fotka": path}); 
+  });     
+})
   return router;
 }
 

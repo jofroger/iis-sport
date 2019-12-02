@@ -358,6 +358,10 @@ export class ApiService {
     }
 
     uploadImgHrac(formData : any) {
-        return this.request('POST', `${environment.serverUrl}/upload-img`, formData);
+        return this.request('POST', `${environment.serverUrl}/upload-img/hrac`, formData);
+    }
+
+    uploadImgTim(formData : any) {
+        return this.request('POST', `${environment.serverUrl}/upload-img/tim`, formData);
     }
 }

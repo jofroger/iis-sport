@@ -30,6 +30,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { RefereeCentreComponent } from './referee-centre/referee-centre.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { GamesOverviewComponent } from './games-overview/games-overview.component';
+import { AddTeamComponent } from './add-team/add-team.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { GamesOverviewComponent } from './games-overview/games-overview.componen
     AdminCentreComponent,
     AddUserComponent,
     RefereeCentreComponent,
-    GamesOverviewComponent
+    GamesOverviewComponent,
+    AddTeamComponent
   ],
   imports: [
     BrowserModule,

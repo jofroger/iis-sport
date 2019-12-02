@@ -1,0 +1,22 @@
+<div class="background">
+        <div class="homepageContent">
+            <app-header-menu></app-header-menu>
+            <div class="detailScreen">
+                <mat-card>
+                    <mat-card-title>
+                        Pridanie nového tímu
+                    </mat-card-title>
+                    <mat-divider></mat-divider>
+                    <br>
+                    <form class="form"> 
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Názov" id="nazov" [(ngModel)]="newTim.nazov" name="nazov" required/>
+                        </mat-form-field>
+                    </form>
+                    <span><b>Logo</b><input id="photo" type="file"/> </span> 
+                </mat-card>
+                <button mat-raised-button class="button" (click)="createTim()">Vytvor tím</button>
+            </div>
+        </div>
+    </div>
+    

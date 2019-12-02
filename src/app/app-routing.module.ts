@@ -12,7 +12,7 @@ import { PlayerListComponent } from './player-list/player-list.component';
 import { AdminCentreComponent } from './admin-centre/admin-centre.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { RefereeCentreComponent } from './referee-centre/referee-centre.component';
-
+import { AddTeamComponent } from './add-team/add-team.component';
 import {GamesOverviewComponent} from './games-overview/games-overview.component';
 
 const routes: Routes = [
@@ -27,8 +27,9 @@ const routes: Routes = [
   {path: 'admin-centre', component: AdminCentreComponent},
   {path: 'add-user', component: AddUserComponent},
   {path: 'referee-centre', component: RefereeCentreComponent},
+  {path: 'add-team', component: AddTeamComponent},
+  {path: 'games-overview', component: GamesOverviewComponent},
   {path: '', component: HomePageComponent},
-  {path: 'games-overview', component: GamesOverviewComponent}
 ];
 
 @NgModule({
