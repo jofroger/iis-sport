@@ -34,6 +34,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { GamesOverviewComponent } from './games-overview/games-overview.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { AddTeamComponent } from './add-team/add-team.component';
+import { TournamentCenterComponent } from './tournament-center/tournament-center.component';
+import { TournamentDetailComponent } from './tournament-detail/tournament-detail.component';
 
 
 @NgModule({
@@ -57,7 +59,9 @@ import { AddTeamComponent } from './add-team/add-team.component';
     RefereeCentreComponent,
     GamesOverviewComponent,
     GameDetailComponent,
-    AddTeamComponent
+    AddTeamComponent,
+    TournamentCenterComponent,
+    TournamentDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,78 @@
+<div class="background">
+  <div class="homepageContent">
+    <app-header-menu></app-header-menu>
+
+    <div class="tabulkaMojeTurnaje">
+      <table class="tabulkaMojeTurnajeContent">
+        <tr>
+          <td rowspan="2" style="width: 32px">
+            <img (click)="loadPreviousTurnaje()" class="rotate180" style="width: 30px; height: 30px" alt="nextGames" src="../../assets/right_arrow.png">
+          </td>
+          <td>
+            <div class="turnaj" id="turnaj1">
+              <div class="turnajDatum">{{Turnaj1.zaciatok | date: 'dd. MM. yyyy'}} - {{Turnaj1.koniec | date: 'dd. MM. yyyy'}}</div>
+              <div class="turnajCas">{{Turnaj1.zaciatok | date: 'HH:mm'}} - {{Turnaj1.koniec | date: 'HH:mm'}}</div>
+              <div class="turnajVysledok">
+                <h5>{{Turnaj1.nazov}}</h5>
+              </div>
+              <div class="turnajTimy">{{Turnaj1.vyhra}}</div>
+            </div>
+          </td>
+          <td>
+            <div class="turnaj" id="turnaj2">
+              <div class="turnajDatum">{{Turnaj2.zaciatok | date: 'dd. MM. yyyy'}} - {{Turnaj2.koniec | date: 'dd. MM. yyyy'}}</div>
+              <div class="turnajCas">{{Turnaj2.zaciatok | date: 'HH:mm'}} - {{Turnaj2.koniec | date: 'HH:mm'}}</div>
+              <div class="turnajVysledok">
+                <h5>{{Turnaj2.nazov}}</h5>
+              </div>
+              <div class="turnajTimy">{{Turnaj2.vyhra}}</div>
+            </div>
+          </td><td>
+          <div class="turnaj" id="turnaj3">
+            <div class="turnajDatum">{{Turnaj3.zaciatok | date: 'dd. MM. yyyy'}} - {{Turnaj3.koniec | date: 'dd. MM. yyyy'}}</div>
+            <div class="turnajCas">{{Turnaj3.zaciatok | date: 'HH:mm'}} - {{Turnaj3.koniec | date: 'HH:mm'}}</div>
+            <div class="turnajVysledok">
+              <h5>{{Turnaj3.nazov}}</h5>
+            </div>
+            <div class="turnajTimy">{{Turnaj3.vyhra}}</div>
+          </div>
+        </td>
+          <td rowspan="2" style="width: 30px">
+            <img (click)="loadNextTurnaje()" style="width: 30px; height: 30px" alt="previousGames" src="../../assets/right_arrow.png">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="turnaj" id="turnaj4">
+              <div class="turnajDatum">{{Turnaj4.zaciatok | date: 'dd. MM. yyyy'}} - {{Turnaj4.koniec | date: 'dd. MM. yyyy'}}</div>
+              <div class="turnajCas">{{Turnaj4.zaciatok | date: 'HH:mm'}} - {{Turnaj4.koniec | date: 'HH:mm'}}</div>
+              <div class="turnajVysledok">
+                <h5>{{Turnaj4.nazov}}</h5>
+              </div>
+              <div class="turnajTimy">{{Turnaj4.vyhra}}</div>
+            </div>
+          </td><td>
+          <div class="turnaj" id="turnaj5">
+            <div class="turnajDatum">{{Turnaj5.zaciatok | date: 'dd. MM. yyyy'}} - {{Turnaj5.koniec | date: 'dd. MM. yyyy'}}</div>
+            <div class="turnajCas">{{Turnaj5.zaciatok | date: 'HH:mm'}} - {{Turnaj5.koniec | date: 'HH:mm'}}</div>
+            <div class="turnajVysledok">
+              <h5>{{Turnaj5.nazov}}</h5>
+            </div>
+            <div class="turnajTimy">{{Turnaj5.vyhra}}</div>
+          </div>
+        </td><td>
+          <div class="turnaj" id="turnaj6">
+            <div class="turnajDatum">{{Turnaj6.zaciatok | date: 'dd. MM. yyyy'}} - {{Turnaj6.koniec | date: 'dd. MM. yyyy'}}</div>
+            <div class="turnajCas">{{Turnaj6.zaciatok | date: 'HH:mm'}} - {{Turnaj6.koniec | date: 'HH:mm'}}</div>
+            <div class="turnajVysledok">
+              <h5>{{Turnaj6.nazov}}</h5>
+            </div>
+            <div class="turnajTimy">{{Turnaj6.vyhra}}</div>
+          </div>
+        </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

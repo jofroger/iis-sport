@@ -17,6 +17,7 @@ import { GamesOverviewComponent } from './games-overview/games-overview.componen
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { ChampionshipTreeComponent } from './championship-tree/championship-tree.component';
+import { TournamentCenterComponent } from './tournament-center/tournament-center.component';
 
 
 const routes: Routes = [
@@ -37,7 +38,7 @@ const routes: Routes = [
   {path: 'add-team', component: AddTeamComponent},
   {path: 'games-overview', component: GamesOverviewComponent},
   {path: 'tree', component: ChampionshipTreeComponent},
-  {path: '', component: HomePageComponent}
+  {path: 'my-tournaments', component: TournamentCenterComponent},
 ];
 
 @NgModule({

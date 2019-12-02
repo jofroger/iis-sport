@@ -11,6 +11,7 @@ export class HeaderMenuComponent implements OnInit {
   logoutIsVisible: Boolean = (localStorage.getItem('userId') != null);
   userDetailIsVisible: Boolean = (localStorage.getItem('userId') != null);
   adminCentreIsVisible: Boolean = (localStorage.getItem('userType') === 'admin');
+  tournamentCenterIsVisible: Boolean = (localStorage.getItem('userId') != null);
 
   constructor() { }
 
