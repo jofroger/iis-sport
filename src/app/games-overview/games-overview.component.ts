@@ -1,5 +1,6 @@
+/* tslint:disable:max-line-length */
 import { Component, OnInit } from '@angular/core';
-import {Tim, Zapas} from '../api.structures';
+import {Stav_zapasu, Tim, Zapas} from '../api.structures';
 import {ApiService} from '../api.service';
 import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 
@@ -35,6 +36,19 @@ export class GamesOverviewComponent implements OnInit {
   Zapas5: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
   Zapas6: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: '', vyherca: null, uroven_zapasu: null, turnajID: null};
 
+  stavZapasu1: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu2: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu3: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu4: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu5: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu6: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu7: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu8: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu9: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu10: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu11: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+  stavZapasu12: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
+
   constructor(private server: ApiService) { }
 
   ngOnInit() {
@@ -47,11 +61,8 @@ export class GamesOverviewComponent implements OnInit {
 
   private loadZapasy() {
     const zapasOffset = +localStorage.getItem('zapasOffset');
-    console.log('zapasOffset ' + zapasOffset);
     const imin = 1 + zapasOffset;
-    console.log('imin ' + imin);
     const imax = 6 + zapasOffset;
-    console.log('imax ' + imax);
     for (let i = imin; i <= imax; i++) {
       this['Zapas' + (i - zapasOffset)].id = i;
       this.server.getZapas(this['Zapas' + (i - zapasOffset)]).then( (resp: any) => {
@@ -60,7 +71,20 @@ export class GamesOverviewComponent implements OnInit {
           this['Zapas' + (i - zapasOffset)].nazov = resp[0].Nazov;
           this['Zapas' + (i - zapasOffset)].miesto = resp[0].Miesto;
           this['Zapas' + (i - zapasOffset)].datum = resp[0].Datum;
-          this['Zapas' + (i - zapasOffset)].stav = resp[0].Stav;
+
+          if (resp[0].Stav === 'planovany') {
+            this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_sety = 'x';
+            this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_gemy = 'x';
+            this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_sety = 'x';
+            this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_gemy = 'x';
+          } else {
+            this.server.getStav_zapasuByZapas(this['Zapas' + i]).then( (resp: any) => {
+              this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_sety = resp[0].Ziskane_sety;
+              this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_gemy = resp[0].Ziskane_gemy;
+              this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_sety = resp[1].Ziskane_sety;
+              this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_gemy = resp[1].Ziskane_gemy;
+            });
+          }
         } else {
           document.getElementById('zapas' + (i - zapasOffset)).style.display = 'none';
         }

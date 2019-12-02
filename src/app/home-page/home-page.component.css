@@ -14,13 +14,14 @@ table.tabulkaZapasy td:last-child {
 
 .tabulkaTimy {
   width: calc(100% - 10px);
-  height: auto;
+  height: 450px;
   border: 1px solid #71e2ff;
   border-radius: 5px;
   text-align: center;
   margin: auto;
   background-color: #71e2ff;
-  box-shadow: 0 0 5px #000
+  box-shadow: 0 0 5px #000;
+  overflow-y: scroll;
 }
 
 .tabulkaTimyZoznam td {
@@ -89,14 +90,13 @@ a:hover {
 .flagPlaceholder {
   height: 60px;
   width: 60px;
-}
-
-.flagPlaceholder:nth-child(even) {
-  margin-right: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
   margin-top: -10px;
 }
 
-.flagPlaceholder:nth-child(odd) {
-  margin-left: 10px;
-  margin-top: -10px;
+button {
+  margin-top: 2rem; 
+  margin-right: 2rem;
+  background-color: #00c3ff; 
 }
