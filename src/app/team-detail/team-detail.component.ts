@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import {Hrac, Tim, Uzivatel} from '../api.structures';
@@ -23,10 +24,22 @@ export class TeamDetailComponent implements OnInit {
   uzivatel5: Uzivatel = {id: null, meno: '', priezvisko: '', vek: null, email: '', login: '', heslo: '', typ: ''};
   uzivatel6: Uzivatel = {id: null, meno: '', priezvisko: '', vek: null, email: '', login: '', heslo: '', typ: ''};
 
+  activeUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', vek: null, email: '', login: '', heslo: '', typ: ''};
+  activeUzivatelHrac: Hrac = {id: null, odohrane_zapasy: '', pocet_vyhier: null, fotka: '', uzivatelID: null};
+
+  joinTeamIsVisible: Boolean = (localStorage.getItem('userId') == null);
+  leaveTeamIsVisible: Boolean = (localStorage.getItem('userId') == null) && !this.joinTeamIsVisible;
+  playerCounter: any = 0;
+
   constructor(private server: ApiService) { }
 
   ngOnInit() {
+    this.showJoinLeaveTeamButton();
     this.loadTim();
+  }
+
+  private delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   loadTim() {
@@ -39,14 +52,14 @@ export class TeamDetailComponent implements OnInit {
       this.tim.odohrane_zapasy = resp[0].Odohrane_zapasy;
       this.tim.pocet_vyhier = resp[0].Pocet_vyhier;
 
-      for (let i = 1; i <= 6; i++) {  // Opakuj pre maximalny pocet zobrazenych hracov
-        if (this.tim.pocet_hracov >= i) { // Zviditelni ak tim ma tolko hracov
-          document.getElementById('player' + i).style.display = 'block';
-          this.server.getHracByTim(this.tim).then( (respons: any) => { // Ziskaj vsetkych hracov timu
+      for (let i = 1; i <= 2; i++) {  // Opakuj pre maximalny pocet zobrazenych hracov
+        document.getElementById('player' + i).style.display = 'block';
+        this.server.getHracByTim(this.tim).then( (respons: any) => { // Ziskaj vsetkych hracov timu
+          if (respons[i - 1] !== undefined) {
+            document.getElementById('player' + i).style.display = 'block';
             this['hrac' + i].odohrane_zapasy = respons[i - 1].Odohrane_zapasy;
             this['hrac' + i].pocet_vyhier = respons[i - 1].Pocet_vyhier;
             this['hrac' + i].fotka = respons[i - 1].Fotka;
-            // tslint:disable-next-line:max-line-length
             (respons[i - 1].Fotka !== undefined) ? this['hrac' + i].fotka = respons[i - 1].Fotka : this['hrac' + i].fotka = '../../assets/image-placeholder.jpg';
             this['uzivatel' + i].id = respons[i - 1].UzivatelID;
 
@@ -55,11 +68,48 @@ export class TeamDetailComponent implements OnInit {
               this['uzivatel' + i].priezvisko = response[0].Priezvisko;
               this['uzivatel' + i].vek = response[0].Vek;
             });
-          });
-        } else {  // Skry ak tim nema tolko hracov
-          document.getElementById('player' + i).style.display = 'none';
-        }
+            this.playerCounter++;
+          } else {
+            document.getElementById('player' + i).style.display = 'none';
+          }
+        });
       }
     });
+  }
+
+  private async showJoinLeaveTeamButton() {
+    this.activeUzivatel.id = +localStorage.getItem('userId');
+    if (this.activeUzivatel.id > 0) {
+      this.server.getHracByUzivatel(this.activeUzivatel). then( (HracByUzivatelResponse: any) => {
+        this.activeUzivatelHrac.id = HracByUzivatelResponse[0].HracID;
+      });
+      await this.delay(200);
+      this.server.getTimByHrac(this.activeUzivatelHrac).then((getTimByHracResponse: any) => {
+        if (getTimByHracResponse[0] === undefined) {  // Ak este nie je v ziadnom time
+          this.joinTeamIsVisible = true;
+          this.leaveTeamIsVisible = false;
+        } else if (this.tim.id === getTimByHracResponse[0].TimID) { // Ak je v time, ktory je prave zobrazeny
+          this.joinTeamIsVisible = false;
+          this.leaveTeamIsVisible = true;
+        } else {  // Ak je v time, ale nie v tom, ktory je prave zobrazeny
+          this.joinTeamIsVisible = false;
+          this.leaveTeamIsVisible = false;
+        }
+        if (this.playerCounter === '2') {  // Ak je v time, ale nie v tom, ktory je prave zobrazeny
+          this.joinTeamIsVisible = false;
+        }
+      });
+    } else {
+      this.joinTeamIsVisible = false;
+      this.leaveTeamIsVisible = false;
+    }
+  }
+
+  private joinTeam() {
+    this.server.createHrac_hra_v_time(this.activeUzivatelHrac, this.tim);
+  }
+
+  private leaveTeam() {
+    this.server.deleteHrac_hra_v_time(this.activeUzivatelHrac, this.tim);
   }
 }
