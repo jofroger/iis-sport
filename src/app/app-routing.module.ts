@@ -16,7 +16,6 @@ import { RefereeCentreComponent } from './referee-centre/referee-centre.componen
 import { GamesOverviewComponent } from './games-overview/games-overview.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { AddTeamComponent } from './add-team/add-team.component';
-import {GamesOverviewComponent} from './games-overview/games-overview.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent},

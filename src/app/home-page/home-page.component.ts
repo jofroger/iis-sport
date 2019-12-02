@@ -52,8 +52,6 @@ export class HomePageComponent implements OnInit {
 
   enAddTeam : Boolean = (localStorage.getItem('userId') !== null);
 
-  constructor(private server: ApiService) { }
-
   ngOnInit() {
     this.loadZapasy();
     this.loadTimy();
