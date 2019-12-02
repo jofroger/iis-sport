@@ -57,10 +57,6 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/hrac/${hrac.id}`);
     }
 
-    getHracByUzivatel(uzivatel: Uzivatel) {
-        return this.request('GET', `${environment.serverUrl}/hrac/uzivatel/${uzivatel.id}`);
-    }
-
     createHrac(hrac: Hrac) {
         return this.request('POST', `${environment.serverUrl}/hrac`, hrac);
     }
@@ -153,6 +149,10 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/turnaj/${turnaj.id}`);
     }
 
+    getTurnajByUsporiadatel(usporiadatel: Usporiadatel) {
+        return this.request('GET', `${environment.serverUrl}/turnaj/usporiadatel/${usporiadatel.id}`);
+    }
+
     createTurnaj(turnaj: Turnaj) {
         return this.request('POST', `${environment.serverUrl}/turnaj`, turnaj);
     }
@@ -199,6 +199,10 @@ export class ApiService {
 
     getZapasByRozhodca(rozhodca: Rozhodca) {
         return this.request('GET', `${environment.serverUrl}/zapas/rozhodca/${rozhodca.id}`);
+    }
+
+    getZapasByTurnajAndUroven(turnaj: Turnaj, uroven) {
+        return this.request('GET', `${environment.serverUrl}/zapas/rozhodca/${turnaj.id}&${uroven}`);
     }
 
     createZapas(zapas: Zapas) {
@@ -320,6 +324,10 @@ export class ApiService {
 
     getZapasByHrac(hrac: Hrac) {
         return this.request('GET', `${environment.serverUrl}/hrac_hra_v_zapase/hrac/${hrac.id}`);
+    }
+
+    getUzivatelByZapas(zapas : Zapas) {
+        return this.request('GET', `${environment.serverUrl}/uzivatel_hra_v_zapase/zapas/${zapas.id}`);
     }
 
     createHrac_hra_v_zapase(zapas: Zapas, hrac: Hrac) {
