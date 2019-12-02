@@ -4,7 +4,7 @@
       <table class="tableMatchList">
           <tr>
               <td class="table-matchList">
-                  <h3>Zoznam zápasov</h3>
+                  <h3>Zoznam turnajov</h3>
                   <mat-card class="matchList">
                       <mat-list role="list" *ngFor="let turnaj of turnaje; index as i">
                           <mat-list-item role="listitem" (click)="setActTurnaj(i)">{{turnaj.nazov}}</mat-list-item>               
@@ -14,35 +14,34 @@
               </td>
               <td>
         
-      <div class="tabula">
+      <div>
         <table>
-
             <div class="round r-of-3">
               <div class="bracket-game">
                 <div class="player top win">
-                  {{this.zapas56.getTEAM1()}}
+                  {{boxyUroven1[4]?.nazov}}
                   <div class="score">
-                  {{this.zapas56.getSKORE1()}}
+                  {{boxyUroven1[4]?.score}}
                   </div>
                 </div>
-                <div class="player bot loss">
-                  {{this.zapas56.getTEAM2()}}
+                <div class="player bot win">
+                  {{boxyUroven1[5]?.nazov}}
                   <div class="score">
-                  {{this.zapas56.getSKORE2()}}
+                  {{boxyUroven1[5]?.score}}
                   </div>
                 </div>
               </div>
               <div class="bracket-game cont2">
-                <div class="player top loss">
-                  {{this.zapas78.getTEAM1()}}
+                <div class="player top win">
+                  {{boxyUroven1[6]?.nazov}}
                   <div class="score">
-                  {{this.zapas78.getSKORE1()}}
+                  {{boxyUroven1[6]?.score}}
                   </div>
                 </div>
                 <div class="player bot win">
-                  {{this.zapas78.getTEAM2()}}
+                  {{boxyUroven1[7]?.nazov}}
                   <div class="score">
-                  {{this.zapas78.getSKORE2()}}
+                  {{boxyUroven1[7]?.score}}
                   </div>
                 </div>
               </div>
@@ -51,29 +50,29 @@
             <div class="round r-of-4">
               <div class="bracket-game">
                 <div class="player top win">
-                  {{boxyUroven1[0]}}
+                  {{boxyUroven1[0]?.nazov}}
                   <div class="score">
-                  {{this.zapas12.getSKORE1()}}
+                  {{boxyUroven1[0]?.score}}
                   </div>
                 </div>
-                <div class="player bot loss">
-                  {{boxyUroven1[1]}}
+                <div class="player bot win">
+                  {{boxyUroven1[1]?.nazov}}
                   <div class="score">
-                  {{this.zapas12.getSKORE2()}}
+                  {{boxyUroven1[1]?.score}}
                   </div>
                 </div>
               </div>
               <div class="bracket-game cont">
-                <div class="player top loss">
-                  {{boxyUroven1[2]}}
+                <div class="player top win">
+                  {{boxyUroven1[2]?.nazov}}
                   <div class="score">
-                  {{this.zapas34.getSKORE1()}}
+                  {{boxyUroven1[2]?.score}}
                   </div>
                 </div>
                 <div class="player bot win">
-                  {{boxyUroven1[3]}}
+                  {{boxyUroven1[3]?.nazov}}
                   <div class="score">
-                  {{this.zapas34.getSKORE2()}}
+                  {{boxyUroven1[3]?.score}}
                   </div>
                 </div>
               </div>
@@ -121,17 +120,17 @@
 
             <div class="round r-of-2">
               <div class="bracket-game">
-                <div class="player top loss">
-                  {{this.zapas1020.getTEAM1()}}
+                <div class="player top win">
+                  {{boxyUroven2[0]?.nazov}}
 
                   <div class="score">
-                    {{this.zapas1020.getSKORE1()}}
+                      {{boxyUroven2[0]?.score}}
                   </div>
                 </div>
                 <div class="player bot win">
-                  {{this.zapas1020.getTEAM2()}}
+                    {{boxyUroven2[1]?.nazov}}
                   <div class="score">
-                    {{this.zapas1020.getSKORE2()}}
+                      {{boxyUroven2[1]?.score}}
                   </div>
                 </div>
               </div>
@@ -139,16 +138,16 @@
 
           <div class="round r-of-6">
           <div class="bracket-game">
-            <div class="player top loss">
-              {{this.zapas3040.getTEAM1()}}
+            <div class="player top win">
+                {{boxyUroven2[2]?.nazov}}
               <div class="score">
-                {{this.zapas3040.getSKORE1()}}
+                  {{boxyUroven2[2]?.score}}
               </div>
             </div>
             <div class="player bot win">
-              {{this.zapas3040.getTEAM2()}}
+                {{boxyUroven2[3]?.nazov}}
               <div class="score">
-                {{this.zapas3040.getSKORE2()}}
+                  {{boxyUroven2[3]?.score}}
               </div>
             </div>
           </div>
@@ -157,16 +156,16 @@
 
           <div class="round r-of-7">
             <div class="bracket-game">
-              <div class="player top loss">
-                {{this.zapas10000.getTEAM1()}}
+              <div class="player top win">
+                  {{boxyUroven3[0]?.nazov}}
                 <div class="score">
-                  {{this.zapas10000.getSKORE1()}}
+                    {{boxyUroven3[0]?.score}}
                 </div>
               </div>
               <div class="player bot win">
-                {{this.zapas10000.getTEAM2()}}
+                  {{boxyUroven3[1]?.nazov}}
                 <div class="score">
-                 {{this.zapas10000.getSKORE2()}}
+                    {{boxyUroven3[1]?.score}}
                 </div>
               </div>
             </div>

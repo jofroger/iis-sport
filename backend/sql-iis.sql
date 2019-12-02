@@ -374,8 +374,8 @@ INSERT INTO `Usporiadatel` (`Organizacia`, `UzivatelID`) VALUES ("Nezisková org
 INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrch`, `Podmienky_turnajaID`, `UsporiadatelID`) VALUES ("Okresná liga Trenčín", DATE("2019-06-14"), DATE("2019-08-14"), "125 €", "Mesto Trenčín", "trávnatý", 1, 4);
 INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrch`, `Podmienky_turnajaID`, `UsporiadatelID`) VALUES ("Majstrovstvá Slovenska do 20 rokov", DATE("2019-07-20"), DATE("2019-07-30"), "100 000 €", "Mesto Bratislava, SLOVNAFT, ROLEX", "antuka", 2, 1);
 INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrch`, `Podmienky_turnajaID`, `UsporiadatelID`) VALUES ("Nadačný turnaj HUGO", DATE("2018-09-10"), DATE("2018-09-10"), "0 €", "TV Markíza, TV JOJ, RadioExpress, Kaufland, IBM", "asfaltový", 3, 3);
-INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrch`, `Podmienky_turnajaID`, `UsporiadatelID`) VALUES ("Liga ROKE", DATE("2019-05-05"), DATE("2019-09-06"), "2500 €", "SLOVNAFT, IKEA, ESET", "telocvičňa", 1, 5);
-INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrch`, `Podmienky_turnajaID`, `UsporiadatelID`) VALUES ("Priateľský turnaj", DATE("2018-07-14"), DATE("2019-07-17"), "500 €", "Mesto Košice, Rádio Košice, US Steel", "antuka", 2, 2);
+INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrch`, `Podmienky_turnajaID`, `UsporiadatelID`) VALUES ("Liga ROKE", DATE("2019-05-05"), DATE("2019-09-06"), "2500 €", "SLOVNAFT, IKEA, ESET", "telocvičňa", 4, 5);
+INSERT INTO `Turnaj` (`Nazov`, `Zaciatok`, `Koniec`, `Vyhra`, `Sponzori`, `Povrch`, `Podmienky_turnajaID`, `UsporiadatelID`) VALUES ("Priateľský turnaj", DATE("2018-07-14"), DATE("2019-07-17"), "500 €", "Mesto Košice, Rádio Košice, US Steel", "antuka", 5, 2);
 
 INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 4);
 INSERT INTO `Hrac` (`Odohrane_zapasy`, `Pocet_vyhier`, `Fotka`, `UzivatelID`) VALUES (0, 0, "../../assets/fotky_hracov/generic.png", 5);
