@@ -1,7 +1,8 @@
 /* tslint:disable:max-line-length */
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
-import {Turnaj} from '../api.structures';
+import {Turnaj, Usporiadatel} from '../api.structures';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-tournament-center',
@@ -10,6 +11,8 @@ import {Turnaj} from '../api.structures';
 })
 export class TournamentCenterComponent implements OnInit {
 
+  usporiadatel: Usporiadatel = {id: null, organizacia: '', uzivatelID: null};
+
   Turnaj1: Turnaj = {id: null, nazov: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID : null, uzivatelID: null};
   Turnaj2: Turnaj = {id: null, nazov: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID : null, uzivatelID: null};
   Turnaj3: Turnaj = {id: null, nazov: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID : null, uzivatelID: null};
@@ -17,11 +20,12 @@ export class TournamentCenterComponent implements OnInit {
   Turnaj5: Turnaj = {id: null, nazov: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID : null, uzivatelID: null};
   Turnaj6: Turnaj = {id: null, nazov: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID : null, uzivatelID: null};
 
-  constructor(private server: ApiService) { }
+  constructor(private server: ApiService, private router: Router) { }
 
   ngOnInit() {
     localStorage.setItem('turnajOffset', '0');
-    this.server.getAllTurnajeByUsporiadatel().then( (resp: any) => {  // Zistenie poctu zapasov pre obmedzenie nacitaviania po stlaceni sipky
+    this.usporiadatel.uzivatelID = +localStorage.getItem('userId');
+    this.server.getTurnajByUsporiadatel(this.usporiadatel).then( (resp: any) => {  // Zistenie poctu zapasov pre obmedzenie nacitaviania po stlaceni sipky
       localStorage.setItem('pocetTurnajov', resp.length);
     });
     this.loadTurnaje();
@@ -29,42 +33,31 @@ export class TournamentCenterComponent implements OnInit {
 
   private loadTurnaje() {
     const turnajOffset = +localStorage.getItem('turnajOffset');
-    const imin = 1 + zapasOffset;
-    const imax = 6 + zapasOffset;
-    for (let i = imin; i <= imax; i++) {
-      this['Turnaj' + (i - zapasOffset)].id = i;
-      this.server.getAllTurnajByUsporiadatel(this['Zapas' + (i - zapasOffset)]).then( (resp: any) => {
-        if (resp.length !== 0) {
-          document.getElementById('zapas' + (i - zapasOffset)).style.display = 'block';
-          this['Zapas' + (i - zapasOffset)].nazov = resp[0].Nazov;
-          this['Zapas' + (i - zapasOffset)].miesto = resp[0].Miesto;
-          this['Zapas' + (i - zapasOffset)].datum = resp[0].Datum;
-
-          if (resp[0].Stav === 'planovany') {
-            this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_sety = 'x';
-            this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_gemy = 'x';
-            this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_sety = 'x';
-            this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_gemy = 'x';
-          } else {
-            this.server.getStav_zapasuByZapas(this['Zapas' + i]).then( (resp: any) => {
-              this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_sety = resp[0].Ziskane_sety;
-              this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_gemy = resp[0].Ziskane_gemy;
-              this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_sety = resp[1].Ziskane_sety;
-              this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_gemy = resp[1].Ziskane_gemy;
-            });
-          }
+    const imin = 1 + turnajOffset;
+    const imax = 6 + turnajOffset;
+    this.server.getTurnajByUsporiadatel(this.usporiadatel).then( (resp: any) => {
+      for (let i = imin; i <= imax; i++) {
+        console.log(resp[i - 1]);
+        if (resp[i - 1] !== undefined) {
+          document.getElementById('turnaj' + (i - turnajOffset)).style.display = 'block';
+          this['Turnaj' + (i - turnajOffset)].nazov = resp[i - 1].Nazov;
+          this['Turnaj' + (i - turnajOffset)].zaciatok = resp[i - 1].Zaciatok;
+          this['Turnaj' + (i - turnajOffset)].koniec = resp[i - 1].Koniec;
+          this['Turnaj' + (i - turnajOffset)].vyhra = resp[i - 1].Vyhra;
         } else {
-          document.getElementById('zapas' + (i - zapasOffset)).style.display = 'none';
+          this['Turnaj' + (i - turnajOffset)].nazov = 'Pridať turnaj';
+          this['Turnaj' + (i - turnajOffset)].vyhra = '-';
         }
-      });
-      this.server.getTimByZapas(this['Zapas' + (i - zapasOffset)]).then( (resp: any) => { // Nastavenie loga timu pri zapasoch
-        // tslint:disable-next-line:max-line-length
-        (resp[0] !== undefined) ? this['tim' + ((i - zapasOffset) * 2 - 1)].logo = resp[0].Logo : this['tim' + ((i - zapasOffset) * 2 - 1)].logo = '../../assets/image-placeholder.jpg';
-        // tslint:disable-next-line:max-line-length
-        (resp[1] !== undefined) ? this['tim' + ((i - zapasOffset) * 2)].logo = resp[1].Logo : this['tim' + ((i - zapasOffset) * 2)].logo = '../../assets/image-placeholder.jpg';
-        /*this['tim' + i * 2].logo = resp[1].Logo;*/
-      });
-    }
+      }
+    });
   }
 
+  private loadPreviousTurnaje() {}
+
+  private loadNextTurnaje() {}
+
+  private gotoDetailTurnaja(turnajID) {
+    localStorage.setItem('detailTurnajaID', turnajID);
+    this.router.navigate(['tournament-detail']);
+  }
 }
