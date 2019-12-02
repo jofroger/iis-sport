@@ -1288,7 +1288,8 @@ router.get('/setkey', function (req, res) {
 
 
 var multer = require('multer');
-var DIR_H = '../src/assets/fotky_hracov/';
+//var DIR_H = '../src/assets/fotky_hracov/';
+var DIR_H = './assets/fotky_hracov/';
 var uploadHrac = multer({dest: DIR_H}).single('photo');
 
 router.post('/upload-img/hrac', function (req, res, next) {
@@ -1305,7 +1306,8 @@ router.post('/upload-img/hrac', function (req, res, next) {
   });     
 })
 
-var DIR_T = '../src/assets/loga_timov/'; 
+//var DIR_T = '../src/assets/loga_timov/'; 
+var DIR_T = './assets/loga_timov/'; 
 var uploadTim = multer({dest: DIR_T}).single('photo');
 
 router.post('/upload-img/tim', function (req, res, next) {
