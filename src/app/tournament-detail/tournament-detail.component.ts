@@ -57,7 +57,7 @@ export class TournamentDetailComponent implements OnInit {
     });
   }
 
-  private loadPodmienkyTurnaja() {
+  loadPodmienkyTurnaja() {
     (this.Turnaj.podmienky_turnajaID === null) ? this.podmienkyTurnaja.id = +this.pravidla : this.podmienkyTurnaja.id = this.Turnaj.podmienky_turnajaID;
     this.server.getPodmienky_turnaja(this.podmienkyTurnaja).then( (podmienkyTurnajaResp: any) => {
       if (podmienkyTurnajaResp[0] !== undefined) {
@@ -71,7 +71,7 @@ export class TournamentDetailComponent implements OnInit {
   }
 
 
-  private save() {
+  save() {
     this.Turnaj.nazov = this.nazovTurnaja;
     this.Turnaj.podmienky_turnajaID = this.pravidla;
     this.Turnaj.zaciatok = this.novyZaciatok;
@@ -83,7 +83,7 @@ export class TournamentDetailComponent implements OnInit {
     (!this.turnajExists) ? this.server.createTurnaj(this.Turnaj) : this.server.updateTurnaj(this.Turnaj);
   }
 
-  private goBack() {
+  goBack() {
     this.router.navigate(['my-tournaments']);
   }
 

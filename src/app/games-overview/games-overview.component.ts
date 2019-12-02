@@ -105,14 +105,14 @@ export class GamesOverviewComponent implements OnInit {
     }
   }
 
-  private loadPreviousZapasy() {
+  loadPreviousZapasy() {
     let zapasOffset = +localStorage.getItem('zapasOffset');
     (zapasOffset !== 0) ? zapasOffset = zapasOffset - 6 : zapasOffset = zapasOffset;
     localStorage.setItem('zapasOffset', zapasOffset.toString());
     this.loadZapasy();
   }
 
-  private loadNextZapasy() {
+   loadNextZapasy() {
     let zapasOffset = +localStorage.getItem('zapasOffset');
     const pocetZapasov = +localStorage.getItem('pocetZapasov');
     (zapasOffset >= (pocetZapasov - 6)) ? zapasOffset = zapasOffset : zapasOffset = zapasOffset + 6;

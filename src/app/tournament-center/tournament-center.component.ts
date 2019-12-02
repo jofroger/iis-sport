@@ -52,11 +52,11 @@ export class TournamentCenterComponent implements OnInit {
     });
   }
 
-  private loadPreviousTurnaje() {}
+  loadPreviousTurnaje() {}
 
-  private loadNextTurnaje() {}
+  loadNextTurnaje() {}
 
-  private gotoDetailTurnaja(turnajID) {
+  gotoDetailTurnaja(turnajID) {
     localStorage.setItem('detailTurnajaID', turnajID);
     this.router.navigate(['tournament-detail']);
   }
