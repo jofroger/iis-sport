@@ -57,7 +57,19 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
+
   uploadHracImg() {
+    let newHrac : Hrac = {  
+      id: null,
+      odohrane_zapasy: "0",
+      pocet_vyhier: 0,
+      fotka: "../../assets/fotky_hracov/generic.png",
+      uzivatelID: this.actUzivatel.id
+    }
+    
+    this.createHrac(newHrac);
+
+    /*
     let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
     let fileCount: number = inputEl.files.length;
     let formData = new FormData();
@@ -67,6 +79,6 @@ export class UserDetailComponent implements OnInit {
         this.createHrac(resp.Fotka);
       })
     }
-    else alert("Prosím vyberte si profilovú fotografiu");
+    else alert("Prosím vyberte si profilovú fotografiu");*/
   }
 }
