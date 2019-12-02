@@ -1,0 +1,59 @@
+<div class="background">
+  <div class="homepageContent">
+    <app-header-menu></app-header-menu>
+
+    <div class="tabulkaZapasBackground">
+      <table class="tabulkaZapasContent">
+        <tr><th colspan="3">
+          <div style="text-align: center; margin-top: 20px; width: 100%"><h2>{{Zapas.nazov}}</h2></div>
+        </th>
+        </tr>
+        <tr>
+          <td>
+            <img class="logo" alt="tim1Logo" src="{{tim1.logo}}">
+          </td>
+          <td class="mainStats">
+            <h2>{{stavZapasu1.ziskane_sety}} : {{stavZapasu2.ziskane_sety}}</h2>
+          </td>
+          <td>
+            <img class="logo" alt="tim2Logo" src="{{tim2.logo}}">
+          </td>
+        </tr>
+        <tr>
+            <td><h5>{{tim1.nazov}}</h5></td>
+            <td><h5>{{Zapas.datum | date: 'HH : mm'}}<br>
+              {{Zapas.datum | date: 'dd. MM. yyyy'}}<br>
+              {{Zapas.miesto}}</h5></td>
+            <td><h5>{{tim2.nazov}}</h5></td>
+        </tr>
+        <tr style="height: 10px">
+        </tr>
+        <tr>
+          <td>{{stavZapasu1.ziskane_gemy}}</td>
+          <td><h6>Získané gemy</h6></td>
+          <td>{{stavZapasu2.ziskane_gemy}}</td>
+        </tr>
+        <tr>
+          <td>{{stavZapasu1.ziskane_vymeny}}</td>
+          <td><h6>Získané výmeny</h6></td>
+          <td>{{stavZapasu2.ziskane_vymeny}}</td>
+        </tr>
+        <tr>
+          <td>{{tim1.pocet_hracov}}</td>
+          <td><h6>Počet hráčov</h6></td>
+          <td>{{tim2.pocet_hracov}}</td>
+        </tr>
+        <tr>
+          <td>{{tim1.pocet_vyhier}} / {{tim1.odohrane_zapasy}}</td>
+          <td><h6>Bilancia výhier</h6></td>
+          <td>{{tim2.pocet_vyhier}} / {{tim2.odohrane_zapasy}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

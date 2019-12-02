@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {Stav_zapasu, Tim} from '../api.structures';
 import { Zapas } from '../api.structures';
 import {ApiService} from '../api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -49,9 +50,9 @@ export class HomePageComponent implements OnInit {
   stavZapasu12: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
 
 
-  enAddTeam : Boolean = (localStorage.getItem('userId') !== null);
+  constructor(private server: ApiService, private router: Router) { }
 
-  constructor(private server: ApiService) { }
+  enAddTeam : Boolean = (localStorage.getItem('userId') !== null);
 
   ngOnInit() {
     this.loadZapasy();
@@ -119,5 +120,10 @@ export class HomePageComponent implements OnInit {
 
   private sendTeamNumber(teamNumber) {
     localStorage.setItem('timID', teamNumber+1);
+  }
+
+  private gotoDetailZapasu(zapasID) {
+    localStorage.setItem('detailZapasuID', zapasID);
+    this.router.navigate(['game-detail']);
   }
 }

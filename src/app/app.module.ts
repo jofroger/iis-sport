@@ -30,6 +30,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { RefereeCentreComponent } from './referee-centre/referee-centre.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { GamesOverviewComponent } from './games-overview/games-overview.component';
+import { GameDetailComponent } from './game-detail/game-detail.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 
 
@@ -51,6 +52,7 @@ import { AddTeamComponent } from './add-team/add-team.component';
     AddUserComponent,
     RefereeCentreComponent,
     GamesOverviewComponent,
+    GameDetailComponent,
     AddTeamComponent
   ],
   imports: [
