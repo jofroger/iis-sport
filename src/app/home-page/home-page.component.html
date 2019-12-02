@@ -6,7 +6,7 @@
     <h3 style="margin-left: 5px">Program zápasov</h3>
     <table class="tabulkaZapasy">
       <tr>
-        <td>
+        <td (click)="gotoDetailZapasu(Zapas1.id)">
           <div class="zapas">
             <div class="zapasDatum">{{Zapas1.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
@@ -19,7 +19,7 @@
             <div class="zapasCas">{{Zapas1.datum | date: 'HH:mm'}}</div>
           </div>
         </td>
-        <td>
+        <td (click)="gotoDetailZapasu(Zapas2.id)">
           <div class="zapas">
             <div class="zapasDatum">{{Zapas2.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
@@ -32,12 +32,12 @@
             <div class="zapasCas">{{Zapas2.datum | date: 'HH:mm'}}</div>
           </div>
         </td>
-        <td>
+        <td (click)="gotoDetailZapasu(Zapas3.id)">
           <div class="zapas">
             <div class="zapasDatum">{{Zapas3.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
               <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim5.logo}}">
-              <h5 style="display:inline">{{stavZapasu6.ziskane_gemy}}</h5><h1 style="display:inline">{{stavZapasu6.ziskane_sety}}</h1>:<h1 style="display:inline">{{stavZapasu6.ziskane_sety}}</h1><h5 style="display:inline">{{stavZapasu6.ziskane_gemy}}</h5>
+              <h5 style="display:inline">{{stavZapasu5.ziskane_gemy}}</h5><h1 style="display:inline">{{stavZapasu5.ziskane_sety}}</h1>:<h1 style="display:inline">{{stavZapasu6.ziskane_sety}}</h1><h5 style="display:inline">{{stavZapasu6.ziskane_gemy}}</h5>
               <img class="flagPlaceholder" alt="flagPlaceholder" src="{{tim6.logo}}">
             </div>
             <div class="zapasTimy">{{Zapas3.nazov}}</div>
@@ -211,7 +211,7 @@
       </tr>
 
       <tr>
-        <td>
+        <td (click)="gotoDetailZapasu(Zapas4.id)">
           <div class="zapas">
             <div class="zapasDatum">{{Zapas4.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
@@ -224,7 +224,7 @@
             <div class="zapasCas">{{Zapas4.datum | date: 'HH:mm'}}</div>
           </div>
         </td>
-        <td>
+        <td (click)="gotoDetailZapasu(Zapas5.id)">
           <div class="zapas">
             <div class="zapasDatum">{{Zapas5.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
@@ -237,7 +237,7 @@
             <div class="zapasCas">{{Zapas5.datum | date: 'HH:mm'}}</div>
           </div>
         </td>
-        <td>
+        <td (click)="gotoDetailZapasu(Zapas6.id)">
           <div class="zapas">
             <div class="zapasDatum">{{Zapas6.datum | date: 'dd. MM. yyyy'}}</div>
             <div class="zapasVysledok">
