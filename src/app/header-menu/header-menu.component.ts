@@ -20,6 +20,7 @@ export class HeaderMenuComponent implements OnInit {
 
   logoff() {
     localStorage.removeItem('userId');
+    localStorage.removeItem('userType');
   }
 
 }

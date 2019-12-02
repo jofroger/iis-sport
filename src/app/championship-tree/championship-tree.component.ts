@@ -3,9 +3,6 @@ import {Router} from '@angular/router';
 import {ApiService} from '../api.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Stav_zapasu, Tim, Turnaj, Usporiadatel, Zapas, Podmienky_turnaja} from '../api.structures';
-import * as Collections from 'typescript-collections';
-import * as binarySearchTree from '@datastructures-js/binary-search-tree';
-import { FileSelectDirective } from 'ng2-file-upload';
 
 interface TreeBox {
     nazov: String
@@ -36,11 +33,11 @@ export class ChampionshipTreeComponent implements OnInit {
 
   zapasyUroven1 : Zapas[] = [];
   zapasyUroven2 : Zapas[] = [];
-  zapasyUroven3 : Zapas[] = [];
+  zapasyUroven3 : Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: null, vyherca: null, uroven_zapasu: null, turnajID: null};
 
-  boxyUroven1 : TreeBox[] = new Array<TreeBox>(8);
-  boxyUroven2 : TreeBox[] = new Array<TreeBox>(4);
-  boxyUroven3 : TreeBox = {nazov:'', score: null};
+  boxyUroven1 : TreeBox[] = [];
+  boxyUroven2 : TreeBox[] = [];
+  boxyUroven3 : TreeBox[] = [];
 
   constructor(private router: Router, private server: ApiService) { }
 
@@ -92,7 +89,7 @@ export class ChampionshipTreeComponent implements OnInit {
           return za;
         });
 
-        this.fillUrovne();
+        this.fillUroven1();
     });
 
     this.server.getZapasByTurnajAndUroven(this.actTurnaj, 2).then( (resp:any) => {
@@ -107,6 +104,8 @@ export class ChampionshipTreeComponent implements OnInit {
           za.turnajID = za.TurnajID;
           return za;
         });
+
+        this.fillUroven2();
     });
 
     this.server.getZapasByTurnajAndUroven(this.actTurnaj, 3).then( (resp:any) => {
@@ -121,10 +120,18 @@ export class ChampionshipTreeComponent implements OnInit {
           za.turnajID = za.TurnajID;
           return za;
         });
+
+        this.fillUroven3();
     });
   }
 
-  fillUrovne() {
+  fillUroven1() {
+    this.boxyUroven1 = [];
+    for (let i = 0; i < 8; i++) {
+      let box : TreeBox = {nazov:'', score: null};
+      this.boxyUroven1.push(box);
+    }
+
     let podm: Podmienky_turnaja = {
       id: this.actTurnaj.podmienky_turnajaID,
       minimalny_vek_hracov: null,
@@ -138,17 +145,170 @@ export class ChampionshipTreeComponent implements OnInit {
       podm.pocet_hracov_v_tyme = resp[0].Pocet_hracov_v_tyme;
 
       if (podm.pocet_hracov_v_tyme === 1) {
-        let boxIdx = 0;
+        let boxIdxNazov = 0;
+        let boxIdxScore = 0;
+
         for (let i = 0; i < this.zapasyUroven1.length; i++) {
           this.server.getUzivatelByZapas(this.zapasyUroven1[i]).then( (resp:any) => {
-            this.boxyUroven1[boxIdx++].nazov = resp[0].Meno + resp[0].Priezvisko;
-            this.boxyUroven1[boxIdx++].nazov = resp[1].Meno + resp[1].Priezvisko;
+            this.boxyUroven1[boxIdxNazov++].nazov = resp[0].Meno + ' ' + resp[0].Priezvisko;
+            this.boxyUroven1[boxIdxNazov++].nazov = resp[1].Meno + ' ' + resp[1].Priezvisko;
+          })
+          this.server.getStav_zapasuByZapas(this.zapasyUroven1[i]).then( (resp:any) => {
+            if (resp.length === 0) {
+              this.boxyUroven1[boxIdxScore++].score = 0;
+              this.boxyUroven1[boxIdxScore++].score = 0;
+            }
+            else {
+              this.boxyUroven1[boxIdxScore++].score = resp[0].Ziskane_sety;
+              this.boxyUroven1[boxIdxScore++].score = resp[1].Ziskane_sety;
+            }
           })
         }
-        console.log(this.boxyUroven1);
       }
       else {
+        let boxIdxNazov = 0;
+        let boxIdxScore = 0;
 
+        for (let i = 0; i < this.zapasyUroven1.length; i++) {
+          this.server.getTimByZapas(this.zapasyUroven1[i]).then( (resp:any) => {
+            this.boxyUroven1[boxIdxNazov++].nazov = resp[0].Nazov;
+            this.boxyUroven1[boxIdxNazov++].nazov = resp[1].Nazov;
+          })
+          this.server.getStav_zapasuByZapas(this.zapasyUroven1[i]).then( (resp:any) => {
+            if (resp.length === 0) {
+              this.boxyUroven1[boxIdxScore++].score = 0;
+              this.boxyUroven1[boxIdxScore++].score = 0;
+            }
+            else {
+              this.boxyUroven1[boxIdxScore++].score = resp[0].Ziskane_sety;
+              this.boxyUroven1[boxIdxScore++].score = resp[1].Ziskane_sety;
+            }
+          })
+        }
+      }
+    })
+  }
+
+  fillUroven2() {
+    this.boxyUroven2 = [];
+    for (let i = 0; i < 4; i++) {
+      let box : TreeBox = {nazov:'', score: null};
+      this.boxyUroven2.push(box);
+    }
+
+    let podm: Podmienky_turnaja = {
+      id: this.actTurnaj.podmienky_turnajaID,
+      minimalny_vek_hracov: null,
+      pocet_hracov_v_tyme: null,
+      pocet_tymov: null,
+      registracny_poplatok: '',
+      druh_hry: ''
+    }
+
+    this.server.getPodmienky_turnaja(podm).then( (resp:any) => {
+      podm.pocet_hracov_v_tyme = resp[0].Pocet_hracov_v_tyme;
+
+      if (podm.pocet_hracov_v_tyme === 1) {
+        let boxIdxNazov = 0;
+        let boxIdxScore = 0;
+
+        for (let i = 0; i < this.zapasyUroven2.length; i++) {
+          this.server.getUzivatelByZapas(this.zapasyUroven2[i]).then( (resp:any) => {
+            this.boxyUroven2[boxIdxNazov++].nazov = resp[0].Meno + ' ' + resp[0].Priezvisko;
+            this.boxyUroven2[boxIdxNazov++].nazov = resp[1].Meno + ' ' + resp[1].Priezvisko;
+          })
+          this.server.getStav_zapasuByZapas(this.zapasyUroven2[i]).then( (resp:any) => {
+            if (resp.length === 0) {
+              this.boxyUroven2[boxIdxScore++].score = 0;
+              this.boxyUroven2[boxIdxScore++].score = 0;
+            }
+            else {
+              this.boxyUroven2[boxIdxScore++].score = resp[0].Ziskane_sety;
+              this.boxyUroven2[boxIdxScore++].score = resp[1].Ziskane_sety;
+            }
+          })
+        }
+      }
+      else {
+        let boxIdxNazov = 0;
+        let boxIdxScore = 0;
+
+        for (let i = 0; i < this.zapasyUroven2.length; i++) {
+          this.server.getTimByZapas(this.zapasyUroven2[i]).then( (resp:any) => {
+            this.boxyUroven2[boxIdxNazov++].nazov = resp[0].Nazov;
+            this.boxyUroven2[boxIdxNazov++].nazov = resp[1].Nazov;
+          })
+          this.server.getStav_zapasuByZapas(this.zapasyUroven2[i]).then( (resp:any) => {
+            if (resp.length === 0) {
+              this.boxyUroven2[boxIdxScore++].score = 0;
+              this.boxyUroven2[boxIdxScore++].score = 0;
+            }
+            else {
+              this.boxyUroven2[boxIdxScore++].score = resp[0].Ziskane_sety;
+              this.boxyUroven2[boxIdxScore++].score = resp[1].Ziskane_sety;
+            }
+          })
+        }
+      }
+    })
+  }
+
+  fillUroven3() {
+    this.boxyUroven3 = [];
+    for (let i = 0; i < 2; i++) {
+      let box : TreeBox = {nazov:'', score: null};
+      this.boxyUroven3.push(box);
+    }
+
+    let podm: Podmienky_turnaja = {
+      id: this.actTurnaj.podmienky_turnajaID,
+      minimalny_vek_hracov: null,
+      pocet_hracov_v_tyme: null,
+      pocet_tymov: null,
+      registracny_poplatok: '',
+      druh_hry: ''
+    }
+
+    this.server.getPodmienky_turnaja(podm).then( (resp:any) => {
+      podm.pocet_hracov_v_tyme = resp[0].Pocet_hracov_v_tyme;
+
+      if (podm.pocet_hracov_v_tyme === 1) {
+        let boxIdxNazov = 0;
+        let boxIdxScore = 0;
+
+        this.server.getUzivatelByZapas(this.zapasyUroven3[0]).then( (resp:any) => {
+          this.boxyUroven3[boxIdxNazov++].nazov = resp[0].Meno + ' ' + resp[0].Priezvisko;
+          this.boxyUroven3[boxIdxNazov++].nazov = resp[1].Meno + ' ' + resp[1].Priezvisko;
+        })
+        this.server.getStav_zapasuByZapas(this.zapasyUroven3[0]).then( (resp:any) => {
+          if (resp.length === 0) {
+            this.boxyUroven3[boxIdxScore++].score = 0;
+            this.boxyUroven3[boxIdxScore++].score = 0;
+          }
+          else {
+            this.boxyUroven3[boxIdxScore++].score = resp[0].Ziskane_sety;
+            this.boxyUroven3[boxIdxScore++].score = resp[1].Ziskane_sety;
+          }
+        })
+      }
+      else {
+        let boxIdxNazov = 0;
+        let boxIdxScore = 0;
+
+        this.server.getTimByZapas(this.zapasyUroven3[0]).then( (resp:any) => {
+          this.boxyUroven3[boxIdxNazov++].nazov = resp[0].Nazov;
+          this.boxyUroven3[boxIdxNazov++].nazov = resp[1].Nazov;
+        })
+        this.server.getStav_zapasuByZapas(this.zapasyUroven3[0]).then( (resp:any) => {
+          if (resp.length === 0) {
+            this.boxyUroven3[boxIdxScore++].score = 0;
+            this.boxyUroven3[boxIdxScore++].score = 0;
+          }
+          else {
+            this.boxyUroven3[boxIdxScore++].score = resp[0].Ziskane_sety;
+            this.boxyUroven3[boxIdxScore++].score = resp[1].Ziskane_sety;
+          }
+        })
       }
     })
   }

@@ -118,11 +118,11 @@ export class HomePageComponent implements OnInit {
     }*/
   }
 
-  private sendTeamNumber(teamNumber) {
+  sendTeamNumber(teamNumber) {
     localStorage.setItem('timID', teamNumber+1);
   }
 
-  private gotoDetailZapasu(zapasID) {
+  gotoDetailZapasu(zapasID) {
     localStorage.setItem('detailZapasuID', zapasID);
     this.router.navigate(['game-detail']);
   }

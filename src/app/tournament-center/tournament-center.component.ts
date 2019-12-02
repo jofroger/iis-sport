@@ -28,7 +28,7 @@ export class TournamentCenterComponent implements OnInit {
     this.server.getTurnajByUsporiadatel(this.usporiadatel).then( (resp: any) => {  // Zistenie poctu zapasov pre obmedzenie nacitaviania po stlaceni sipky
       localStorage.setItem('pocetTurnajov', resp.length);
     });
-    this.loadTurnaje();
+    this.loadTurnaje();*/
   }
 
   private loadTurnaje() {

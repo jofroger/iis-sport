@@ -1210,7 +1210,7 @@ router.delete('/rozhoduje_turnaj/:TurnajID&:RozhodcaID', function (req, res) {
 
 router.get('/uzivatel-a-hrac', function (req, res) {
   db.query(
-    "SELECT * FROM hrac LEFT JOIN  uzivatel USING(UzivatelID);",
+    "SELECT * FROM Hrac LEFT JOIN  Uzivatel USING(UzivatelID);",
     (error, results) => {
       if (error) {
         console.log(error);

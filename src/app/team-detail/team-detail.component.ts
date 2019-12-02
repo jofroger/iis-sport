@@ -105,11 +105,11 @@ export class TeamDetailComponent implements OnInit {
     }
   }
 
-  private joinTeam() {
+  joinTeam() {
     this.server.createHrac_hra_v_time(this.activeUzivatelHrac, this.tim);
   }
 
-  private leaveTeam() {
+  leaveTeam() {
     this.server.deleteHrac_hra_v_time(this.activeUzivatelHrac, this.tim);
   }
 }
