@@ -20,15 +20,15 @@ export class TournamentCenterComponent implements OnInit {
   constructor(private server: ApiService) { }
 
   ngOnInit() {
-    localStorage.setItem('turnajOffset', '0');
-    this.server.getAllTurnajeByUsporiadatel().then( (resp: any) => {  // Zistenie poctu zapasov pre obmedzenie nacitaviania po stlaceni sipky
+    /*localStorage.setItem('turnajOffset', '0');
+    this.server.getTurnajByUsporiadatel().then( (resp: any) => {  // Zistenie poctu zapasov pre obmedzenie nacitaviania po stlaceni sipky
       localStorage.setItem('pocetTurnajov', resp.length);
     });
-    this.loadTurnaje();
+    this.loadTurnaje();*/
   }
 
-  private loadTurnaje() {
-    const turnajOffset = +localStorage.getItem('turnajOffset');
+  loadTurnaje() {
+    /*const turnajOffset = +localStorage.getItem('turnajOffset');
     const imin = 1 + zapasOffset;
     const imax = 6 + zapasOffset;
     for (let i = imin; i <= imax; i++) {
@@ -61,10 +61,17 @@ export class TournamentCenterComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         (resp[0] !== undefined) ? this['tim' + ((i - zapasOffset) * 2 - 1)].logo = resp[0].Logo : this['tim' + ((i - zapasOffset) * 2 - 1)].logo = '../../assets/image-placeholder.jpg';
         // tslint:disable-next-line:max-line-length
-        (resp[1] !== undefined) ? this['tim' + ((i - zapasOffset) * 2)].logo = resp[1].Logo : this['tim' + ((i - zapasOffset) * 2)].logo = '../../assets/image-placeholder.jpg';
+        (resp[1] !== undefined) ? this['tim' + ((i - zapasOffset) * 2)].logo = resp[1].Logo : this['tim' + ((i - zapasOffset) * 2)].logo = '../../assets/image-placeholder.jpg';*/
         /*this['tim' + i * 2].logo = resp[1].Logo;*/
-      });
-    }
+      /*});
+    }*/
   }
 
+  loadPreviousTurnaje() {
+
+  }
+
+  loadNextTurnaje() {
+
+  }
 }

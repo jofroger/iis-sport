@@ -8,7 +8,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 //import "rxjs/add/operator/do";
 //import the map function to be used with the http library
 //import "rxjs/add/operator/map";
-const URL = 'http://localhost:8080/upload-img';
 
 @Component({
   selector: 'app-user-detail',
