@@ -1301,7 +1301,7 @@ router.post('/upload-img/hrac', function (req, res, next) {
      }  
     // No error occured.
      path = req.file.path;
-     res.status(200).json({"Fotka": "../../assets/fotky_hracov/"+req.file.filename}); 
+     res.status(200).json({"Fotka": "./assets/fotky_hracov/"+req.file.filename}); 
   });     
 })
 
@@ -1318,7 +1318,7 @@ router.post('/upload-img/tim', function (req, res, next) {
      }  
     // No error occured.
      path = req.file.path;
-     res.status(200).json({"Fotka": "../../assets/loga_timov/"+req.file.filename}); 
+     res.status(200).json({"Fotka": "./assets/loga_timov/"+req.file.filename}); 
   });     
 })
   return router;
