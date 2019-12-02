@@ -3,9 +3,6 @@ import {Router} from '@angular/router';
 import {ApiService} from '../api.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Stav_zapasu, Tim, Turnaj, Usporiadatel, Zapas, Podmienky_turnaja} from '../api.structures';
-import * as Collections from 'typescript-collections';
-import * as binarySearchTree from '@datastructures-js/binary-search-tree';
-import { FileSelectDirective } from 'ng2-file-upload';
 
 interface TreeBox {
     nazov: String
