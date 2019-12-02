@@ -59,7 +59,7 @@ DROP TABLE IF EXISTS `Zapas` CASCADE
 CREATE TABLE `Hrac`
 (
 	`HracID` int NOT NULL AUTO_INCREMENT,
-	`Odohrane_zapasy` int,
+	`Odohrane_zapasy` varchar(50),
 	`Pocet_vyhier` int,
 	`Fotka` varchar(100),
     `UzivatelID` int NOT NULL,

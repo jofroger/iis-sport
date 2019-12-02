@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AddTeamComponent implements OnInit {
   
-  newTim: Tim = {id: null, nazov: '', logo: '', pocet_hracov: 2, odohrane_zapasy: 0, pocet_vyhier: 0};
+  newTim: Tim = {id: null, nazov: '', logo: '../../assets/fotky_hracov/generic.png', pocet_hracov: 2, odohrane_zapasy: 0, pocet_vyhier: 0};
 
   constructor(private server: ApiService, private router: Router, private el: ElementRef) { }
 
@@ -19,6 +19,11 @@ export class AddTeamComponent implements OnInit {
 
   createTim() {
     if (this.newTim.nazov !== '') {
+      this.server.createTim(this.newTim).then( () => {
+        this.router.navigate(['/']);
+      })
+      
+      /*
       let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
       let fileCount: number = inputEl.files.length;
       let formData = new FormData();
@@ -30,7 +35,7 @@ export class AddTeamComponent implements OnInit {
             this.router.navigate(['/']);
           })
         })
-      }
+      }*/
     }
     else {
       alert("Vyplňte všetky povinné polia")
