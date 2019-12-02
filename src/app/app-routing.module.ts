@@ -14,6 +14,8 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { RefereeCentreComponent } from './referee-centre/referee-centre.component';
 
 import {GamesOverviewComponent} from './games-overview/games-overview.component';
+import {ChampionshipTreeComponent} from './championship-tree/championship-tree.component';
+
 
 const routes: Routes = [
   {path: 'example', component: ExampleComponent},
@@ -27,8 +29,9 @@ const routes: Routes = [
   {path: 'admin-centre', component: AdminCentreComponent},
   {path: 'add-user', component: AddUserComponent},
   {path: 'referee-centre', component: RefereeCentreComponent},
-  {path: '', component: HomePageComponent},
-  {path: 'games-overview', component: GamesOverviewComponent}
+  {path: 'games-overview', component: GamesOverviewComponent},
+  {path: 'tree', component: ChampionshipTreeComponent},
+  {path: '', component: HomePageComponent}
 ];
 
 @NgModule({

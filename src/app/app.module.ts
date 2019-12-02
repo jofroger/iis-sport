@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule, MatInputModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatTableModule} from '@angular/material';
 import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginSiteComponent } from './login-site/login-site.component';
 import { RegisterSiteComponent } from './register-site/register-site.component';
+import { ChampionshipTreeComponent } from './championship-tree/championship-tree.component';
 import { HeaderMenuComponent } from './header-menu/header-menu.component';
 import { PlayerListComponent } from './player-list/player-list.component';
 import { FileSelectDirective } from 'ng2-file-upload';
@@ -45,6 +47,8 @@ import { GamesOverviewComponent } from './games-overview/games-overview.componen
     RegisterSiteComponent,
     HeaderMenuComponent,
     PlayerListComponent,
+    ChampionshipTreeComponent,
+    PlayerListComponent,
     FileSelectDirective,
     AdminCentreComponent,
     AddUserComponent,
@@ -66,6 +70,7 @@ import { GamesOverviewComponent } from './games-overview/games-overview.componen
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
     MatGridListModule,
     ScrollingModule,
     CalendarModule
