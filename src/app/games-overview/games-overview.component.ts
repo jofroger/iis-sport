@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {Stav_zapasu, Tim, Zapas} from '../api.structures';
 import {ApiService} from '../api.service';
 import { CalendarModule } from '@syncfusion/ej2-angular-calendars';
+import {Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-games-overview',
@@ -49,7 +50,7 @@ export class GamesOverviewComponent implements OnInit {
   stavZapasu11: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
   stavZapasu12: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
 
-  constructor(private server: ApiService) { }
+  constructor(private server: ApiService, private router: Router) { }
 
   ngOnInit() {
     localStorage.setItem('zapasOffset', '0');
@@ -57,6 +58,10 @@ export class GamesOverviewComponent implements OnInit {
       localStorage.setItem('pocetZapasov', resp.length);
     });
     this.loadZapasy();
+  }
+
+  private delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   private loadZapasy() {
@@ -78,16 +83,17 @@ export class GamesOverviewComponent implements OnInit {
             this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_sety = 'x';
             this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_gemy = 'x';
           } else {
-            this.server.getStav_zapasuByZapas(this['Zapas' + i]).then( (resp: any) => {
-              this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_sety = resp[0].Ziskane_sety;
-              this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_gemy = resp[0].Ziskane_gemy;
-              this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_sety = resp[1].Ziskane_sety;
-              this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_gemy = resp[1].Ziskane_gemy;
+            this.server.getStav_zapasuByZapas(this['Zapas' + i]).then( (respo: any) => {
+              this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_sety = respo[0].Ziskane_sety;
+              this['stavZapasu' + ((i - zapasOffset) * 2 - 1)].ziskane_gemy = respo[0].Ziskane_gemy;
+              this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_sety = respo[1].Ziskane_sety;
+              this['stavZapasu' + ((i - zapasOffset) * 2)].ziskane_gemy = respo[1].Ziskane_gemy;
             });
           }
         } else {
           document.getElementById('zapas' + (i - zapasOffset)).style.display = 'none';
         }
+        console.log(this['stavZapasu' + ((i - zapasOffset) * 2 - 1)]);
       });
       this.server.getTimByZapas(this['Zapas' + (i - zapasOffset)]).then( (resp: any) => { // Nastavenie loga timu pri zapasoch
         // tslint:disable-next-line:max-line-length
@@ -99,18 +105,23 @@ export class GamesOverviewComponent implements OnInit {
     }
   }
 
-  loadPreviousZapasy() {
+  private loadPreviousZapasy() {
     let zapasOffset = +localStorage.getItem('zapasOffset');
     (zapasOffset !== 0) ? zapasOffset = zapasOffset - 6 : zapasOffset = zapasOffset;
     localStorage.setItem('zapasOffset', zapasOffset.toString());
     this.loadZapasy();
   }
 
-  loadNextZapasy() {
+  private loadNextZapasy() {
     let zapasOffset = +localStorage.getItem('zapasOffset');
     const pocetZapasov = +localStorage.getItem('pocetZapasov');
     (zapasOffset >= (pocetZapasov - 6)) ? zapasOffset = zapasOffset : zapasOffset = zapasOffset + 6;
     localStorage.setItem('zapasOffset', zapasOffset.toString());
     this.loadZapasy();
+  }
+
+  gotoDetailZapasu(zapasID) {
+    localStorage.setItem('detailZapasuID', zapasID);
+    this.router.navigate(['game-detail']);
   }
 }
