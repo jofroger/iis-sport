@@ -12,19 +12,9 @@
 .tabulkaMojeTurnajeContent {
   width: 100%;
   height: auto;
-  overflow-y: scroll;
 }
 
-table.tabulkaZapasyOverview td {
-  border: 1px solid transparent;
-  width: 280px;
-}
-
-table.tabulkaZapasyOverview td:last-child {
-  border-right-width: 0;
-}
-
-.zapas {
+.turnaj {
   height: 100%;
   width: calc(100% - 10px);
   border: 1px solid #00c3ff;
@@ -35,39 +25,26 @@ table.tabulkaZapasyOverview td:last-child {
   box-shadow: 0 0 5px #000
 }
 
-.zapasDatum {
+.turnajDatum {
   font-size: 20px;
   margin-top: 8%;
 }
 
-.zapasVysledok {
+.turnajNazov {
   font-size: 40px;
   margin-top: 5%;
 }
 
-.zapasTimy {
+.turnajTimy {
   /*font-size: 25px;*/
   font-size: 110%;
   margin-top: 5%;
-}
-
-.zapasMiesto {
-  font-size: 20px;
-  margin-top: 1%;
-}
-
-.zapasCas {
-  font-size: 20px;
-  margin-top: 1%;
   margin-bottom: 5%;
 }
 
-.flagPlaceholder {
-  height: 60px;
-  width: 60px;
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-top: -10px;
+.turnajCas {
+  font-size: 20px;
+  margin-top: 1%;
 }
 
 .rotate180 {

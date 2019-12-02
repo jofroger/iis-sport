@@ -1,0 +1,60 @@
+.tabulkaMojTurnaj {
+  width: calc(100% - 10px);
+  height: 50%;
+  background-color: #71e2ff;
+  border-radius: 10px;
+  border: 2px solid #0077ff;
+  border-collapse: separate;
+  margin: 35px 5px 5px 5px;
+  box-shadow: 0 0 5px #000
+}
+
+.tabulkaMojTurnajContent {
+  width: 100%;
+  height: auto;
+}
+
+.turnaj {
+  height: 100%;
+  width: calc(100% - 10px);
+  border: 1px solid #00c3ff;
+  border-radius: 5px;
+  text-align: center;
+  margin: 4px 4px 4px 4px;
+  background-color: #00c3ff;
+  box-shadow: 0 0 5px #000
+}
+
+.turnajDatum {
+  font-size: 20px;
+  margin-top: 8%;
+}
+
+.turnajNazov {
+  font-size: 40px;
+  margin-top: 5%;
+}
+
+.turnajTimy {
+  /*font-size: 25px;*/
+  font-size: 110%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.turnajCas {
+  font-size: 20px;
+  margin-top: 1%;
+}
+
+.rotate180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.mat-radio-button {
+  margin-left: 10px;
+}
