@@ -1,1 +1,56 @@
-<p>tournament-detail works!</p>
+<div class="background">
+  <div class="homepageContent">
+    <app-header-menu></app-header-menu>
+
+    <div class="tabulkaMojTurnaj">
+      <div style="text-align: center; margin-top: 10px">
+        <img (click)="goBack()" class="rotate180" style="width: 30px; height: 30px; float: left; margin: 10px 0 0 10px" alt="back" src="../../assets/right_arrow.png">
+        <label>
+          <input matInput type="text" placeholder="{{nazovTurnajaPlaceholder}}" [formControl]="nazovControl" [(ngModel)]="nazovTurnaja" name="nazovTurnaja">
+        </label> <button (click)="save()">Uložiť</button></div>
+      <table class="tabulkaMojTurnajContent">
+        <tr>
+          <td colspan="2">
+            <div style="margin-left: 15px"><b>Set pravidiel č:</b>
+              <mat-radio-group [formControl]="pravidlaControl" [(ngModel)]="pravidla" (change)="loadPodmienkyTurnaja()">
+                <mat-radio-button value="1">1</mat-radio-button>
+                <mat-radio-button value="2">2</mat-radio-button>
+                <mat-radio-button value="3">3</mat-radio-button>
+                <mat-radio-button value="4">4</mat-radio-button>
+                <mat-radio-button value="5">5</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div style="margin-left: 15px"><b>Minimálny vek hráčov:</b> {{podmienkyTurnaja.minimalny_vek_hracov}}</div>
+            <div style="margin-left: 15px"><b>Počet hráčov v tíme:</b> {{podmienkyTurnaja.pocet_hracov_v_tyme}}</div>
+            <div style="margin-left: 15px"><b>Počet tímov:</b> {{podmienkyTurnaja.pocet_tymov}}</div>
+            <div style="margin-left: 15px"><b>Registračný poplatok:</b> {{podmienkyTurnaja.registracny_poplatok}}</div>
+            <div style="margin-left: 15px"><b>Druh hry:</b> {{podmienkyTurnaja.druh_hry}}</div>
+          </td>
+          <td>{{Turnaj.zaciatok | date: 'dd. MM. yyyy'}}<label>
+            <input matInput type="text" placeholder="Určiť začiatok na" [formControl]="nazovControl" [(ngModel)]="novyZaciatok" name="nazovTurnaja">
+          </label><br>
+            {{Turnaj.koniec | date: 'dd. MM. yyyy'}} <label>
+              <input matInput type="text" placeholder="Určiť koniec na" [formControl]="nazovControl" [(ngModel)]="novyKoniec" name="nazovTurnaja">
+            </label><br>
+            {{Turnaj.vyhra}}<label>
+              <input matInput type="text" placeholder="Určiť výhernú sumu v €" [formControl]="nazovControl" [(ngModel)]="novaVyhra" name="nazovTurnaja">
+            </label><br>
+            {{Turnaj.sponzori}}<label>
+              <input matInput type="text" placeholder="Určiť sponzorov" [formControl]="nazovControl" [(ngModel)]="noviSponzori" name="nazovTurnaja">
+            </label><br>
+            {{Turnaj.povrch}}<label>
+              <input matInput type="text" placeholder="Určiť povrch" [formControl]="nazovControl" [(ngModel)]="novyPovrch" name="nazovTurnaja">
+            </label><br>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
