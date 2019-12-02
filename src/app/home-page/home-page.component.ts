@@ -47,7 +47,12 @@ export class HomePageComponent implements OnInit {
   stavZapasu11: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
   stavZapasu12: Stav_zapasu = {id: null, ziskane_sety: null, ziskane_gemy: null, ziskane_vymeny: null, hracID: null, timID: null, zapasID: null};
 
+
   constructor(private server: ApiService, private router: Router) { }
+
+  enAddTeam : Boolean = (localStorage.getItem('userId') !== null);
+
+  constructor(private server: ApiService) { }
 
   ngOnInit() {
     this.loadZapasy();
