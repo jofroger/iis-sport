@@ -19,7 +19,7 @@ export class TournamentDetailComponent implements OnInit {
     { author: 'M. Mitchell', title: 'Gone with the Wind', year: 1936, genre: 'Historical fiction' }
   ];
 
-  turnaj: Turnaj = {id: null, nazov: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID : null, usporiadatelID: null};
+  turnaj: Turnaj = {id: null, nazov: '', stav_turnaja: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID : null, usporiadatelID: null};
   turnaje: Turnaj[] = [];
   turnajeReadOnly: Turnaj[] = [];
   actualUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo: '', typ: ''};
@@ -106,6 +106,7 @@ export class TournamentDetailComponent implements OnInit {
   createNewTurnaj(event) {
     const newturnaj: Turnaj = {id: null,
                                nazov: event.data.nazov,
+                               stav_turnaja: event.data.stav_turnaja, 
                                zaciatok: event.data.zaciatok,
                                koniec: event.data.koniec,
                                vyhra: event.data.vyhra,

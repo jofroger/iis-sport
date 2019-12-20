@@ -2,11 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ApiService} from '../api.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Stav_zapasu, Tim, Turnaj, Usporiadatel, Zapas, Podmienky_turnaja} from '../api.structures';
+import {Stav_zapasu, Tim, Turnaj, Usporiadatel, Zapas, Podmienky_turnaja, Rozhodca, Uzivatel, Hrac} from '../api.structures';
 
 interface TreeBox {
     nazov: String
     score: Number
+}
+
+interface RozhodcaWithName {
+  id : Number
+  meno: String
+  typ: String
+  uzivateID: Number
 }
 
 @Component({
@@ -28,8 +35,17 @@ export class ChampionshipTreeComponent implements OnInit {
   actZapas: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: null, vyherca: null, uroven_zapasu: null, turnajID: null};
   zapasy: Zapas[] = [];
 
-  actTurnaj: Turnaj = {id: null, nazov:'', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID: null, usporiadatelID: null};
+  actTurnaj: Turnaj = {id: null, nazov:'', stav_turnaja: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID: null, usporiadatelID: null};
   turnaje: Turnaj[] = [];
+  
+  registeredUsers : any[] = [];
+  registeredRef : RozhodcaWithName[] = [];
+
+  selectedType : String = 'hlavný';
+
+  spiderEn : Boolean
+
+  playerEn : Boolean;
 
   zapasyUroven1 : Zapas[] = [];
   zapasyUroven2 : Zapas[] = [];
@@ -50,6 +66,7 @@ export class ChampionshipTreeComponent implements OnInit {
       this.turnaje = resp.map( (tu) => {
         tu.id = tu.TurnajID;
         tu.nazov = tu.Nazov;
+        tu.stav_turnaja = tu.Stav_turnaja;
         tu.zaciatok = tu.Zaciatok;
         tu.koniec = tu.Koniec;
         tu.vyhra = tu.Vyhra;
@@ -67,7 +84,124 @@ export class ChampionshipTreeComponent implements OnInit {
   setActTurnaj(idx) {
     this.index = idx;
     this.actTurnaj = this.turnaje[this.index];
-    this.fillTree();
+    this.spiderEn = (this.actTurnaj.stav_turnaja != 'planovany');
+    
+    if (this.spiderEn) {
+      this.fillTree();
+    }
+    else {
+      let podm: Podmienky_turnaja = {
+        id: this.actTurnaj.podmienky_turnajaID,
+        minimalny_vek_hracov: null,
+        pocet_hracov_v_tyme: null,
+        pocet_tymov: null,
+        registracny_poplatok: '',
+        druh_hry: ''
+      }
+  
+      this.server.getPodmienky_turnaja(podm).then( (resp:any) => {
+        podm.pocet_hracov_v_tyme = resp[0].Pocet_hracov_v_tyme;
+        this.playerEn = podm.pocet_hracov_v_tyme === 1
+
+        this.actPlayerTable();
+        this.actRefTable();
+      })
+    }
+  }
+
+  actPlayerTable() {
+    if (this.playerEn) {
+      this.server.getHracByTurnaj(this.actTurnaj).then( (resp: any) => {
+        this.registeredUsers = resp.map( (pl) => {
+         pl.id = pl.HracID;
+         pl.meno = pl.Meno + ' ' + pl.Priezvisko;
+         pl.uzivatelID = pl.UzivatelID;
+         return pl;
+       });
+     });
+    }
+    else {
+      this.server.getTurnajByTim(this.actTurnaj).then( (resp: any) => {
+        this.registeredUsers = resp.map( (tim) => {
+          tim.id = tim.HracID;
+          tim.meno = tim.Meno + ' ' + tim.Priezvisko;
+          tim.uzivatelID = tim.UzivatelID;
+          return tim;
+        });
+      });
+    }
+    
+  }
+
+  addPlayer() {
+    let podm: Podmienky_turnaja = {
+      id: this.actTurnaj.podmienky_turnajaID,
+      minimalny_vek_hracov: null,
+      pocet_hracov_v_tyme: null,
+      pocet_tymov: null,
+      registracny_poplatok: '',
+      druh_hry: ''
+    }
+
+    this.server.getPodmienky_turnaja(podm).then( (resp:any) => {
+      podm.pocet_hracov_v_tyme = resp[0].Pocet_hracov_v_tyme;
+
+      if (podm.pocet_hracov_v_tyme === 1) {
+        
+        let actUzivatel: Uzivatel = {id: Number(localStorage.getItem('userId')), meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ: ''};
+        this.server.getHracByUzivatel(actUzivatel).then( (resp: any) => {
+          if (resp.length !== 0) alert("Nie ste hráčom! Stať sa hráčom môžete na stráke 'Môj účet'"); //todo + kontrola na rozhodcu
+          else {
+
+            let actHrac: Hrac = {
+              id: resp[0].HracID,
+              odohrane_zapasy: "",
+              pocet_vyhier: null,
+              fotka: '',
+              uzivatelID: null
+            }
+            this.server.createHrac_chce_hrat(this.actTurnaj, actHrac).then((resp:any) => {
+
+            });
+          }
+        });
+      }
+      else {
+
+      }
+    });
+  }
+
+  actRefTable() {
+    this.server.getRozhodcaByTurnajWithName(this.actTurnaj).then( (resp: any) => {
+       this.registeredRef = resp.map( (ro) => {
+        ro.id = ro.RozhodcaID;
+        ro.meno = ro.Meno + ' ' + ro.Priezvisko;
+        ro.typ = ro.Typ;
+        ro.uzivatelID = ro.UzivatelID;
+        return ro;
+      })
+    })
+  }
+
+  addReferee() {
+    let newRozh : Rozhodca = {
+      id: null, 
+      typ: this.selectedType, 
+      uzivatelID: Number(localStorage.getItem('userId'))
+    }
+
+    this.server.createRozhodca(newRozh).then( (resp: any) => {
+      
+      let newRozh : Rozhodca = {
+        id: resp.insertId, 
+        typ: '', 
+        uzivatelID: null
+      }
+      this.server.createRozhoduje_turnaj(this.actTurnaj, newRozh).then( (resp:any) => {
+        this.actRefTable();
+      })
+    })
   }
 
   fillTree() {

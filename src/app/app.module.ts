@@ -36,6 +36,7 @@ import { AddTeamComponent } from './add-team/add-team.component';
 import { TournamentCenterComponent } from './tournament-center/tournament-center.component';
 import { TournamentDetailComponent } from './tournament-detail/tournament-detail.component';
 import { DxDataGridModule, DxButtonModule } from 'devextreme-angular';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { DxDataGridModule, DxButtonModule } from 'devextreme-angular';
     MatGridListModule,
     ScrollingModule,
     CalendarModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -323,12 +323,12 @@ router.post('/rozhodca', (req, res) => {
   db.query(
     "INSERT INTO Rozhodca (Typ, UzivatelID) VALUES (?,?)",
     [req.body.typ, req.body.uzivatelID],
-    (error) => {
+    (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
-        res.status(200).json({ status: 'ok' });
+        res.status(200).json(results);
       }
     }
   );
@@ -397,12 +397,12 @@ router.post('/podmienky_turnaja', (req, res) => {
   db.query(
     "INSERT INTO Podmienky_turnaja (Minimalny_vek_hracov, Pocet_hracov_v_tyme, Pocet_tymov, Registracny_poplatok, Druh_hry) VALUES (?,?,?,?,?)",
     [req.body.minimalny_vek_hracov, req.body.pocet_hracov_v_tyme, req.body.pocet_tymov, req.body.registracny_poplatok, req.body.druh_hry],
-    (error) => {
+    (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
-        res.status(200).json({ status: 'ok' });
+        res.status(200).json(results);
       }
     }
   );
@@ -524,8 +524,8 @@ router.get('/turnaj/except-uzivatel/:id', function (req, res) {
 
 router.post('/turnaj', (req, res) => {
   db.query(
-    "INSERT INTO Turnaj (Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID) VALUES (?,?,?,?,?,?,?)",
-    [req.body.nazov, req.body.zaciatok, req.body.koniec, req.body.vyhra, req.body.sponzori, req.body.podmienky_turnajaID, req.body.usporiadatelID],
+    "INSERT INTO Turnaj (Nazov, Stav_turnaja, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID) VALUES (?,?,?,?,?,?,?,?)",
+    [req.body.nazov, req.body.stav_turnaja, req.body.zaciatok, req.body.koniec, req.body.vyhra, req.body.sponzori, req.body.podmienky_turnajaID, req.body.usporiadatelID],
     (error) => {
       if (error) {
         console.error(error);
@@ -539,8 +539,8 @@ router.post('/turnaj', (req, res) => {
 
 router.put('/turnaj/:id', function (req, res, next) {
   db.query(
-    'UPDATE Turnaj SET Nazov=?, Zaciatok=?, Koniec=?, Vyhra=?, Sponzori=?, Podmienky_turnajaID=?, UsporiadatelID=? WHERE TurnajID=?',
-    [req.body.nazov, req.body.zaciatok, req.body.koniec, req.body.vyhra, req.body.sponzori, req.body.podmienky_turnajaID, req.body.usporiadatelID, req.params.id],
+    'UPDATE Turnaj SET Nazov=?, Stav_turnaja=?, Zaciatok=?, Koniec=?, Vyhra=?, Sponzori=?, Podmienky_turnajaID=?, UsporiadatelID=? WHERE TurnajID=?',
+    [req.body.nazov, req.body.stav_turnaja, req.body.zaciatok, req.body.koniec, req.body.vyhra, req.body.sponzori, req.body.podmienky_turnajaID, req.body.usporiadatelID, req.params.id],
     (error) => {
       if (error) {
         console.error(error);
@@ -917,7 +917,7 @@ router.get('/tim_chce_hrat/turnaj/:id', function (req, res) {
 
 router.get('/tim_chce_hrat/tim/:id', function (req, res) {
   db.query(
-    "SELECT TurnajID, Turnaj.Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
+    "SELECT TurnajID, Turnaj.Nazov, Stav_turnaja, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
      FROM Tim  \
      INNER JOIN tim_chce_hrat USING (TimID) \
      INNER JOIN Turnaj USING (TurnajID) \
@@ -986,7 +986,7 @@ router.get('/hrac_chce_hrat/turnaj/:id', function (req, res) {
 
 router.get('/hrac_chce_hrat/hrac/:id', function (req, res) {
   db.query(
-    "SELECT TurnajID, Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
+    "SELECT TurnajID, Nazov, Stav_turnaja, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
      FROM Hrac  \
      INNER JOIN hrac_chce_hrat USING (HracID) \
      INNER JOIN Turnaj USING (TurnajID) \
@@ -1214,7 +1214,7 @@ router.get('/rozhoduje_turnaj/turnaj/:id', function (req, res) {
 
 router.get('/rozhoduje_turnaj/rozhodca/:id', function (req, res) {
   db.query(
-    "SELECT TurnajID, Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
+    "SELECT TurnajID, Nazov, Stav_turnaja, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
      FROM Rozhodca  \
      INNER JOIN rozhoduje_turnaj USING (RozhodcaID) \
      INNER JOIN Turnaj USING (TurnajID) \
@@ -1231,10 +1231,30 @@ router.get('/rozhoduje_turnaj/rozhodca/:id', function (req, res) {
   );
 });
 
+router.get('/rozhoduje_turnaj/uzivatel/turnaj/:id', function (req, res) {
+  db.query(
+    "SELECT Meno, Priezvisko, Rozhodca.Typ, UzivatelID, RozhodcaID, TurnajID \
+    FROM Turnaj \
+    INNER JOIN rozhoduje_turnaj USING (TurnajID) \
+    INNER JOIN Rozhodca USING (RozhodcaID) \
+    INNER JOIN Uzivatel USING (UzivatelID) \
+    WHERE TurnajID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 router.post('/rozhoduje_turnaj', (req, res) => {
   db.query(
     "INSERT INTO rozhoduje_turnaj (TurnajID, RozhodcaID) VALUES (?,?)",
-    [req.body.turnajID, req.body.rozhodcaID],
+    [req.body.TurnajID, req.body.RozhodcaID],
     (error) => {
       if (error) {
         console.error(error);

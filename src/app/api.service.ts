@@ -365,6 +365,10 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/rozhoduje_turnaj/rozhodca/${rozhodca.id}`);
     }
 
+    getRozhodcaByTurnajWithName(turnaj: Turnaj) {
+        return this.request('GET', `${environment.serverUrl}/rozhoduje_turnaj/uzivatel/turnaj/${turnaj.id}`);
+    }
+
     createRozhoduje_turnaj(turnaj: Turnaj, rozhodca: Rozhodca) {
         return this.request('POST', `${environment.serverUrl}/rozhoduje_turnaj`, {"TurnajID": turnaj.id, "RozhodcaID": rozhodca.id});
     }

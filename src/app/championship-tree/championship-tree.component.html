@@ -13,8 +13,54 @@
                   </mat-card>
               </td>
               <td>
+
+      <div *ngIf="!spiderEn">
+          <h3>Prebieha prihlasovanie na turnaj</h3>
+          <table>
+            <td>
+              <h4>Hraci</h4>
+              <dx-data-grid 
+                  id="gridContainer"
+                  [dataSource]="registeredUsers"
+                  [allowColumnReordering]="true"
+                  [showBorders]="true">
+
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+
+                  <dxi-column dataField="name" caption="Name"></dxi-column>
+                  <dxi-column dataField="login" caption="Login"></dxi-column>
+                  <dxi-column dataField="password" caption="Password"></dxi-column>
+               </dx-data-grid>
+            </td>
+            <td>
+              <h4>Rozhodcovia</h4>
+              <dx-data-grid 
+                  id="gridContainer"
+                  [dataSource]="registeredRef"
+                  [allowColumnReordering]="true"
+                  [showBorders]="true">
+
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+
+                  <dxi-column dataField="meno" caption="Meno"></dxi-column>
+                  <dxi-column dataField="typ" caption="Typ"></dxi-column>
+              </dx-data-grid>
+            </td>
+        </table>
+
+        <button>Chcem sa zúčastniť</button>
         
-      <div>
+        <select matNativeControl [(ngModel)]="selectedType">
+          <option value="hlavný">Hlavný</option>
+          <option value="čiarový">Čiarový</option>
+          <option value="vrchný">Vrchný</option>
+        </select>
+        <button (click)="addReferee()">Chcem rozhodovať</button>
+        
+
+      </div>
+
+      <div *ngIf="spiderEn">
         <table>
             <div class="round r-of-3">
               <div class="bracket-game">

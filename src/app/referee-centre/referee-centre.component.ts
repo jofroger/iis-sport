@@ -21,7 +21,7 @@ export class RefereeCentreComponent implements OnInit {
   actZapas: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: null, vyherca: null, uroven_zapasu: null, turnajID: null};
   zapasy: Zapas[] = [];
   actRozhodca: Rozhodca = {id: null, typ: '', uzivatelID: null};
-  actTurnaj: Turnaj = {id: null, nazov:'', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID: null, usporiadatelID: null};
+  actTurnaj: Turnaj = {id: null, nazov:'', stav_turnaja: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID: null, usporiadatelID: null};
 
   //stavZapasu : Stav_zapasu[] = [];
   stavZapasu1 : Stav_zapasu = {

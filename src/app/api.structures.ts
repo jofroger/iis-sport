@@ -32,6 +32,7 @@ export interface Usporiadatel {
 export interface Turnaj {
     id: Number
     nazov: String
+    stav_turnaja: String
     zaciatok: Date
     koniec: Date
     vyhra: String
