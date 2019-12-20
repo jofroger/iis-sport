@@ -43,11 +43,12 @@ export class ChampionshipTreeComponent implements OnInit {
   playerTeams : Tim[] = []
 
   selectedType : String = 'hlavný';
+  selectedTim : String = 'none';
 
   spiderEn : Boolean
 
   playerEn : Boolean;
-  alreadyPlaying : Boolean;
+  alreadyPlaying : Boolean = true;
   alreadyRef : Boolean;
 
   zapasyUroven1 : Zapas[] = [];
@@ -62,7 +63,6 @@ export class ChampionshipTreeComponent implements OnInit {
 
   ngOnInit() {
     this.getTurnaje();
-    this.getYourTeams();
   }
 
   getTurnaje() {
@@ -89,7 +89,9 @@ export class ChampionshipTreeComponent implements OnInit {
     let actUzivatel: Uzivatel = {id: Number(localStorage.getItem('userId')), meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ: ''};
     this.server.getTimByUzivatel(actUzivatel).then( (resp: any) => {
       this.playerTeams = resp.map( (tim) => {
+        tim.id = tim.TimID;
         tim.nazov = tim.Nazov;
+        return tim;
       });
     });
   }
@@ -119,6 +121,8 @@ export class ChampionshipTreeComponent implements OnInit {
         this.actPlayerTable();
         this.actRefTable();
       })
+
+      this.getYourTeams();
     }
   }
 
@@ -136,6 +140,14 @@ export class ChampionshipTreeComponent implements OnInit {
      });
     }
     else {
+      let actUzivatel: Uzivatel = {id: Number(localStorage.getItem('userId')), meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ: ''};
+      this.server.getTimByUzivatel(actUzivatel).then( (resp: any) => {
+      this.playerTeams = resp.map( (tim) => {
+        tim.id = tim.TimID;
+        tim.nazov = tim.Nazov;
+        return tim;
+      });
+
       this.server.getTurnajByTim(this.actTurnaj).then( (resp: any) => {
         this.registeredUsers = resp.map( (tim) => {
           tim.id = tim.TimID;
@@ -143,8 +155,14 @@ export class ChampionshipTreeComponent implements OnInit {
           return tim;
         });
 
-        this.alreadyPlaying = typeof this.registeredUsers.find(el => el.uzivatelID == Number(localStorage.getItem('userId'))) != 'undefined';
+        if (this.playerTeams.length > 0) {
+          this.alreadyPlaying = typeof this.registeredUsers.find(el => el.id == this.playerTeams[0].id) != 'undefined';
+          if (this.playerTeams.length > 1) {
+            this.alreadyPlaying = typeof this.registeredUsers.find(el => el.id == this.playerTeams[1].id) != 'undefined';
+          }
+        }
       });
+    });
     }
   }
 
@@ -169,7 +187,15 @@ export class ChampionshipTreeComponent implements OnInit {
       });
     }
     else {
+      if (this.selectedTim == 'none') alert("Nie si v ziadnom time!");
+      else {
 
+        console.log(this.selectedTim);
+        let actTim: Tim = {id: Number(this.selectedTim), nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
+        this.server.createTim_chce_hrat(this.actTurnaj, actTim).then( (resp:any) => {
+          this.actPlayerTable();
+        })
+      }
     }
   }
 

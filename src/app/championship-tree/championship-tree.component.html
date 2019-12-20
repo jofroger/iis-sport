@@ -16,6 +16,7 @@
 
       <div *ngIf="!spiderEn">
           <h3>Prebieha prihlasovanie na turnaj</h3>
+          <h4>(záväzné, nedá sa odhlásiť)</h4>
           <table>
             <td>
               <h4>Hraci</h4>
@@ -31,11 +32,10 @@
                </dx-data-grid>
 
                <button mat-button class="button" (click)="addPlayer()" [hidden]="alreadyPlaying">Chcem sa zúčastniť</button>
-               <mat-select  [hidden]="playerEn">
-                 <mat-option *ngFor="let tim of playerTeams" [(ngModel)]="tim.nazov">
-                   {{tim.nazov}}
-                 </mat-option>
-               </mat-select>
+               <select  [(ngModel)]="selectedTim" [hidden]="alreadyPlaying">
+                  <option value="none">None</option>
+                  <option *ngFor="let tim of playerTeams" value="{{tim.id}}">{{tim.nazov}}</option>
+               </select>
             </td>
             <td>
               <h4>Rozhodcovia</h4>
@@ -52,11 +52,11 @@
               </dx-data-grid>
 
               <button mat-button class="button" (click)="addReferee()" [hidden]="alreadyRef">Chcem rozhodovať</button>
-              <mat-select [(ngModel)]="selectedType" [hidden]="alreadyRef">
-                <mat-option value="hlavný">Hlavný</mat-option>
-                <mat-option value="čiarový">Čiarový</mat-option>
-                <mat-option value="vrchný">Vrchný</mat-option>
-              </mat-select>
+              <select [(ngModel)]="selectedType" [hidden]="alreadyRef">
+                <option value="hlavný">Hlavný</option>
+                <option value="čiarový">Čiarový</option>
+                <option value="vrchný">Vrchný</option>
+              </select>
             </td>
         </table>
       </div>
