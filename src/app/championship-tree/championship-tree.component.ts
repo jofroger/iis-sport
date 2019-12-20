@@ -50,6 +50,7 @@ export class ChampionshipTreeComponent implements OnInit {
   playerEn : Boolean;
   alreadyPlaying : Boolean = true;
   alreadyRef : Boolean;
+  isLogout : Boolean = (localStorage.getItem('userId') == null)
 
   zapasyUroven1 : Zapas[] = [];
   zapasyUroven2 : Zapas[] = [];
@@ -190,7 +191,6 @@ export class ChampionshipTreeComponent implements OnInit {
       if (this.selectedTim == 'none') alert("Nie si v ziadnom time!");
       else {
 
-        console.log(this.selectedTim);
         let actTim: Tim = {id: Number(this.selectedTim), nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
         this.server.createTim_chce_hrat(this.actTurnaj, actTim).then( (resp:any) => {
           this.actPlayerTable();

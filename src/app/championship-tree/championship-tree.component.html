@@ -31,8 +31,8 @@
                   <dxi-column dataField="meno" caption="Meno"></dxi-column>
                </dx-data-grid>
 
-               <button mat-button class="button" (click)="addPlayer()" [hidden]="alreadyPlaying">Chcem sa zúčastniť</button>
-               <select  [(ngModel)]="selectedTim" [hidden]="alreadyPlaying">
+               <button mat-button class="button" (click)="addPlayer()" [hidden]="alreadyPlaying || isLogout">Chcem sa zúčastniť</button>
+               <select  [(ngModel)]="selectedTim" [hidden]="alreadyPlaying || isLogout">
                   <option value="none">None</option>
                   <option *ngFor="let tim of playerTeams" value="{{tim.id}}">{{tim.nazov}}</option>
                </select>
@@ -51,8 +51,8 @@
                   <dxi-column dataField="typ" caption="Typ"></dxi-column>
               </dx-data-grid>
 
-              <button mat-button class="button" (click)="addReferee()" [hidden]="alreadyRef">Chcem rozhodovať</button>
-              <select [(ngModel)]="selectedType" [hidden]="alreadyRef">
+              <button mat-button class="button" (click)="addReferee()" [hidden]="alreadyRef || isLogout">Chcem rozhodovať</button>
+              <select [(ngModel)]="selectedType" [hidden]="alreadyRef || isLogout">
                 <option value="hlavný">Hlavný</option>
                 <option value="čiarový">Čiarový</option>
                 <option value="vrchný">Vrchný</option>
