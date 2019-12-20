@@ -35,6 +35,7 @@ import { GameDetailComponent } from './game-detail/game-detail.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { TournamentCenterComponent } from './tournament-center/tournament-center.component';
 import { TournamentDetailComponent } from './tournament-detail/tournament-detail.component';
+import { DxDataGridModule, DxButtonModule } from 'devextreme-angular';
 
 
 @NgModule({
@@ -62,6 +63,8 @@ import { TournamentDetailComponent } from './tournament-detail/tournament-detail
     TournamentDetailComponent
   ],
   imports: [
+    DxDataGridModule,
+    DxButtonModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

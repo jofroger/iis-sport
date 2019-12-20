@@ -21,10 +21,10 @@ export class RefereeCentreComponent implements OnInit {
   actZapas: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: null, vyherca: null, uroven_zapasu: null, turnajID: null};
   zapasy: Zapas[] = [];
   actRozhodca: Rozhodca = {id: null, typ: '', uzivatelID: null};
-  actTurnaj: Turnaj = {id: null, nazov:'', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID: null, uzivatelID: null};
+  actTurnaj: Turnaj = {id: null, nazov:'', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID: null, usporiadatelID: null};
 
   //stavZapasu : Stav_zapasu[] = [];
-  stavZapasu1 : Stav_zapasu= {
+  stavZapasu1 : Stav_zapasu = {
     id: null,
     ziskane_sety: null,
     ziskane_gemy: null,
@@ -55,12 +55,12 @@ export class RefereeCentreComponent implements OnInit {
   getZapasy() {
     let actUzivatel : Uzivatel = {
       id: Number(localStorage.getItem('userId')),
-      meno: '', 
-      priezvisko: '', 
-      email: '', 
-      vek: null, 
-      login: '', 
-      heslo:'', 
+      meno: '',
+      priezvisko: '',
+      email: '',
+      vek: null,
+      login: '',
+      heslo:'',
       typ:''
     };
 
@@ -68,7 +68,7 @@ export class RefereeCentreComponent implements OnInit {
       this.actRozhodca.id = resp[0].RozhodcaID;
       this.actRozhodca.typ = resp[0].Typ;
       this.actRozhodca.uzivatelID = resp[0].UzivatelID;
-      
+
       this.server.getZapasByRozhodca(this.actRozhodca).then( (resp:any) => {
         this.zapasy = resp.map( (za) => {
           za.id = za.ZapasID;
@@ -81,7 +81,7 @@ export class RefereeCentreComponent implements OnInit {
           za.turnajID = za.TurnajID;
           return za;
         });
-        
+
         this.setActZapas(this.index);
       })
     })
@@ -140,7 +140,7 @@ export class RefereeCentreComponent implements OnInit {
         }
         else {
           let tmpTim : Tim = {id: null, nazov: '', logo: '', pocet_hracov: null, odohrane_zapasy: null, pocet_vyhier: null};
-         
+
           tmpTim.id = this.stavZapasu1.timID;
           this.server.getTim(tmpTim).then( (resp:any) => {
             this.meno1 = resp[0].Nazov;
@@ -163,7 +163,7 @@ export class RefereeCentreComponent implements OnInit {
     this.btnIsPlaying = (this.actZapas.stav === 'prebieha');
     this.isStarted = (this.actZapas.stav === 'prebieha');
     this.isEnded = (this.actZapas.stav === 'ukonceny');
-    this.getStavZapasu(); 
+    this.getStavZapasu();
 
     this.actTurnaj.id = this.actZapas.turnajID;
     this.server.getTurnaj(this.actTurnaj).then( (resp:any) => {
@@ -190,7 +190,7 @@ export class RefereeCentreComponent implements OnInit {
 
     this.server.getPodmienky_turnaja(podmTurn).then( (resp:any) => {
       podmTurn.pocet_hracov_v_tyme = resp[0].Pocet_hracov_v_tyme;
-      
+
       this.stavZapasu1.zapasID = this.actZapas.id;
       this.stavZapasu2.zapasID = this.actZapas.id;
 
@@ -214,7 +214,7 @@ export class RefereeCentreComponent implements OnInit {
           this.server.getUzivatel(tmpUziv).then( (resp:any) => {
             this.meno2 = resp[0].Meno + ' ' + resp[0].Priezvisko;
           })
-          
+
           this.stavZapasu1.hracID = tmpHrac[0].id;
           this.server.createStav_zapasu(this.stavZapasu1).then( () => {
             this.server.getStav_zapasuByZapas(this.actZapas).then( (resp: any) => {
@@ -232,7 +232,7 @@ export class RefereeCentreComponent implements OnInit {
       }
       else {
         let tmpTim : Tim[] = [];
-       
+
         this.server.getTimByZapas(this.actZapas).then( (resp:any) => {
           tmpTim = resp.map( (tim) => {
             tim.id = tim.TimID;
@@ -242,7 +242,7 @@ export class RefereeCentreComponent implements OnInit {
 
           this.meno1 = tmpTim[0].nazov;
           this.meno2 = tmpTim[1].nazov;
-          
+
           this.stavZapasu1.timID = tmpTim[0].id;
           this.server.createStav_zapasu(this.stavZapasu1).then( () => {
             this.server.getStav_zapasuByZapas(this.actZapas).then( (resp: any) => {

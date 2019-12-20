@@ -38,7 +38,7 @@ export interface Turnaj {
     sponzori: String
     povrch: String
     podmienky_turnajaID : Number
-    uzivatelID: Number
+    usporiadatelID: Number
 }
 
 export interface Podmienky_turnaja {

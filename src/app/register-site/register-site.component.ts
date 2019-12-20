@@ -3,8 +3,10 @@ import {Router} from '@angular/router';
 import {ApiService} from '../api.service';
 import {EventEmitterService} from '../event-emitter.service';
 import {MyErrorStateMatcher} from '../default.error-matcher';
-import {FormControl} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Uzivatel} from '../api.structures';
+import { Location } from '@angular/common';
+
 
 
 @Component({
@@ -15,7 +17,8 @@ import {Uzivatel} from '../api.structures';
 
 
 
-export class RegisterSiteComponent {
+export class RegisterSiteComponent implements OnInit {
+
      hide: boolean;
      login: string;
      name: string;
@@ -25,10 +28,15 @@ export class RegisterSiteComponent {
 
      password: string;
 
+    form: FormGroup;
 
 
-  constructor(private eventEmitterService: EventEmitterService,
+
+
+  constructor(private fb: FormBuilder,
+              private eventEmitterService: EventEmitterService,
               private router: Router,
+              private location: Location,
               private server: ApiService) {
     this.hide = true;
   }
@@ -47,6 +55,20 @@ export class RegisterSiteComponent {
 
   uzivatelia: Uzivatel[] = [];
   currentUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo: '', typ: ''};
+
+
+  ngOnInit(): void {
+    this.form = this.fb.group(
+      {
+        emailValidator : this.fb.control('', [Validators.required, Validators.email]),
+        ageValidator : this.fb.control('', [Validators.required]),
+        nameValidator : this.fb.control('', [Validators.required]),
+        surnameValidator : this.fb.control('', [Validators.required]),
+        loginValidator : this.fb.control('', [Validators.required]),
+
+      }
+    );
+  }
 
   // ziskame vsetkych uzivatelov a vypiseme ich do prikazovej riadky
   private getUzivatelia() {
@@ -102,7 +124,7 @@ export class RegisterSiteComponent {
     });
 
 
-    let newUzivatel: Uzivatel = {
+    const newUzivatel: Uzivatel = {
       id: null,                     // id pri vytvarani sa neberie do uvahy
       meno: this.name,
       priezvisko: this.surname,
@@ -121,6 +143,8 @@ export class RegisterSiteComponent {
     this.server.getAllUzivatel().then( (resp: any) => {
       console.log(resp);
     });
+
+    this.location.back();
   }
 
 

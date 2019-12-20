@@ -1,60 +1,49 @@
-.tabulkaMojTurnaj {
-  width: calc(100% - 10px);
-  height: 50%;
-  background-color: #71e2ff;
-  border-radius: 10px;
-  border: 2px solid #0077ff;
-  border-collapse: separate;
-  margin: 35px 5px 5px 5px;
-  box-shadow: 0 0 5px #000
+.scrollBar {
+  overflow-y: scroll;
+  height: 650px;
 }
 
-.tabulkaMojTurnajContent {
-  width: 100%;
-  height: auto;
+
+::ng-deep #events {
+  background-color: rgba(191, 191, 191, 0.15);
+  padding: 20px;
+  margin-top: 20px;
 }
 
-.turnaj {
-  height: 100%;
-  width: calc(100% - 10px);
-  border: 1px solid #00c3ff;
-  border-radius: 5px;
-  text-align: center;
-  margin: 4px 4px 4px 4px;
-  background-color: #00c3ff;
-  box-shadow: 0 0 5px #000
+::ng-deep #events > div {
+  padding-bottom: 5px;
 }
 
-.turnajDatum {
-  font-size: 20px;
-  margin-top: 8%;
+::ng-deep #events > div:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
-.turnajNazov {
-  font-size: 40px;
-  margin-top: 5%;
+::ng-deep #events #clear {
+  float: right;
 }
 
-.turnajTimy {
-  /*font-size: 25px;*/
-  font-size: 110%;
-  margin-top: 5%;
-  margin-bottom: 5%;
+::ng-deep #events .caption {
+  float: left;
+  font-weight: bold;
+  font-size: 115%;
+  line-height: 115%;
+  padding-top: 7px;
 }
 
-.turnajCas {
-  font-size: 20px;
-  margin-top: 1%;
+::ng-deep #events ul {
+  list-style: none;
+  max-height: 100px;
+  overflow: auto;
+  margin: 0;
 }
 
-.rotate180 {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
+::ng-deep #events ul li {
+  padding: 7px 0;
+  border-bottom: 1px solid #dddddd;
 }
 
-.mat-radio-button {
-  margin-left: 10px;
+::ng-deep #events ul li:last-child {
+  border-bottom: none;
 }

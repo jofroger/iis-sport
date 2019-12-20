@@ -40,8 +40,6 @@ export class LoginSiteComponent {
 
     // Logika prihlasovania
     this.server.getAllUzivatel().then( (resp: any) => {
-      
-
 
       let verifyLogin: boolean;
       let verifyPassw: boolean;

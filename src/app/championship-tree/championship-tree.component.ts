@@ -27,8 +27,8 @@ export class ChampionshipTreeComponent implements OnInit {
 
   actZapas: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: null, vyherca: null, uroven_zapasu: null, turnajID: null};
   zapasy: Zapas[] = [];
-  
-  actTurnaj: Turnaj = {id: null, nazov:'', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID: null, uzivatelID: null};
+
+  actTurnaj: Turnaj = {id: null, nazov:'', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID: null, usporiadatelID: null};
   turnaje: Turnaj[] = [];
 
   zapasyUroven1 : Zapas[] = [];
@@ -50,7 +50,7 @@ export class ChampionshipTreeComponent implements OnInit {
       this.turnaje = resp.map( (tu) => {
         tu.id = tu.TurnajID;
         tu.nazov = tu.Nazov;
-        tu.zaciatok = tu.Zaciatok; 
+        tu.zaciatok = tu.Zaciatok;
         tu.koniec = tu.Koniec;
         tu.vyhra = tu.Vyhra;
         tu.sponzori = tu.Sponzori;
@@ -59,7 +59,7 @@ export class ChampionshipTreeComponent implements OnInit {
         tu.uzivatelID = tu.UzivatelID;
         return tu;
       })
-      
+
       this.setActTurnaj(this.index);
     })
   }
