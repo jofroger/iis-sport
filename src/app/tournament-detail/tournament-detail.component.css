@@ -47,3 +47,44 @@
 ::ng-deep #events ul li:last-child {
   border-bottom: none;
 }
+
+
+
+/*Podmienky turnaja*/
+.example-container {
+  position: center;
+  width:100%;
+  height:100%;
+  opacity: 1;
+  background-color:rgb(0,225,240)
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.form > * {
+  width: 100%;
+}
+
+.login-screen {
+  max-width: 100%;
+  top: 15%;
+  background-color: #00c3ff;
+}
+
+
+.login-screen-title {
+  text-align: center;
+}
+
+.Medzera{
+  margin: 15px;
+}
+
