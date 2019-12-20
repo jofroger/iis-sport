@@ -6,21 +6,35 @@
 
     <div class="scrollBar">
 
+
+
 <!--Prva tabulka-->
         <dx-data-grid
+          #grid
           id="gridContainer01"
           [dataSource]="turnaje"
           [allowColumnReordering]="true"
           [showBorders]="true"
-          (onRowInserted)="createNewTurnaj($event)">
+          (onRowInserted)="createNewTurnaj($event)"
+          (onRowUpdated)="updateTurnaj($event)"
+          (onRowRemoved)="deleteTurnaj($event)"
+          (onRowClick)="rowClick($event)"
+        >
 
+          <dxo-paging [pageSize]="5"></dxo-paging>
+
+
+          <dxo-selection
+            mode="single">
+          </dxo-selection>
 
           <dxo-paging [enabled]="true"></dxo-paging>
           <dxo-editing
                 mode="row"
                 [allowUpdating]="true"
                 [allowDeleting]="true"
-                [allowAdding]="true">
+                [allowAdding]="true"
+          >
           </dxo-editing>
 
           <dxi-column dataField="nazov" caption="Nazov"></dxi-column>
@@ -29,14 +43,65 @@
           <dxi-column dataField="vyhra" caption="Vyhra"></dxi-column>
           <dxi-column dataField="sponzori" caption="Sponzori"></dxi-column>
           <dxi-column dataField="povrch" caption="Povrch"></dxi-column>
-          <dxi-column dataField="podmienky_turnajaID" caption="Podmienky Turnaja ID"></dxi-column>
-          <dxi-column dataField="usporiadatelID" caption="UsporiadatelID"></dxi-column>
+<!--          <dxi-column dataField="podmienky_turnajaID" caption="Podmienky Turnaja ID"></dxi-column>-->
+<!--          <dxi-column dataField="usporiadatelID" caption="UsporiadatelID"></dxi-column>-->
 
         </dx-data-grid>
 
 
+
+      <div id="PodmienkyTurnaja" *ngIf="grid.selectedRowKeys.length">
+<!--        <p class="employeeNotes">{{grid.instance.getSelectedRowsData()[0].Koniec}}</p>-->
+
+
+          <div class="example-container">
+            <mat-card class="login-screen">
+
+
+              <mat-card-title class="login-screen-title">
+                Podmienky turnaja
+              </mat-card-title>
+
+                <div>
+                    <label>Druh hry: </label>
+                      <mat-radio-group>
+                          <mat-radio-button class="Medzera" [checked]="hraKlasicka" (change)="onKlasickaChange()">Klasická</mat-radio-button>
+                          <mat-radio-button class="Medzera" [checked]="hraZmiesana" (change)="onZmiesanaChange()">Zmiešaná</mat-radio-button>
+                      </mat-radio-group>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input type="string"  matInput id="regPoplatok" [(ngModel)]="regPoplatok" name="regPoplatok" placeholder="Registracny poplatok v €">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="number"  matInput id="pocetTymov" [(ngModel)]="pocetTymov" name="pocetTymov" placeholder="Počet týmov">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                        <input type="number"  matInput id="pocetHracVTyme" [(ngModel)]="pocetHracVTyme" name="pocetHracVTyme"placeholder="Počet hráčov v týme">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="number"  matInput id="minVek" [(ngModel)]="minVek" name="minVek" placeholder="Minimálny vek">
+                    </mat-form-field>
+                </div>
+
+              <button mat-button (click)="UlozitPodmienkyTurnaja()">Uložiť!</button>
+
+            </mat-card>
+          </div>
+
+
+      </div>
+
+
+
         <br>
         <br>
+
+
 
 <!--Druha tabulka-->
         <dx-data-grid
@@ -44,7 +109,9 @@
           [dataSource]="turnajeReadOnly"
           [allowColumnReordering]="true"
           [showBorders]="true"
-          (onRowInserted)="createNewTurnaj($event)">
+        >
+
+          <dxo-paging [pageSize]="5"></dxo-paging>
 
 
           <dxo-paging [enabled]="true"></dxo-paging>
@@ -61,11 +128,11 @@
           <dxi-column dataField="vyhra" caption="Vyhra"></dxi-column>
           <dxi-column dataField="sponzori" caption="Sponzori"></dxi-column>
           <dxi-column dataField="povrch" caption="Povrch"></dxi-column>
-          <dxi-column dataField="podmienky_turnajaID" caption="Podmienky Turnaja ID"></dxi-column>
-          <dxi-column dataField="usporiadatelID" caption="UsporiadatelID"></dxi-column>
+<!--          <dxi-column dataField="podmienky_turnajaID" caption="Podmienky Turnaja ID"></dxi-column>-->
+<!--          <dxi-column dataField="usporiadatelID" caption="UsporiadatelID"></dxi-column>-->
 
         </dx-data-grid>
-    <div>
+    </div>
 
 
 

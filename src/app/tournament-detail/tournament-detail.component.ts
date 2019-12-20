@@ -2,9 +2,14 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
-import {Hrac, Podmienky_turnaja, Turnaj, Uzivatel} from '../api.structures';
+import {Hrac, Podmienky_turnaja, Turnaj, Usporiadatel, Uzivatel} from '../api.structures';
 import {FormBuilder, FormControl} from '@angular/forms';
 
+
+export interface IUsporadatelia {
+  id: string;
+  nazov: string;
+}
 
 @Component({
   selector: 'app-tournament-detail',
@@ -23,48 +28,99 @@ export class TournamentDetailComponent implements OnInit {
   turnaje: Turnaj[] = [];
   turnajeReadOnly: Turnaj[] = [];
   actualUzivatel: Uzivatel = {id: null, meno: '', priezvisko: '', email: '', vek: null, login: '', heslo: '', typ: ''};
+  actualPodmienTurnaja: Podmienky_turnaja = {id: null, minimalny_vek_hracov: null, pocet_hracov_v_tyme: null, pocet_tymov: null, registracny_poplatok: '', druh_hry: ''};
+
+  newPodmienTurnaja: Podmienky_turnaja = {id: null, minimalny_vek_hracov: null, pocet_hracov_v_tyme: null, pocet_tymov: null, registracny_poplatok: '', druh_hry: ''};
+  newUsporiadatel:  Usporiadatel = {id: null, organizacia: '', uzivatelID: null};
 
 
 
-  // nazovTurnaja: string;
-  // nazovTurnajaPlaceholder: string;
-  // pravidla: number;
-  // novyZaciatok: Date;
-  // novyKoniec: Date;
-  // novaVyhra: string;
-  // noviSponzori: string;
-  // novyPovrch: string;
-  //
-  // Turnaj: Turnaj = {id: null, nazov: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID : null, uzivatelID: null};
-  // podmienkyTurnaja: Podmienky_turnaja = {id: null, minimalny_vek_hracov: null, pocet_hracov_v_tyme: null, pocet_tymov: null, registracny_poplatok: '', druh_hry: ''};
-  //
-  // pravidlaControl = new FormControl('');
-  // nazovControl = new FormControl('');
-  //
-  // turnajExists: Boolean;
+  actualUsporiatel: IUsporadatelia[] = [];
+
+  regPoplatok: string;
+  pocetTymov: number;
+  pocetHracVTyme: number;
+  minVek: number;
+
+  hraKlasicka: boolean;
+  hraZmiesana: boolean;
+  selected: string;
+
+  rowClick_PodmienTurnajaId: number;
+
 
 
   constructor(private server: ApiService, private router: Router) { }
 
-  ngOnInit() {
 
+
+  ngOnInit() {
     this.getVsetkyTurnaje();
-    // this.Turnaj.id = +localStorage.getItem('detailTurnajaID');
-    // this.server.getTurnaj(this.Turnaj).then( (resp: any) => {
-    //   (resp[0] !== undefined) ? this.turnajExists = true : this.turnajExists = false;
-    // });
-    //
-    // this.pravidla = 1;
-    // this.loadPodmienkyTurnaja();
-    // this.loadTournamentData();
+    // this.ziskatUsporiadatelov();
   }
 
 
+  ziskatUsporiadatelov(){
+    const UserID: string = localStorage.getItem('userId');
+    this.actualUzivatel.id = +UserID;
+    let i=0;
+    this.server.getUsporiadatelByUzivatel(this.actualUzivatel).then( (resp: any) => {
+      this.actualUsporiatel[i].id =   resp.UsporiadatelId;
+      this.actualUsporiatel[i].nazov = resp.Organizacia;
+
+    })
+
+  }
+
+  rowClick(event){
+
+    this.rowClick_PodmienTurnajaId = event.data.podmienky_turnajaID;
+
+    this.actualPodmienTurnaja.id = event.data.podmienky_turnajaID;
+
+    this.server.getPodmienky_turnaja(this.actualPodmienTurnaja).then( (resp: any) => {
+
+      this.actualPodmienTurnaja = resp.map( (tu) => {
+
+        tu.id = tu.Podmienky_turnajaID;
+        tu.minimalny_vek_hracov = tu.Minimalny_vek_hracov;
+        tu.pocet_hracov = tu.Pocet_hracov;
+        tu.pocet_tymov = tu.Pocet_tymov;
+        tu.registracny_poplatok = tu.Registracny_poplatok;
+        tu.druh_hry = tu.Druh_hry;
+
+        this.regPoplatok = tu.Registracny_poplatok;
+        this.pocetTymov = tu.Pocet_tymov;
+        this.pocetHracVTyme = tu.Pocet_hracov_v_tyme;
+        this.minVek = tu.Minimalny_vek_hracov;
+
+        if (tu.Druh_hry === "klasicka"){
+          this.hraKlasicka = true;
+        } else {
+          this.hraKlasicka = false;
+        }
+
+
+        if (tu.Druh_hry === "zmiesana"){
+          this.hraZmiesana = true;
+        } else {
+          this.hraZmiesana = false;
+        }
+
+        return tu;
+
+      });
+
+
+
+    });
+
+
+  }
 
   getVsetkyTurnaje() {
     const UserID: string = localStorage.getItem('userId');
     this.actualUzivatel.id = +UserID;
-    console.log('UzivatelID', this.actualUzivatel.id);
     this.server.getTurnajByUzivatel(this.actualUzivatel).then( (resp: any) => {
 
       this.turnaje = resp.map( (tu) => {
@@ -96,7 +152,6 @@ export class TournamentDetailComponent implements OnInit {
             return tu;
         });
 
-        console.log(this.turnaje);
     });
 
 
@@ -104,9 +159,61 @@ export class TournamentDetailComponent implements OnInit {
 
 
   createNewTurnaj(event) {
-    const newturnaj: Turnaj = {id: null,
+
+
+    this.server.createPodmienky_turnaja(this.newPodmienTurnaja).then((respPodmienTurnaja: any) => {
+
+
+
+      //vytvorenie noveho usporiadatela
+      this.newUsporiadatel.id = null;
+      this.newUsporiadatel.organizacia = "Monopol";
+      const UserID: string = localStorage.getItem('userId');
+      this.newUsporiadatel.uzivatelID = +UserID;
+      this.server.createUsporiadatel(this.newUsporiadatel).then((respUsporiadatel: any) => {
+
+
+        const newturnaj: Turnaj = {id: null,
+                                   nazov: event.data.nazov,
+                                   stav_turnaja: event.data.stav_turnaja,
+                                   zaciatok: event.data.zaciatok,
+                                   koniec: event.data.koniec,
+                                   vyhra: event.data.vyhra,
+                                   sponzori: event.data.sponzori,
+                                   povrch: event.data.povrch,
+                                   podmienky_turnajaID: respPodmienTurnaja.insertId,
+                                   usporiadatelID: respUsporiadatel.insertId};
+
+
+        // Prida turnaj a aktualizuje tabulky
+        this.server.createTurnaj(newturnaj).then(() => {
+          this.getVsetkyTurnaje();
+        });
+
+      })
+    // const newturnaj: Turnaj = {id: null,
+    //                            nazov: event.data.nazov,
+    //                            stav_turnaja: event.data.stav_turnaja,
+    //                            zaciatok: event.data.zaciatok,
+    //                            koniec: event.data.koniec,
+    //                            vyhra: event.data.vyhra,
+    //                            sponzori: event.data.sponzori,
+    //                            povrch: event.data.povrch,
+    //                            podmienky_turnajaID: null,
+    //                            usporiadatelID: null};
+    //
+    //
+    // // Prida turnaj a aktualizuje tabulky
+    // this.server.createTurnaj(newturnaj).then(() => {
+    //   this.getVsetkyTurnaje();
+    // });
+    });
+    };
+
+  updateTurnaj(event) {
+    const updateturnaj: Turnaj = {id: event.data.id,
                                nazov: event.data.nazov,
-                               stav_turnaja: event.data.stav_turnaja, 
+                               stav_turnaja: event.data.stav_turnaja,
                                zaciatok: event.data.zaciatok,
                                koniec: event.data.koniec,
                                vyhra: event.data.vyhra,
@@ -115,58 +222,76 @@ export class TournamentDetailComponent implements OnInit {
                                podmienky_turnajaID : event.data.podmienky_turnajaID,
                                usporiadatelID: event.data.usporiadatelID};
 
-
-
-    this.server.createTurnaj(newturnaj).then(() => {
+    // Aktualizuje turnaj a zaaktualizuje tabulky
+    this.server.updateTurnaj(updateturnaj).then(() => {
       this.getVsetkyTurnaje();
     });
+  }
+
+  deleteTurnaj(event) {
+    const deleteturnaj: Turnaj = {id: event.data.id,
+                                  nazov: event.data.nazov,
+                                  stav_turnaja: event.data.stav_turnaja,
+                                  zaciatok: event.data.zaciatok,
+                                  koniec: event.data.koniec,
+                                  vyhra: event.data.vyhra,
+                                  sponzori: event.data.sponzori,
+                                  povrch: event.data.povrch,
+                                  podmienky_turnajaID : event.data.podmienky_turnajaID,
+                                  usporiadatelID: event.data.usporiadatelID};
+
+    // Aktualizuje turnaj a zaaktualizuje tabulky
+    this.server.deleteTurnaj(deleteturnaj).then(() => {
+      this.getVsetkyTurnaje();
+    });
+  }
+
+
+  UlozitPodmienkyTurnaja(){
+
+
+    const updatePodmienkyTurnaja: Podmienky_turnaja = {id: this.rowClick_PodmienTurnajaId,
+                                                       minimalny_vek_hracov: this.minVek,
+                                                       pocet_hracov_v_tyme: this.pocetHracVTyme,
+                                                       pocet_tymov: this.pocetTymov,
+                                                       registracny_poplatok: this.regPoplatok,
+                                                       druh_hry: ""
+    };
+
+    if (this.hraKlasicka){
+      updatePodmienkyTurnaja.druh_hry = "klasicka";
+    } else if (this.regPoplatok){
+      updatePodmienkyTurnaja.druh_hry = "zmiesana";
+    }
+
+    // Aktualizuje vypis podmienky turnaja
+    this.server.updatePodmienky_turnaja(updatePodmienkyTurnaja).then(() => {
+      this.getVsetkyTurnaje();
+    });
+
+
 
   }
 
 
+  UlozitUsporiadatela(){
 
-  // private loadTournamentData() {
-  //   this.server.getTurnaj(this.Turnaj).then( (resp: any) => {
-  //     console.log(this.Turnaj.nazov === '');
-  //     (this.Turnaj.nazov === '') ? this.nazovTurnajaPlaceholder = 'Nazov turnaja' : this.nazovTurnajaPlaceholder = this.Turnaj.nazov.toString();
-  //     (resp[0].Nazov !== undefined) ? this.Turnaj.nazov = resp[0].Nazov : this.Turnaj.nazov = '';
-  //     (resp[0].Zaciatok !== undefined) ? this.Turnaj.zaciatok = resp[0].Zaciatok : this.Turnaj.zaciatok = null;
-  //     (resp[0].Koniec !== undefined) ? this.Turnaj.koniec = resp[0].Koniec : this.Turnaj.koniec = null;
-  //     (resp[0].Vyhra !== undefined) ? this.Turnaj.vyhra = resp[0].Vyhra : this.Turnaj.vyhra = '';
-  //     (resp[0].Sponzori !== undefined) ? this.Turnaj.sponzori = resp[0].Sponzori : this.Turnaj.sponzori = '';
-  //     (resp[0].Povrch !== undefined) ? this.Turnaj.povrch = resp[0].Povrch : this.Turnaj.povrch = '';
-  //     (resp[0].Podmienky_turnajaID !== undefined) ? this.Turnaj.nazov = resp[0].Nazov : this.Turnaj.nazov = '';
-  //   });
-  // }
-  //
-  // loadPodmienkyTurnaja() {
-  //   (this.Turnaj.podmienky_turnajaID === null) ? this.podmienkyTurnaja.id = +this.pravidla : this.podmienkyTurnaja.id = this.Turnaj.podmienky_turnajaID;
-  //   this.server.getPodmienky_turnaja(this.podmienkyTurnaja).then( (podmienkyTurnajaResp: any) => {
-  //     if (podmienkyTurnajaResp[0] !== undefined) {
-  //       this.podmienkyTurnaja.minimalny_vek_hracov = podmienkyTurnajaResp[0].Minimalny_vek_hracov;
-  //       this.podmienkyTurnaja.pocet_hracov_v_tyme = podmienkyTurnajaResp[0].Pocet_hracov_v_tyme;
-  //       this.podmienkyTurnaja.pocet_tymov = podmienkyTurnajaResp[0].Pocet_tymov;
-  //       this.podmienkyTurnaja.registracny_poplatok = podmienkyTurnajaResp[0].Registracny_poplatok;
-  //       this.podmienkyTurnaja.druh_hry = podmienkyTurnajaResp[0].Druh_hry;
-  //     }
-  //   });
-  // }
-  //
-  //
-  // save() {
-  //   this.Turnaj.nazov = this.nazovTurnaja;
-  //   this.Turnaj.podmienky_turnajaID = this.pravidla;
-  //   this.Turnaj.zaciatok = this.novyZaciatok;
-  //   this.Turnaj.koniec = this.novyKoniec;
-  //   this.Turnaj.vyhra = this.novaVyhra;
-  //   this.Turnaj.sponzori = this.noviSponzori;
-  //   this.Turnaj.povrch = this.novyPovrch;
-  //   this.Turnaj.uzivatelID = +localStorage.getItem('userId');
-  //   (!this.turnajExists) ? this.server.createTurnaj(this.Turnaj) : this.server.updateTurnaj(this.Turnaj);
-  // }
-  //
-  // goBack() {
-  //   this.router.navigate(['my-tournaments']);
-  // }
+    var inputValue = (<HTMLInputElement>document.getElementById("usporiadatelImputTxt")).value;
+    const UserID: string = localStorage.getItem('userId');
+    let nwUsporiadatel: Usporiadatel = {
+      id: null, organizacia: inputValue, uzivatelID: +UserID
+    };
+    this.server.createUsporiadatel(nwUsporiadatel);
+  }
 
+
+  onKlasickaChange() {
+    this.hraKlasicka = true;
+    this.hraZmiesana = false;
+  }
+
+  onZmiesanaChange() {
+    this.hraKlasicka = false;
+    this.hraZmiesana = true;
+  }
 }
