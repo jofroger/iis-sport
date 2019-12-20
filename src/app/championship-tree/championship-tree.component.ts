@@ -13,7 +13,7 @@ interface RozhodcaWithName {
   id : Number
   meno: String
   typ: String
-  uzivateID: Number
+  uzivatelID: Number
 }
 
 @Component({
@@ -40,12 +40,15 @@ export class ChampionshipTreeComponent implements OnInit {
   
   registeredUsers : any[] = [];
   registeredRef : RozhodcaWithName[] = [];
+  playerTeams : Tim[] = []
 
   selectedType : String = 'hlavný';
 
   spiderEn : Boolean
 
   playerEn : Boolean;
+  alreadyPlaying : Boolean;
+  alreadyRef : Boolean;
 
   zapasyUroven1 : Zapas[] = [];
   zapasyUroven2 : Zapas[] = [];
@@ -59,6 +62,7 @@ export class ChampionshipTreeComponent implements OnInit {
 
   ngOnInit() {
     this.getTurnaje();
+    this.getYourTeams();
   }
 
   getTurnaje() {
@@ -79,6 +83,15 @@ export class ChampionshipTreeComponent implements OnInit {
 
       this.setActTurnaj(this.index);
     })
+  }
+
+  getYourTeams() {
+    let actUzivatel: Uzivatel = {id: Number(localStorage.getItem('userId')), meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ: ''};
+    this.server.getTimByUzivatel(actUzivatel).then( (resp: any) => {
+      this.playerTeams = resp.map( (tim) => {
+        tim.nazov = tim.Nazov;
+      });
+    });
   }
 
   setActTurnaj(idx) {
@@ -111,65 +124,53 @@ export class ChampionshipTreeComponent implements OnInit {
 
   actPlayerTable() {
     if (this.playerEn) {
-      this.server.getHracByTurnaj(this.actTurnaj).then( (resp: any) => {
+      this.server.getUzivatelHracByTurnaj(this.actTurnaj).then( (resp: any) => {
         this.registeredUsers = resp.map( (pl) => {
-         pl.id = pl.HracID;
-         pl.meno = pl.Meno + ' ' + pl.Priezvisko;
-         pl.uzivatelID = pl.UzivatelID;
-         return pl;
+          pl.id = pl.HracID;
+          pl.meno = pl.Meno + ' ' + pl.Priezvisko;
+          pl.uzivatelID = pl.UzivatelID;
+          return pl;
        });
+
+        this.alreadyPlaying = typeof this.registeredUsers.find(el => el.uzivatelID == Number(localStorage.getItem('userId'))) != 'undefined';
      });
     }
     else {
       this.server.getTurnajByTim(this.actTurnaj).then( (resp: any) => {
         this.registeredUsers = resp.map( (tim) => {
-          tim.id = tim.HracID;
-          tim.meno = tim.Meno + ' ' + tim.Priezvisko;
-          tim.uzivatelID = tim.UzivatelID;
+          tim.id = tim.TimID;
+          tim.meno = tim.Nazov;
           return tim;
         });
+
+        this.alreadyPlaying = typeof this.registeredUsers.find(el => el.uzivatelID == Number(localStorage.getItem('userId'))) != 'undefined';
       });
     }
-    
   }
 
   addPlayer() {
-    let podm: Podmienky_turnaja = {
-      id: this.actTurnaj.podmienky_turnajaID,
-      minimalny_vek_hracov: null,
-      pocet_hracov_v_tyme: null,
-      pocet_tymov: null,
-      registracny_poplatok: '',
-      druh_hry: ''
-    }
+    if (this.playerEn) {
+      let actUzivatel: Uzivatel = {id: Number(localStorage.getItem('userId')), meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ: ''};
+      this.server.getHracByUzivatel(actUzivatel).then( (resp: any) => {
+        if (resp.length === 0) alert("Nie ste hráčom! Stať sa hráčom môžete na stráke 'Môj účet'"); //todo + kontrola na rozhodcu
+        else {
 
-    this.server.getPodmienky_turnaja(podm).then( (resp:any) => {
-      podm.pocet_hracov_v_tyme = resp[0].Pocet_hracov_v_tyme;
-
-      if (podm.pocet_hracov_v_tyme === 1) {
-        
-        let actUzivatel: Uzivatel = {id: Number(localStorage.getItem('userId')), meno: '', priezvisko: '', email: '', vek: null, login: '', heslo:'', typ: ''};
-        this.server.getHracByUzivatel(actUzivatel).then( (resp: any) => {
-          if (resp.length !== 0) alert("Nie ste hráčom! Stať sa hráčom môžete na stráke 'Môj účet'"); //todo + kontrola na rozhodcu
-          else {
-
-            let actHrac: Hrac = {
-              id: resp[0].HracID,
-              odohrane_zapasy: "",
-              pocet_vyhier: null,
-              fotka: '',
-              uzivatelID: null
-            }
-            this.server.createHrac_chce_hrat(this.actTurnaj, actHrac).then((resp:any) => {
-
-            });
+          let actHrac: Hrac = {
+            id: resp[0].HracID,
+            odohrane_zapasy: "",
+            pocet_vyhier: null,
+            fotka: '',
+            uzivatelID: null
           }
-        });
-      }
-      else {
+          this.server.createHrac_chce_hrat(this.actTurnaj, actHrac).then((resp:any) => {
+            this.actPlayerTable();
+          });
+        }
+      });
+    }
+    else {
 
-      }
-    });
+    }
   }
 
   actRefTable() {
@@ -180,8 +181,10 @@ export class ChampionshipTreeComponent implements OnInit {
         ro.typ = ro.Typ;
         ro.uzivatelID = ro.UzivatelID;
         return ro;
-      })
-    })
+      });
+
+      this.alreadyRef = typeof this.registeredRef.find(el => el.uzivatelID == Number(localStorage.getItem('userId'))) != 'undefined';
+    });
   }
 
   addReferee() {

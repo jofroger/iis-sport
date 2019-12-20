@@ -234,12 +234,12 @@ router.post('/usporiadatel', (req, res) => {
   db.query(
     "INSERT INTO Usporiadatel (Organizacia, UzivatelID) VALUES (?,?)",
     [req.body.organizacia, req.body.uzivatelID],
-    (error) => {
+    (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
-        res.status(200).json({ status: 'ok' });
+        res.status(200).json( results );
       }
     }
   );
@@ -521,6 +521,7 @@ router.get('/turnaj/except-uzivatel/:id', function (req, res) {
     }
   );
 });
+
 
 router.post('/turnaj', (req, res) => {
   db.query(
@@ -865,6 +866,26 @@ router.get('/hrac_hra_v_time/tim/:id', function (req, res) {
   );
 });
 
+router.get('/hrac_hra_v_time/uzivatel/:id', function (req, res) {
+  db.query(
+    "SELECT TimID, Nazov, Logo, Tim.Odohrane_zapasy, Tim.Pocet_vyhier, Pocet_hracov \
+     FROM Uzivatel  \
+     INNER JOIN Hrac USING (UzivatelID) \
+     INNER JOIN hrac_hra_v_time USING (HracID) \
+     INNER JOIN Tim USING (TimID) \
+     WHERE UzivatelID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 router.post('/hrac_hra_v_time', (req, res) => {
   db.query(
     "INSERT INTO hrac_hra_v_time (HracID, TimID) VALUES (?,?)",
@@ -937,7 +958,7 @@ router.get('/tim_chce_hrat/tim/:id', function (req, res) {
 router.post('/tim_chce_hrat', (req, res) => {
   db.query(
     "INSERT INTO tim_chce_hrat (TurnajID, TimID) VALUES (?,?)",
-    [req.body.turnajID, req.body.timID],
+    [req.body.TurnajID, req.body.TimID],
     (error) => {
       if (error) {
         console.error(error);
@@ -984,6 +1005,26 @@ router.get('/hrac_chce_hrat/turnaj/:id', function (req, res) {
   );
 });
 
+router.get('/hrac_chce_hrat/uzivatel/turnaj/:id', function (req, res) {
+  db.query(
+    "SELECT * \
+     FROM Turnaj  \
+     INNER JOIN hrac_chce_hrat USING (TurnajID) \
+     INNER JOIN Hrac USING (HracID) \
+     INNER JOIN Uzivatel USING (UzivatelID) \
+     WHERE TurnajID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 router.get('/hrac_chce_hrat/hrac/:id', function (req, res) {
   db.query(
     "SELECT TurnajID, Nazov, Stav_turnaja, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID \
@@ -1006,7 +1047,7 @@ router.get('/hrac_chce_hrat/hrac/:id', function (req, res) {
 router.post('/hrac_chce_hrat', (req, res) => {
   db.query(
     "INSERT INTO hrac_chce_hrat (TurnajID, HracID) VALUES (?,?)",
-    [req.body.turnajID, req.body.hracID],
+    [req.body.TurnajID, req.body.HracID],
     (error) => {
       if (error) {
         console.error(error);

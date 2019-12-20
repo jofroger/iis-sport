@@ -271,6 +271,10 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/hrac_hra_v_time/tim/${tim.id}`);
     }
 
+    getTimByUzivatel(uzivatel: Uzivatel) {
+        return this.request('GET', `${environment.serverUrl}/hrac_hra_v_time/uzivatel/${uzivatel.id}`);
+    }
+
     createHrac_hra_v_time(hrac: Hrac, tim: Tim) {
         return this.request('POST', `${environment.serverUrl}/hrac_hra_v_time`, {"HracID": hrac.id, "TimID": tim.id});
     }
@@ -301,6 +305,10 @@ export class ApiService {
     /* #region hrac_chce_hrat */
     getHracByTurnaj(turnaj: Turnaj) {
         return this.request('GET', `${environment.serverUrl}/hrac_chce_hrat/turnaj/${turnaj.id}`);
+    }
+
+    getUzivatelHracByTurnaj(turnaj: Turnaj) {
+        return this.request('GET', `${environment.serverUrl}/hrac_chce_hrat/uzivatel/turnaj/${turnaj.id}`);
     }
 
     getTurnajByHrac(hrac: Hrac) {

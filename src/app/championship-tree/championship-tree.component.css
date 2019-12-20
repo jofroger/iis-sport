@@ -1,3 +1,9 @@
+.button {
+  margin-top: 2rem;
+  background-color: #00c3ff; 
+}
+
+
 .matchList {
   overflow-y: scroll;
   height: 600px;
@@ -6,6 +12,8 @@
 .tableMatchList {
   width: 100%;
 }
+
+
 
 
 
