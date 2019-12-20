@@ -166,6 +166,10 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/turnaj/uzivatel/${uzivatel.id}`);
     }
 
+    getTurnajExceptUzivatel(uzivatel: Uzivatel) {
+        return this.request('GET', `${environment.serverUrl}/turnaj/except-uzivatel/${uzivatel.id}`);
+    }
+
     createTurnaj(turnaj: Turnaj) {
         return this.request('POST', `${environment.serverUrl}/turnaj`, turnaj);
     }

@@ -503,6 +503,25 @@ router.get('/turnaj/uzivatel/:id', function (req, res) {
   );
 });
 
+router.get('/turnaj/except-uzivatel/:id', function (req, res) {
+  db.query(
+    "SELECT * \
+    FROM Turnaj \
+    INNER JOIN Usporiadatel USING (UsporiadatelID) \
+    INNER JOIN Uzivatel USING (UzivatelID) \
+    WHERE UzivatelID!=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 router.post('/turnaj', (req, res) => {
   db.query(
     "INSERT INTO Turnaj (Nazov, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID) VALUES (?,?,?,?,?,?,?)",
