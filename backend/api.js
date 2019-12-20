@@ -215,6 +215,21 @@ router.get('/usporiadatel/:id', function (req, res) {
   );
 });
 
+router.get('/usporiadatel/uzivatel/:id', function (req, res) {
+  db.query(
+    "SELECT * FROM Usporiadatel WHERE UzivatelID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
 router.post('/usporiadatel', (req, res) => {
   db.query(
     "INSERT INTO Usporiadatel (Organizacia, UzivatelID) VALUES (?,?)",
@@ -457,6 +472,25 @@ router.get('/turnaj/:id', function (req, res) {
 router.get('/turnaj/usporiadatel/:id', function (req, res) {
   db.query(
     "SELECT * FROM Turnaj WHERE UsporiadatelID=?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).json({ status: 'error' });
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+router.get('/turnaj/uzivatel/:id', function (req, res) {
+  db.query(
+    "SELECT * \
+    FROM Turnaj \
+    INNER JOIN Usporiadatel USING (UsporiadatelID) \
+    INNER JOIN Uzivatel USING (UzivatelID) \
+    WHERE UzivatelID=?",
     [req.params.id],
     (error, results) => {
       if (error) {

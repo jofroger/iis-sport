@@ -84,6 +84,10 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/usporiadatel/${usporiadatel.id}`);
     }
 
+    getUsporiadatelByUzivatel(uzivatel: Uzivatel) {
+        return this.request('GET', `${environment.serverUrl}/usporiadatel/uzivatel/${uzivatel.id}`);
+    }
+
     createUsporiadatel(usporiadatel: Usporiadatel) {
         return this.request('POST', `${environment.serverUrl}/usporiadatel`, usporiadatel);
     }
@@ -156,6 +160,10 @@ export class ApiService {
 
     getTurnajByUsporiadatel(usporiadatel: Usporiadatel) {
         return this.request('GET', `${environment.serverUrl}/turnaj/usporiadatel/${usporiadatel.id}`);
+    }
+
+    getTurnajByUzivatel(uzivatel: Uzivatel) {
+        return this.request('GET', `${environment.serverUrl}/turnaj/uzivatel/${uzivatel.id}`);
     }
 
     createTurnaj(turnaj: Turnaj) {
