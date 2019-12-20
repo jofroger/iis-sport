@@ -58,16 +58,8 @@ export class UserDetailComponent implements OnInit {
   }
 
 
-  uploadHracImg() {
-    let newHrac : Hrac = {  
-      id: null,
-      odohrane_zapasy: "0",
-      pocet_vyhier: 0,
-      fotka: "../../assets/fotky_hracov/generic.png",
-      uzivatelID: this.actUzivatel.id
-    }
-    
-    this.createHrac(newHrac);
+  uploadHracImg() {    
+    this.createHrac("../../assets/fotky_hracov/generic.png");
 
     /*
     let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
