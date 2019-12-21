@@ -8,6 +8,53 @@
 
 
 
+<!-- warning   -->
+      <div class="row"  *ngIf="ErrorMsg_Nazov">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Zaznam nemoze byt ulozeny!</strong> Ziadny nazov!
+
+          </p>
+        </div>
+      </div>
+
+      <div class="row"  *ngIf="ErrorMsg_Zaciatok">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Zaznam nemoze byt ulozeny!</strong> Nemozno overit validitu datumu, podporovamy datum je v tvare YYYY-MM-DD.
+
+          </p>
+        </div>
+      </div>
+
+      <div class="row"  *ngIf="ErrorMsg_Koniec">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Zaznam nemoze byt ulozeny!</strong> Nemozno overit validitu datumu, podporovamy datum je v tvare YYYY-MM-DD.
+
+          </p>
+        </div>
+      </div>
+
+      <div class="row"  *ngIf="ErrorMsg_KoniecSkorAkoZaciatok">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Zaznam nemoze byt ulozeny!</strong> Datum ukoncenia je skorsi nez datum zacatia!
+
+          </p>
+        </div>
+      </div>
+
+      <div class="row"  *ngIf="ErrorMsg_Vyhra">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Zaznam nemoze byt ulozeny!</strong> Nie je priradená žiadna výhra!
+
+          </p>
+        </div>
+      </div>
+
+
 <!--Prva tabulka-->
         <dx-data-grid
           #grid
@@ -38,11 +85,11 @@
           </dxo-editing>
 
           <dxi-column dataField="nazov" caption="Nazov"></dxi-column>
-          <dxi-column dataField="zaciatok" caption="Zaciatok"></dxi-column>
-          <dxi-column dataField="koniec" caption="Koniec"></dxi-column>
-          <dxi-column dataField="vyhra" caption="Vyhra"></dxi-column>
-          <dxi-column dataField="sponzori" caption="Sponzori"></dxi-column>
-          <dxi-column dataField="povrch" caption="Povrch"></dxi-column>
+          <dxi-column [editorOptions]="{ placeholder: 'YYYY-MM-DD' }" dataField="zaciatok" caption="Zaciatok"></dxi-column>
+          <dxi-column [editorOptions]="{ placeholder: 'YYYY-MM-DD' }" dataField="koniec" caption="Koniec"></dxi-column>
+          <dxi-column [editorOptions]="{ placeholder: 'Suma v €' }" dataField="vyhra" caption="Vyhra"></dxi-column>
+          <dxi-column [editorOptions]="{ placeholder: 'Sponzor' }" dataField="sponzori" caption="Sponzori"></dxi-column>
+          <dxi-column [editorOptions]="{ placeholder: 'Povrch' }" dataField="povrch" caption="Povrch"></dxi-column>
 <!--          <dxi-column dataField="podmienky_turnajaID" caption="Podmienky Turnaja ID"></dxi-column>-->
 <!--          <dxi-column dataField="usporiadatelID" caption="UsporiadatelID"></dxi-column>-->
 
@@ -69,6 +116,15 @@
                           <mat-radio-button class="Medzera" [checked]="hraZmiesana" (change)="onZmiesanaChange()">Zmiešaná</mat-radio-button>
                       </mat-radio-group>
                 </div>
+
+              <div>
+                <label>Stav: </label>
+                <mat-radio-group>
+                  <mat-radio-button class="Medzera" [checked]="hraPlanovana" (change)="onPlanovanaChange()" >Planovany</mat-radio-button>
+                  <mat-radio-button class="Medzera" [checked]="hraPrebieha" (change)="onPrebiehaChange()" >Prebieha</mat-radio-button>
+                  <mat-radio-button class="Medzera" [checked]="hraUkoncena" (change)="onUkoncenaChange()" >Ukonceny</mat-radio-button>
+                </mat-radio-group>
+              </div>
 
                 <div>
                     <mat-form-field>
@@ -123,6 +179,7 @@
           </dxo-editing>
 
           <dxi-column dataField="nazov" caption="Nazov"></dxi-column>
+          <dxi-column dataField="stav_turnaja" caption="Stav turnaja"></dxi-column>
           <dxi-column dataField="zaciatok" caption="Zaciatok"></dxi-column>
           <dxi-column dataField="koniec" caption="Koniec"></dxi-column>
           <dxi-column dataField="vyhra" caption="Vyhra"></dxi-column>

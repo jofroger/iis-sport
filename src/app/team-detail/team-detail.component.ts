@@ -46,6 +46,7 @@ export class TeamDetailComponent implements OnInit {
     this.tim.id = +localStorage.getItem('timID'); // + je konverzia zo str na int
 
     this.server.getTim(this.tim).then( (resp: any) => {
+      this.tim.id = resp[0].Id;
       this.tim.nazov = resp[0].Nazov;
       this.tim.logo = resp[0].Logo;
       this.tim.pocet_hracov = resp[0].Pocet_hracov;
@@ -77,14 +78,40 @@ export class TeamDetailComponent implements OnInit {
     });
   }
 
-  private async showJoinLeaveTeamButton() {
+  private showJoinLeaveTeamButton() {
     this.activeUzivatel.id = +localStorage.getItem('userId');
     if (this.activeUzivatel.id > 0) {
       this.server.getHracByUzivatel(this.activeUzivatel). then( (HracByUzivatelResponse: any) => {
-        this.activeUzivatelHrac.id = HracByUzivatelResponse[0].HracID;
-      });
-      await this.delay(200);
+
+
+        console.log("ID uzivatela",HracByUzivatelResponse[0].HracID);
+
+        this.activeUzivatelHrac.id = HracByUzivatelResponse[0].HracID; //Ziskane HracID priradit do struktury
+
+        this.activeUzivatelHrac.fotka = HracByUzivatelResponse[0].Fotka;
+        this.activeUzivatelHrac.odohrane_zapasy = HracByUzivatelResponse[0].Odohrane_zapasy;
+        this.activeUzivatelHrac.pocet_vyhier = HracByUzivatelResponse[0].Pocet_vyhier;
+
+          console.log("Zapisane Uzivatel.id v strukture",this.activeUzivatelHrac.id);
+        console.log(this.activeUzivatelHrac);
+
+        const UserID: string = localStorage.getItem('userId'); //Ziskanie ID z prehliadaca o prihlasenom
+        this.activeUzivatelHrac.uzivatelID = +UserID; //Priradenie
+
+        console.log(this.activeUzivatelHrac);
+
+      // await this.delay(200);
       this.server.getTimByHrac(this.activeUzivatelHrac).then((getTimByHracResponse: any) => {
+
+        console.log("getTimByHracResponse", getTimByHracResponse[0]);
+        this.tim.id = +localStorage.getItem('timID');
+        console.log("tim id",this.tim.id);
+
+        if (getTimByHracResponse[0]) {
+          console.log("und");
+          console.log("getTimByHracResponse[0].TimID", getTimByHracResponse[0].TimID);
+        }
+
         if (getTimByHracResponse[0] === undefined) {  // Ak este nie je v ziadnom time
           this.joinTeamIsVisible = true;
           this.leaveTeamIsVisible = false;
@@ -99,13 +126,17 @@ export class TeamDetailComponent implements OnInit {
           this.joinTeamIsVisible = false;
         }
       });
+    });
     } else {
       this.joinTeamIsVisible = false;
       this.leaveTeamIsVisible = false;
     }
   }
 
-  joinTeam() {
+   joinTeam() {
+    console.log("Hrac struktura", this.activeUzivatelHrac);
+    console.log("Tim struktura", this.tim);
+
     this.server.createHrac_hra_v_time(this.activeUzivatelHrac, this.tim);
   }
 

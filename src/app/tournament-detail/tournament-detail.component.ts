@@ -44,10 +44,24 @@ export class TournamentDetailComponent implements OnInit {
 
   hraKlasicka: boolean;
   hraZmiesana: boolean;
+
+  hraPlanovana: boolean;
+  hraPrebieha: boolean;
+  hraUkoncena: boolean;
+
+  eventSave: any;
   selected: string;
 
   rowClick_PodmienTurnajaId: number;
 
+
+  //warning boolean
+  ErrorMsg_Nazov: boolean = false;
+  ErrorMsg_StavTurnaja: boolean = false;
+  ErrorMsg_Zaciatok: boolean = false;
+  ErrorMsg_Koniec: boolean = false;
+  ErrorMsg_KoniecSkorAkoZaciatok: boolean = false;
+  ErrorMsg_Vyhra: boolean = false;
 
 
   constructor(private server: ApiService, private router: Router) { }
@@ -72,7 +86,19 @@ export class TournamentDetailComponent implements OnInit {
 
   }
 
+  InitButtons(){
+    this.hraKlasicka = false;
+    this.hraZmiesana = false;
+
+    this.hraPlanovana = false;
+    this.hraPrebieha = false;
+    this.hraUkoncena = false;
+
+  }
+
   rowClick(event){
+    console.log(event);
+    this.eventSave = event;
 
     this.rowClick_PodmienTurnajaId = event.data.podmienky_turnajaID;
 
@@ -94,25 +120,31 @@ export class TournamentDetailComponent implements OnInit {
         this.pocetHracVTyme = tu.Pocet_hracov_v_tyme;
         this.minVek = tu.Minimalny_vek_hracov;
 
+        this.InitButtons();
+
         if (tu.Druh_hry === "klasicka"){
           this.hraKlasicka = true;
-        } else {
-          this.hraKlasicka = false;
-        }
-
-
-        if (tu.Druh_hry === "zmiesana"){
-          this.hraZmiesana = true;
-        } else {
           this.hraZmiesana = false;
+        } else if (tu.Druh_hry === "zmiesana"){
+          this.hraKlasicka = false;
+          this.hraZmiesana = true;
         }
 
+        if (event.data.Stav_turnaja === "planovany"){
+          this.hraPlanovana = true;
+          this.hraPrebieha = false;
+          this.hraUkoncena = false;
+        } else if  (event.data.Stav_turnaja === "prebieha"){
+          this.hraPlanovana = false;
+          this.hraPrebieha = true;
+          this.hraUkoncena = false;
+        } else  if (event.data.Stav_turnaja === "ukonceny"){
+          this.hraPlanovana = false;
+          this.hraPrebieha = false;
+          this.hraUkoncena = true;
+        }
         return tu;
-
       });
-
-
-
     });
 
 
@@ -125,6 +157,7 @@ export class TournamentDetailComponent implements OnInit {
 
       this.turnaje = resp.map( (tu) => {
           tu.id = tu.TurnajID;
+          tu.stav_turnaja = tu.Stav_turnaja;
           tu.nazov = tu.Nazov;
           tu.zaciatok = tu.Zaciatok;
           tu.koniec = tu.Koniec;
@@ -141,6 +174,7 @@ export class TournamentDetailComponent implements OnInit {
 
         this.turnajeReadOnly = resp.map( (tu) => {
             tu.id = tu.TurnajID;
+            tu.stav_turnaja = tu.Stav_turnaja;
             tu.nazov = tu.Nazov;
             tu.zaciatok = tu.Zaciatok;
             tu.koniec = tu.Koniec;
@@ -175,7 +209,7 @@ export class TournamentDetailComponent implements OnInit {
 
         const newturnaj: Turnaj = {id: null,
                                    nazov: event.data.nazov,
-                                   stav_turnaja: event.data.stav_turnaja,
+                                   stav_turnaja: "planovany",
                                    zaciatok: event.data.zaciatok,
                                    koniec: event.data.koniec,
                                    vyhra: event.data.vyhra,
@@ -191,22 +225,6 @@ export class TournamentDetailComponent implements OnInit {
         });
 
       })
-    // const newturnaj: Turnaj = {id: null,
-    //                            nazov: event.data.nazov,
-    //                            stav_turnaja: event.data.stav_turnaja,
-    //                            zaciatok: event.data.zaciatok,
-    //                            koniec: event.data.koniec,
-    //                            vyhra: event.data.vyhra,
-    //                            sponzori: event.data.sponzori,
-    //                            povrch: event.data.povrch,
-    //                            podmienky_turnajaID: null,
-    //                            usporiadatelID: null};
-    //
-    //
-    // // Prida turnaj a aktualizuje tabulky
-    // this.server.createTurnaj(newturnaj).then(() => {
-    //   this.getVsetkyTurnaje();
-    // });
     });
     };
 
@@ -260,7 +278,7 @@ export class TournamentDetailComponent implements OnInit {
 
     if (this.hraKlasicka){
       updatePodmienkyTurnaja.druh_hry = "klasicka";
-    } else if (this.regPoplatok){
+    } else if (this.hraZmiesana){
       updatePodmienkyTurnaja.druh_hry = "zmiesana";
     }
 
@@ -269,7 +287,30 @@ export class TournamentDetailComponent implements OnInit {
       this.getVsetkyTurnaje();
     });
 
+    const updateturnaj: Turnaj = {id: this.eventSave.data.id,
+                                  nazov: this.eventSave.data.nazov,
+                                  stav_turnaja: this.eventSave.data.stav_turnaja,
+                                  zaciatok: this.eventSave.data.zaciatok,
+                                  koniec: this.eventSave.data.koniec,
+                                  vyhra: this.eventSave.data.vyhra,
+                                  sponzori: this.eventSave.data.sponzori,
+                                  povrch: this.eventSave.data.povrch,
+                                  podmienky_turnajaID : this.eventSave.data.podmienky_turnajaID,
+                                  usporiadatelID: this.eventSave.data.usporiadatelID};
 
+
+    if (this.hraPlanovana){
+      updateturnaj.stav_turnaja = "planovany";
+    } else if (this.hraPrebieha) {
+      updateturnaj.stav_turnaja = "prebieha";
+    } else if (this.hraUkoncena){
+      updateturnaj.stav_turnaja = "ukonceny";
+    }
+
+    // Aktualizuje vypis podmienky turnaja
+    this.server.updateTurnaj(updateturnaj).then(() => {
+      this.getVsetkyTurnaje();
+    });
 
   }
 
@@ -293,5 +334,23 @@ export class TournamentDetailComponent implements OnInit {
   onZmiesanaChange() {
     this.hraKlasicka = false;
     this.hraZmiesana = true;
+  }
+
+  onPlanovanaChange() {
+    this.hraPlanovana = true;
+    this.hraPrebieha = false;
+    this.hraUkoncena = false;
+  }
+
+  onPrebiehaChange() {
+    this.hraPlanovana = false;
+    this.hraPrebieha = true;
+    this.hraUkoncena = false;
+  }
+
+  onUkoncenaChange() {
+    this.hraPlanovana = false;
+    this.hraPrebieha = false;
+    this.hraUkoncena = true;
   }
 }

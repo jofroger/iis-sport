@@ -889,7 +889,7 @@ router.get('/hrac_hra_v_time/uzivatel/:id', function (req, res) {
 router.post('/hrac_hra_v_time', (req, res) => {
   db.query(
     "INSERT INTO hrac_hra_v_time (HracID, TimID) VALUES (?,?)",
-    [req.body.hracID, req.body.timID],
+    [req.body.HracID, req.body.TimID],
     (error) => {
       if (error) {
         console.error(error);
@@ -1412,14 +1412,14 @@ router.post('/upload-img/hrac', function (req, res, next) {
        // An error occurred when uploading
        console.log(err);
        return res.status(422).send("an Error occured")
-     }  
+     }
     // No error occured.
      path = req.file.path;
-     res.status(200).json({"Fotka": "../../assets/fotky_hracov/"+req.file.filename}); 
-  });     
+     res.status(200).json({"Fotka": "../../assets/fotky_hracov/"+req.file.filename});
+  });
 })
 
-var DIR_T = '../src/assets/loga_timov/'; 
+var DIR_T = '../src/assets/loga_timov/';
 var uploadTim = multer({dest: DIR_T}).single('photo');
 
 router.post('/upload-img/tim', function (req, res, next) {
@@ -1429,11 +1429,11 @@ router.post('/upload-img/tim', function (req, res, next) {
        // An error occurred when uploading
        console.log(err);
        return res.status(422).send("an Error occured")
-     }  
+     }
     // No error occured.
      path = req.file.path;
-     res.status(200).json({"Fotka": "../../assets/loga_timov/"+req.file.filename}); 
-  });     
+     res.status(200).json({"Fotka": "../../assets/loga_timov/"+req.file.filename});
+  });
 })
   return router;
 }
