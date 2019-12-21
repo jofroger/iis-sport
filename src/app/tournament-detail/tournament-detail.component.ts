@@ -62,6 +62,8 @@ export class TournamentDetailComponent implements OnInit {
   ErrorMsg_Koniec: boolean = false;
   ErrorMsg_KoniecSkorAkoZaciatok: boolean = false;
   ErrorMsg_Vyhra: boolean = false;
+  ErrorMsg_Povrch: boolean = false;
+  ErrorMsg_ZaporVyhra: boolean = false;
 
 
   constructor(private server: ApiService, private router: Router) { }
@@ -191,8 +193,76 @@ export class TournamentDetailComponent implements OnInit {
 
   }
 
+  isValidDate(dateString) {
+    var regEx = /^\d{4}-\d{2}-\d{2}$/;
+    if(!dateString.match(regEx)) return false;  // Invalid format
+    var d = new Date(dateString);
+    var dNum = d.getTime();
+    if(!dNum && dNum !== 0) return false; // NaN value, Invalid date
+    return d.toISOString().slice(0,10) === dateString;
+  }
+
+  dataValidation(event){
+
+    if(event.data.nazov === ""){
+      this.ErrorMsg_Nazov = true;
+      return false;
+    }
+    if(event.data.zaciatok === ""){
+      this.ErrorMsg_Zaciatok = true;
+      return false;
+    }
+    if(event.data.koniec === ""){
+      this.ErrorMsg_Koniec = true;
+      return false;
+    }
+    if(event.data.vyhra === ""){
+      this.ErrorMsg_Vyhra = true;
+      return false;
+    }
+    if(event.data.povrch === ""){
+      this.ErrorMsg_Povrch = true;
+      return false;
+    }
+
+
+    let intVyhra = +event.data.vyhra;
+    if (intVyhra < 0 ){
+      this.ErrorMsg_ZaporVyhra = true;
+      return false;
+    }
+
+    if (!this.isValidDate(event.data.zaciatok)){
+      this.ErrorMsg_Zaciatok = true;
+    }
+
+    if (!this.isValidDate(event.data.koniec)){
+      this.ErrorMsg_Koniec = true;
+      return false;
+    }
+
+    const dateZaciatok = new Date(event.data.zaciatok);
+    const dateKoniec = new Date(event.data.koniec);
+
+    if ( dateZaciatok > dateKoniec ){
+      this.ErrorMsg_KoniecSkorAkoZaciatok = true;
+      return false;
+    }
+
+
+
+  }
 
   createNewTurnaj(event) {
+
+    console.log(event);
+    let check: boolean;
+    check = this.dataValidation(event);
+    if (check === false) {
+      return
+    }
+
+
 
 
     this.server.createPodmienky_turnaja(this.newPodmienTurnaja).then((respPodmienTurnaja: any) => {
@@ -207,6 +277,7 @@ export class TournamentDetailComponent implements OnInit {
       this.server.createUsporiadatel(this.newUsporiadatel).then((respUsporiadatel: any) => {
 
 
+
         const newturnaj: Turnaj = {id: null,
                                    nazov: event.data.nazov,
                                    stav_turnaja: "planovany",
@@ -218,7 +289,7 @@ export class TournamentDetailComponent implements OnInit {
                                    podmienky_turnajaID: respPodmienTurnaja.insertId,
                                    usporiadatelID: respUsporiadatel.insertId};
 
-
+        console.log(newturnaj);
         // Prida turnaj a aktualizuje tabulky
         this.server.createTurnaj(newturnaj).then(() => {
           this.getVsetkyTurnaje();

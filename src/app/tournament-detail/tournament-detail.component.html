@@ -12,7 +12,7 @@
       <div class="row"  *ngIf="ErrorMsg_Nazov">
         <div class="col-xs-12">
           <p class="alert alert-danger">
-            <strong>Zaznam nemoze byt ulozeny!</strong> Ziadny nazov!
+            <strong>Zaznam nebude ulozeny!</strong> Ziadny nazov!
 
           </p>
         </div>
@@ -21,7 +21,7 @@
       <div class="row"  *ngIf="ErrorMsg_Zaciatok">
         <div class="col-xs-12">
           <p class="alert alert-danger">
-            <strong>Zaznam nemoze byt ulozeny!</strong> Nemozno overit validitu datumu, podporovamy datum je v tvare YYYY-MM-DD.
+            <strong>Zaznam nebude ulozeny!</strong> Nemozno overit validitu datumu, podporovamy je len korektny(!) datum v tvare YYYY-MM-DD.
 
           </p>
         </div>
@@ -30,7 +30,7 @@
       <div class="row"  *ngIf="ErrorMsg_Koniec">
         <div class="col-xs-12">
           <p class="alert alert-danger">
-            <strong>Zaznam nemoze byt ulozeny!</strong> Nemozno overit validitu datumu, podporovamy datum je v tvare YYYY-MM-DD.
+            <strong>Zaznam nebude ulozeny!</strong> Nemozno overit validitu datumu, podporovamy je len korektny(!) datum v tvare YYYY-MM-DD.
 
           </p>
         </div>
@@ -39,7 +39,7 @@
       <div class="row"  *ngIf="ErrorMsg_KoniecSkorAkoZaciatok">
         <div class="col-xs-12">
           <p class="alert alert-danger">
-            <strong>Zaznam nemoze byt ulozeny!</strong> Datum ukoncenia je skorsi nez datum zacatia!
+            <strong>Zaznam nebude ulozeny!</strong> Datum ukoncenia je skorsi nez datum zacatia!
 
           </p>
         </div>
@@ -48,7 +48,25 @@
       <div class="row"  *ngIf="ErrorMsg_Vyhra">
         <div class="col-xs-12">
           <p class="alert alert-danger">
-            <strong>Zaznam nemoze byt ulozeny!</strong> Nie je priradená žiadna výhra!
+            <strong>Zaznam nebude ulozeny!</strong> Nie je priradená žiadna výhra!
+
+          </p>
+        </div>
+      </div>
+
+      <div class="row"  *ngIf="ErrorMsg_ZaporVyhra">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Zaznam nebude ulozeny!</strong> Zaporna výhra nie je dovolena!
+
+          </p>
+        </div>
+      </div>
+
+      <div class="row"  *ngIf="ErrorMsg_Povrch">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Zaznam nebude ulozeny!</strong> Ziaden alebo zly povrch!
 
           </p>
         </div>

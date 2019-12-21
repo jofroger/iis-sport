@@ -525,8 +525,8 @@ router.get('/turnaj/except-uzivatel/:id', function (req, res) {
 
 router.post('/turnaj', (req, res) => {
   db.query(
-    "INSERT INTO Turnaj (Nazov, Stav_turnaja, Zaciatok, Koniec, Vyhra, Sponzori, Podmienky_turnajaID, UsporiadatelID) VALUES (?,?,?,?,?,?,?,?)",
-    [req.body.nazov, req.body.stav_turnaja, req.body.zaciatok, req.body.koniec, req.body.vyhra, req.body.sponzori, req.body.podmienky_turnajaID, req.body.usporiadatelID],
+    "INSERT INTO Turnaj (Nazov, Stav_turnaja, Zaciatok, Koniec, Vyhra, Sponzori, Povrch,Podmienky_turnajaID, UsporiadatelID) VALUES (?,?,?,?,?,?,?,?,?)",
+    [req.body.nazov, req.body.stav_turnaja, req.body.zaciatok, req.body.koniec, req.body.vyhra, req.body.sponzori,req.body.povrch, req.body.podmienky_turnajaID, req.body.usporiadatelID],
     (error) => {
       if (error) {
         console.error(error);
