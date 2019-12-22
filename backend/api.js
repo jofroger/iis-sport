@@ -1206,7 +1206,7 @@ router.get('/uzivatel_hra_v_zapase/zapas/:id', function (req, res) {
 router.post('/hrac_hra_v_zapase', (req, res) => {
   db.query(
     "INSERT INTO hrac_hra_v_zapase (ZapasID, HracID) VALUES (?,?)",
-    [req.body.zapasID, req.body.hracID],
+    [req.body.ZapasID, req.body.HracID],
     (error) => {
       if (error) {
         console.error(error);
