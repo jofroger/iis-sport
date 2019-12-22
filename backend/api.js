@@ -692,12 +692,12 @@ router.post('/zapas', (req, res) => {
   db.query(
     "INSERT INTO Zapas (Nazov, Miesto, Datum, Stav, Vyherca, Uroven_zapasu, TurnajID) VALUES (?,?,?,?,?,?,?)",
     [req.body.nazov, req.body.miesto, req.body.datum, req.body.stav, req.body.vyherca, req.body.uroven_zapasu, req.body.turnajID],
-    (error) => {
+    (error, results) => {
       if (error) {
         console.error(error);
         res.status(500).json({ status: 'error' });
       } else {
-        res.status(200).json({ status: 'ok' });
+        res.status(200).json(results);
       }
     }
   );
@@ -1117,7 +1117,7 @@ router.get('/tim_hra_v_zapase/tim/:id', function (req, res) {
 router.post('/tim_hra_v_zapase', (req, res) => {
   db.query(
     "INSERT INTO tim_hra_v_zapase (ZapasID, TimID) VALUES (?,?)",
-    [req.body.zapasID, req.body.timID],
+    [req.body.ZapasID, req.body.TimID],
     (error) => {
       if (error) {
         console.error(error);

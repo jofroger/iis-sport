@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
-import {Hrac, Podmienky_turnaja, Turnaj, Usporiadatel, Uzivatel} from '../api.structures';
+import {Hrac, Podmienky_turnaja, Turnaj, Usporiadatel, Uzivatel, Zapas} from '../api.structures';
 import {FormBuilder, FormControl} from '@angular/forms';
 
 
@@ -17,12 +17,6 @@ export interface IUsporadatelia {
   styleUrls: ['./tournament-detail.component.css']
 })
 export class TournamentDetailComponent implements OnInit {
-
-  books = [
-    { author: 'D. Adams', title: 'The Hitchhiker\'s Guide to the Galaxy', year: 1979, genre: 'Comedy, sci-fi' },
-    { author: 'K. Vonnegut', title: 'Cat\'s Cradle', year: 1963, genre: 'Satire, sci-fi' },
-    { author: 'M. Mitchell', title: 'Gone with the Wind', year: 1936, genre: 'Historical fiction' }
-  ];
 
   turnaj: Turnaj = {id: null, nazov: '', stav_turnaja: '', zaciatok: null, koniec: null, vyhra: '', sponzori: '', povrch: '', podmienky_turnajaID : null, usporiadatelID: null};
   turnaje: Turnaj[] = [];
@@ -49,8 +43,9 @@ export class TournamentDetailComponent implements OnInit {
   hraPrebieha: boolean;
   hraUkoncena: boolean;
 
+  eventSaveError: boolean = false;
+  eventSaveError_expect4or8tymov: boolean = false;;
   eventSave: any;
-  selected: string;
 
   rowClick_PodmienTurnajaId: number;
 
@@ -64,6 +59,7 @@ export class TournamentDetailComponent implements OnInit {
   ErrorMsg_Vyhra: boolean = false;
   ErrorMsg_Povrch: boolean = false;
   ErrorMsg_ZaporVyhra: boolean = false;
+
 
 
   constructor(private server: ApiService, private router: Router) { }
@@ -87,6 +83,9 @@ export class TournamentDetailComponent implements OnInit {
     })
 
   }
+
+
+
 
   InitButtons(){
     this.hraKlasicka = false;
@@ -161,8 +160,8 @@ export class TournamentDetailComponent implements OnInit {
           tu.id = tu.TurnajID;
           tu.stav_turnaja = tu.Stav_turnaja;
           tu.nazov = tu.Nazov;
-          tu.zaciatok = tu.Zaciatok;
-          tu.koniec = tu.Koniec;
+          tu.zaciatok = tu.Zaciatok.substring(0, 10);
+          tu.koniec = tu.Koniec.substring(0, 10);
           tu.vyhra = tu.Vyhra;
           tu.sponzori = tu.Sponzori;
           tu.povrch = tu.Povrch;
@@ -178,8 +177,8 @@ export class TournamentDetailComponent implements OnInit {
             tu.id = tu.TurnajID;
             tu.stav_turnaja = tu.Stav_turnaja;
             tu.nazov = tu.Nazov;
-            tu.zaciatok = tu.Zaciatok;
-            tu.koniec = tu.Koniec;
+            tu.zaciatok = tu.Zaciatok.substring(0, 10);
+            tu.koniec = tu.Koniec.substring(0, 10);
             tu.vyhra = tu.Vyhra;
             tu.sponzori = tu.Sponzori;
             tu.povrch = tu.Povrch;
@@ -281,8 +280,8 @@ export class TournamentDetailComponent implements OnInit {
         const newturnaj: Turnaj = {id: null,
                                    nazov: event.data.nazov,
                                    stav_turnaja: "planovany",
-                                   zaciatok: event.data.zaciatok,
-                                   koniec: event.data.koniec,
+                                   zaciatok: event.data.zaciatok.substring(0, 10),
+                                   koniec: event.data.koniec.substring(0, 10),
                                    vyhra: event.data.vyhra,
                                    sponzori: event.data.sponzori,
                                    povrch: event.data.povrch,
@@ -303,8 +302,8 @@ export class TournamentDetailComponent implements OnInit {
     const updateturnaj: Turnaj = {id: event.data.id,
                                nazov: event.data.nazov,
                                stav_turnaja: event.data.stav_turnaja,
-                               zaciatok: event.data.zaciatok,
-                               koniec: event.data.koniec,
+                               zaciatok: event.data.zaciatok.substring(0, 10),
+                               koniec: event.data.koniec.substring(0, 10),
                                vyhra: event.data.vyhra,
                                sponzori: event.data.sponzori,
                                povrch: event.data.povrch,
@@ -321,8 +320,8 @@ export class TournamentDetailComponent implements OnInit {
     const deleteturnaj: Turnaj = {id: event.data.id,
                                   nazov: event.data.nazov,
                                   stav_turnaja: event.data.stav_turnaja,
-                                  zaciatok: event.data.zaciatok,
-                                  koniec: event.data.koniec,
+                                  zaciatok: event.data.zaciatok.substring(0, 10),
+                                  koniec: event.data.koniec.substring(0, 10),
                                   vyhra: event.data.vyhra,
                                   sponzori: event.data.sponzori,
                                   povrch: event.data.povrch,
@@ -361,8 +360,8 @@ export class TournamentDetailComponent implements OnInit {
     const updateturnaj: Turnaj = {id: this.eventSave.data.id,
                                   nazov: this.eventSave.data.nazov,
                                   stav_turnaja: this.eventSave.data.stav_turnaja,
-                                  zaciatok: this.eventSave.data.zaciatok,
-                                  koniec: this.eventSave.data.koniec,
+                                  zaciatok: this.eventSave.data.zaciatok.substring(0, 10),
+                                  koniec: this.eventSave.data.koniec.substring(0, 10),
                                   vyhra: this.eventSave.data.vyhra,
                                   sponzori: this.eventSave.data.sponzori,
                                   povrch: this.eventSave.data.povrch,
@@ -424,4 +423,77 @@ export class TournamentDetailComponent implements OnInit {
     this.hraPrebieha = false;
     this.hraUkoncena = true;
   }
+
+  turnajUzavriRozlosuj() {
+
+    console.log(this.eventSave);
+
+    if (this.eventSave === undefined){
+      this.eventSaveError = true;
+      return;
+    } else {
+      this.eventSaveError = false;
+    }
+
+
+    let tmpTurnaj: Turnaj = {id: this.eventSave.data.id,
+                             nazov: this.eventSave.data.nazov,
+                             stav_turnaja: this.eventSave.data.stav_turnaja,
+                             zaciatok: this.eventSave.data.zaciatok.substring(0, 10),
+                             koniec: this.eventSave.data.koniec.substring(0, 10),
+                             vyhra: this.eventSave.data.vyhra,
+                             sponzori: this.eventSave.data.sponzori,
+                             povrch: this.eventSave.data.povrch,
+                             podmienky_turnajaID : this.eventSave.data.podmienky_turnajaID,
+                             usporiadatelID: this.eventSave.data.usporiadatelID};
+
+    this.server.getTurnajByTim(tmpTurnaj).then(( arrayTurnaj:any ) => {
+
+      console.log(arrayTurnaj);
+
+      if (arrayTurnaj.length === 8 || arrayTurnaj.length === 4){
+        this.eventSaveError_expect4or8tymov = false;
+      } else {
+        this.eventSaveError_expect4or8tymov = true;
+        return
+      }
+
+      const tmpgetPodmienkyTurnaja: Podmienky_turnaja = {id: this.eventSave.data.Podmienky_turnajaID,
+                                                         minimalny_vek_hracov: null,
+                                                         pocet_hracov_v_tyme: null,
+                                                         pocet_tymov: null,
+                                                         registracny_poplatok: "",
+                                                         druh_hry: ""
+      };
+
+      this.server.getPodmienky_turnaja(tmpgetPodmienkyTurnaja).then(( tmpPodmiekyTur:any ) => {
+
+        if (tmpPodmiekyTur[0].Pocet_hracov_v_tyme === 1) {
+          console.log("Hrac");
+
+
+        } else {
+          console.log("Tym");
+
+          let newZapas: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: null, vyherca: null, uroven_zapasu: 1, turnajID: this.eventSave.data.id};
+
+
+          this.server.createZapas(newZapas).then(( createdZapas:any ) => {
+            console.log("InsertID createdZapas", createdZapas.insertId);
+
+            newZapas.id = createdZapas.insertId;
+            console.log("new zapas", newZapas);
+            console.log("new tym", arrayTurnaj[0]);
+
+            this.server.createTim_hra_v_zapase(newZapas, arrayTurnaj[0]);
+            this.server.createTim_hra_v_zapase(newZapas, arrayTurnaj[1]);
+
+          });
+        }
+      });
+    });
+
+
+  }
 }
+

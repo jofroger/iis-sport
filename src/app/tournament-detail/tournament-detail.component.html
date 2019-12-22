@@ -7,8 +7,27 @@
     <div class="scrollBar">
 
 
+      <button mat-raised-button color="warn" (click)="turnajUzavriRozlosuj()">Uzavriet turnaj a rozlosovat!</button>
 
-<!-- warning   -->
+      <!-- warning   -->
+      <div class="row"  *ngIf="eventSaveError">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Nie je mozne vykonat akciu!</strong> Oznacte kliknutim pozadovany turnaj!
+
+          </p>
+        </div>
+      </div>
+
+      <div class="row"  *ngIf="eventSaveError_expect4or8tymov">
+        <div class="col-xs-12">
+          <p class="alert alert-danger">
+            <strong>Nie je mozne vykonat akciu!</strong> Je nutne aby v turnaji bolo 4 alebo 8 tymov!
+
+          </p>
+        </div>
+      </div>
+
       <div class="row"  *ngIf="ErrorMsg_Nazov">
         <div class="col-xs-12">
           <p class="alert alert-danger">
@@ -102,7 +121,7 @@
           >
           </dxo-editing>
 
-          <dxi-column dataField="nazov" caption="Nazov"></dxi-column>
+          <dxi-column [editorOptions]="{ placeholder: 'Nazov' }" dataField="nazov" caption="Nazov"></dxi-column>
           <dxi-column [editorOptions]="{ placeholder: 'YYYY-MM-DD' }" dataField="zaciatok" caption="Zaciatok"></dxi-column>
           <dxi-column [editorOptions]="{ placeholder: 'YYYY-MM-DD' }" dataField="koniec" caption="Koniec"></dxi-column>
           <dxi-column [editorOptions]="{ placeholder: 'Suma v €' }" dataField="vyhra" caption="Vyhra"></dxi-column>
