@@ -470,38 +470,159 @@ export class TournamentDetailComponent implements OnInit {
 
         if (tmpPodmiekyTur[0].Pocet_hracov_v_tyme === 1) {
           console.log("Hrac");
+              console.log("lenght",arrayTurnaj.length);
 
+              for (let i = 0; i <arrayTurnaj.length; i+=2 ) {
+
+                let newZapas: Zapas = {
+                  id: null,
+                  nazov: '',
+                  miesto: '',
+                  datum: null,
+                  stav: null,
+                  vyherca: null,
+                  uroven_zapasu: 1,
+                  turnajID: this.eventSave.data.id
+                };
+
+                //Vytvorim novy zapas
+                this.server.createZapas(newZapas).then((createdZapas: any) => {
+                  console.log("InsertID createdZapas", createdZapas.insertId);
+
+                  //Naplnim novy zapas
+                  newZapas.id = createdZapas.insertId;
+                  console.log("new zapas", newZapas);
+                  console.log("new tym", arrayTurnaj[0]);
+
+                  let findHrac : Hrac = { id: null, odohrane_zapasy: '', pocet_vyhier: null, fotka: '', uzivatelID: null }
+
+
+                  this.server.getHrac(arrayTurnaj[i].TimID).then((hrac01: any) => {
+
+                  //Naplnim tym1 v zapase
+                  let newHrac01: Hrac = {
+                    id: arrayTurnaj[i].TimID,
+                    odohrane_zapasy: arrayTurnaj[i].Odohrane_zapasy,
+                    pocet_vyhier: arrayTurnaj[i].Pocet_vyhier,
+                    fotka: arrayTurnaj[i].Fotka,
+                    uzivatelID: hrac01.UzivatelID
+                  };
+
+                    this.server.getHrac(arrayTurnaj[i+1].TimID).then((hrac02: any) => {
+
+
+                      //naplnim tym2 v zapase
+                      let newHrac02: Hrac = {
+                        id: arrayTurnaj[i + 1].TimID,
+                        odohrane_zapasy: arrayTurnaj[i + 1].Odohrane_zapasy,
+                        pocet_vyhier: arrayTurnaj[i + 1].Pocet_vyhier,
+                        fotka: arrayTurnaj[i + 1].Fotka,
+                        uzivatelID: hrac02.UzivatelID
+
+                      };
+
+
+                      // console.log("newTym01", newTym01);
+                      this.server.createHrac_hra_v_zapase(newZapas, newHrac01);
+                      this.server.createHrac_hra_v_zapase(newZapas, newHrac02);
+                    });
+                  });
+                });
+              }
+
+
+              this.onPrebiehaChange();
+
+              const updateturnaj: Turnaj = {id: this.eventSave.data.id,
+                nazov: this.eventSave.data.nazov,
+                stav_turnaja: "prebieha",
+                zaciatok: this.eventSave.data.zaciatok.substring(0, 10),
+                koniec: this.eventSave.data.koniec.substring(0, 10),
+                vyhra: this.eventSave.data.vyhra,
+                sponzori: this.eventSave.data.sponzori,
+                povrch: this.eventSave.data.povrch,
+                podmienky_turnajaID : this.eventSave.data.podmienky_turnajaID,
+                usporiadatelID: this.eventSave.data.usporiadatelID};
+
+              // Aktualizuje turnaj a zaaktualizuje tabulky
+              this.server.updateTurnaj(updateturnaj).then(() => {
+                this.getVsetkyTurnaje();
+              });
 
         } else {
-          console.log("Tym");
+              console.log("Tym");
+              console.log("lenght",arrayTurnaj.length);
 
-          let newZapas: Zapas = {id: null, nazov: '', miesto: '', datum: null, stav: null, vyherca: null, uroven_zapasu: 1, turnajID: this.eventSave.data.id};
+              for (let i = 0; i <arrayTurnaj.length; i+=2 ) {
+
+                let newZapas: Zapas = {
+                  id: null,
+                  nazov: '',
+                  miesto: '',
+                  datum: null,
+                  stav: null,
+                  vyherca: null,
+                  uroven_zapasu: 1,
+                  turnajID: this.eventSave.data.id
+                };
+
+                //Vytvorim novy zapas
+                this.server.createZapas(newZapas).then((createdZapas: any) => {
+                  console.log("InsertID createdZapas", createdZapas.insertId);
+
+                  //Naplnim novy zapas
+                  newZapas.id = createdZapas.insertId;
+                  console.log("new zapas", newZapas);
+                  console.log("new tym", arrayTurnaj[0]);
 
 
-          this.server.createZapas(newZapas).then(( createdZapas:any ) => {
-            console.log("InsertID createdZapas", createdZapas.insertId);
+                  //Naplnim tym1 v zapase
+                  let newTym01: Tim = {
+                    id: arrayTurnaj[i].TimID,
+                    nazov: arrayTurnaj[i].Nazov,
+                    logo: arrayTurnaj[i].Logo,
+                    pocet_hracov: arrayTurnaj[i].Pocet_hracov,
+                    odohrane_zapasy: arrayTurnaj[i].Odohrane_zapasy,
+                    pocet_vyhier: arrayTurnaj[i].Pocet_vyhier
+                  };
 
-            newZapas.id = createdZapas.insertId;
-            console.log("new zapas", newZapas);
-            console.log("new tym", arrayTurnaj[0]);
+                  //naplnim tym2 v zapase
+                  let newTym02: Tim = {
+                    id: arrayTurnaj[i + 1].TimID,
+                    nazov: arrayTurnaj[i + 1].Nazov,
+                    logo: arrayTurnaj[i + 1].Logo,
+                    pocet_hracov: arrayTurnaj[i + 1].Pocet_hracov,
+                    odohrane_zapasy: arrayTurnaj[i + 1].Odohrane_zapasy,
+                    pocet_vyhier: arrayTurnaj[i + 1].Pocet_vyhier
+                  };
 
 
+                  // console.log("newTym01", newTym01);
+                  this.server.createTim_hra_v_zapase(newZapas, newTym01);
+                  this.server.createTim_hra_v_zapase(newZapas, newTym02);
 
-            let newTym01: Tim = {id: arrayTurnaj[0].TimID,
-                                 nazov: arrayTurnaj[0].Nazov,
-                                 logo: arrayTurnaj[0].Logo,
-                                 pocet_hracov: arrayTurnaj[0].Pocet_hracov,
-                                 odohrane_zapasy: arrayTurnaj[0].Odohrane_zapasy,
-                                 pocet_vyhier: arrayTurnaj[0].Pocet_vyhier};
-
-
-            console.log("newTym01", newTym01);
+                });
+              }
 
 
-            this.server.createTim_hra_v_zapase(newZapas, newTym01);
-            // this.server.createTim_hra_v_zapase(newZapas, arrayTurnaj[1]);
+              this.onPrebiehaChange();
 
-          });
+              const updateturnaj: Turnaj = {id: this.eventSave.data.id,
+                nazov: this.eventSave.data.nazov,
+                stav_turnaja: "prebieha",
+                zaciatok: this.eventSave.data.zaciatok.substring(0, 10),
+                koniec: this.eventSave.data.koniec.substring(0, 10),
+                vyhra: this.eventSave.data.vyhra,
+                sponzori: this.eventSave.data.sponzori,
+                povrch: this.eventSave.data.povrch,
+                podmienky_turnajaID : this.eventSave.data.podmienky_turnajaID,
+                usporiadatelID: this.eventSave.data.usporiadatelID};
+
+              // Aktualizuje turnaj a zaaktualizuje tabulky
+              this.server.updateTurnaj(updateturnaj).then(() => {
+                this.getVsetkyTurnaje();
+              });
+
         }
       });
     });

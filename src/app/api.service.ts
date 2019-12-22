@@ -57,7 +57,7 @@ export class ApiService {
         return this.request('GET', `${environment.serverUrl}/hrac/${hrac.id}`);
     }
 
-    
+
     getHracByUzivatel(uzivatel: Uzivatel) {
         return this.request('GET', `${environment.serverUrl}/hrac/uzivatel/${uzivatel.id}`);
     }
@@ -334,7 +334,7 @@ export class ApiService {
     }
 
     createTim_hra_v_zapase(zapas: Zapas, tim: Tim) {
-        return this.request('POST', `${environment.serverUrl}/tim_hra_v_zapase`, {"ZapasID": zapas.id, "Tim": tim.id});
+        return this.request('POST', `${environment.serverUrl}/tim_hra_v_zapase`, {"ZapasID": zapas.id, "TimID": tim.id});
     }
 
     deleteTim_hra_v_zapase(zapas: Zapas, tim: Tim) {
