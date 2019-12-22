@@ -30,6 +30,8 @@ export class TeamDetailComponent implements OnInit {
   joinTeamIsVisible: Boolean = (localStorage.getItem('userId') == null);
   leaveTeamIsVisible: Boolean = (localStorage.getItem('userId') == null) && !this.joinTeamIsVisible;
   playerCounter: any = 0;
+  nieSiHracError: boolean = false;
+  uzSiVTymeError: boolean = false;
 
   constructor(private server: ApiService) { }
 
@@ -83,6 +85,13 @@ export class TeamDetailComponent implements OnInit {
     if (this.activeUzivatel.id > 0) {
       this.server.getHracByUzivatel(this.activeUzivatel). then( (HracByUzivatelResponse: any) => {
 
+        if (HracByUzivatelResponse[0] === undefined){
+          console.log("nie si hrac")
+          this.nieSiHracError = true;
+          return;
+        } else {
+          this.nieSiHracError = false;
+        }
 
         console.log("ID uzivatela",HracByUzivatelResponse[0].HracID);
 
@@ -119,6 +128,7 @@ export class TeamDetailComponent implements OnInit {
           this.joinTeamIsVisible = false;
           this.leaveTeamIsVisible = true;
         } else {  // Ak je v time, ale nie v tom, ktory je prave zobrazeny
+          this.uzSiVTymeError = true;
           this.joinTeamIsVisible = false;
           this.leaveTeamIsVisible = false;
         }

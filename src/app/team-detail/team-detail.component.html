@@ -2,6 +2,27 @@
   <div class="homepageContent">
     <app-header-menu></app-header-menu>
 
+    <!-- warning   -->
+    <div class="row"  *ngIf="nieSiHracError">
+      <div class="col-xs-12">
+        <p class="alert alert-warning">
+          <strong>Nie ste hrac!</strong> Ak sa chcete pridat do tymu, zaradte sa ako hrac v sekcii "Moj ucet".
+
+        </p>
+      </div>
+    </div>
+
+    <div class="row"  *ngIf="uzSiVTymeError">
+      <div class="col-xs-12">
+        <p class="alert alert-warning">
+          <strong>Uz mate tym!</strong> Nie je mozne sa pridat do viac ako jedneho tymu.
+
+        </p>
+      </div>
+    </div>
+
+
+
     <table class="tabulkaTim">
       <tr><th colspan="3">
         <div style="text-align: center; margin-top: 20px; width: 100%"><h2>{{tim.nazov}}</h2></div>

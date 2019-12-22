@@ -44,7 +44,7 @@ export class TournamentDetailComponent implements OnInit {
   hraUkoncena: boolean;
 
   eventSaveError: boolean = false;
-  eventSaveError_expect4or8tymov: boolean = false;;
+  eventSaveError_expect4or8tymov: boolean = false;
   eventSave: any;
 
   rowClick_PodmienTurnajaId: number;
@@ -474,15 +474,14 @@ export class TournamentDetailComponent implements OnInit {
 
               for (let i = 0; i <arrayTurnaj.length; i+=2 ) {
 
-                let newZapas: Zapas = {
-                  id: null,
-                  nazov: '',
-                  miesto: '',
-                  datum: null,
-                  stav: null,
-                  vyherca: null,
-                  uroven_zapasu: 1,
-                  turnajID: this.eventSave.data.id
+                let newZapas: Zapas = { id: null,
+                                        nazov: '',
+                                        miesto: '',
+                                        datum: null,
+                                        stav: null,
+                                        vyherca: null,
+                                        uroven_zapasu: 1,
+                                        turnajID: this.eventSave.data.id
                 };
 
                 //Vytvorim novy zapas
@@ -500,25 +499,22 @@ export class TournamentDetailComponent implements OnInit {
                   this.server.getHrac(arrayTurnaj[i].TimID).then((hrac01: any) => {
 
                   //Naplnim tym1 v zapase
-                  let newHrac01: Hrac = {
-                    id: arrayTurnaj[i].TimID,
-                    odohrane_zapasy: arrayTurnaj[i].Odohrane_zapasy,
-                    pocet_vyhier: arrayTurnaj[i].Pocet_vyhier,
-                    fotka: arrayTurnaj[i].Fotka,
-                    uzivatelID: hrac01.UzivatelID
+                  let newHrac01: Hrac = { id: arrayTurnaj[i].TimID,
+                                          odohrane_zapasy: arrayTurnaj[i].Odohrane_zapasy,
+                                          pocet_vyhier: arrayTurnaj[i].Pocet_vyhier,
+                                          fotka: arrayTurnaj[i].Fotka,
+                                          uzivatelID: hrac01.UzivatelID
                   };
 
                     this.server.getHrac(arrayTurnaj[i+1].TimID).then((hrac02: any) => {
 
 
                       //naplnim tym2 v zapase
-                      let newHrac02: Hrac = {
-                        id: arrayTurnaj[i + 1].TimID,
-                        odohrane_zapasy: arrayTurnaj[i + 1].Odohrane_zapasy,
-                        pocet_vyhier: arrayTurnaj[i + 1].Pocet_vyhier,
-                        fotka: arrayTurnaj[i + 1].Fotka,
-                        uzivatelID: hrac02.UzivatelID
-
+                      let newHrac02: Hrac = { id: arrayTurnaj[i + 1].TimID,
+                                              odohrane_zapasy: arrayTurnaj[i + 1].Odohrane_zapasy,
+                                              pocet_vyhier: arrayTurnaj[i + 1].Pocet_vyhier,
+                                              fotka: arrayTurnaj[i + 1].Fotka,
+                                              uzivatelID: hrac02.UzivatelID
                       };
 
 
@@ -534,15 +530,15 @@ export class TournamentDetailComponent implements OnInit {
               this.onPrebiehaChange();
 
               const updateturnaj: Turnaj = {id: this.eventSave.data.id,
-                nazov: this.eventSave.data.nazov,
-                stav_turnaja: "prebieha",
-                zaciatok: this.eventSave.data.zaciatok.substring(0, 10),
-                koniec: this.eventSave.data.koniec.substring(0, 10),
-                vyhra: this.eventSave.data.vyhra,
-                sponzori: this.eventSave.data.sponzori,
-                povrch: this.eventSave.data.povrch,
-                podmienky_turnajaID : this.eventSave.data.podmienky_turnajaID,
-                usporiadatelID: this.eventSave.data.usporiadatelID};
+                                            nazov: this.eventSave.data.nazov,
+                                            stav_turnaja: "prebieha",
+                                            zaciatok: this.eventSave.data.zaciatok.substring(0, 10),
+                                            koniec: this.eventSave.data.koniec.substring(0, 10),
+                                            vyhra: this.eventSave.data.vyhra,
+                                            sponzori: this.eventSave.data.sponzori,
+                                            povrch: this.eventSave.data.povrch,
+                                            podmienky_turnajaID : this.eventSave.data.podmienky_turnajaID,
+                                            usporiadatelID: this.eventSave.data.usporiadatelID};
 
               // Aktualizuje turnaj a zaaktualizuje tabulky
               this.server.updateTurnaj(updateturnaj).then(() => {
@@ -555,15 +551,14 @@ export class TournamentDetailComponent implements OnInit {
 
               for (let i = 0; i <arrayTurnaj.length; i+=2 ) {
 
-                let newZapas: Zapas = {
-                  id: null,
-                  nazov: '',
-                  miesto: '',
-                  datum: null,
-                  stav: null,
-                  vyherca: null,
-                  uroven_zapasu: 1,
-                  turnajID: this.eventSave.data.id
+                let newZapas: Zapas = { id: null,
+                                        nazov: '',
+                                        miesto: '',
+                                        datum: null,
+                                        stav: null,
+                                        vyherca: null,
+                                        uroven_zapasu: 1,
+                                        turnajID: this.eventSave.data.id
                 };
 
                 //Vytvorim novy zapas
@@ -577,23 +572,21 @@ export class TournamentDetailComponent implements OnInit {
 
 
                   //Naplnim tym1 v zapase
-                  let newTym01: Tim = {
-                    id: arrayTurnaj[i].TimID,
-                    nazov: arrayTurnaj[i].Nazov,
-                    logo: arrayTurnaj[i].Logo,
-                    pocet_hracov: arrayTurnaj[i].Pocet_hracov,
-                    odohrane_zapasy: arrayTurnaj[i].Odohrane_zapasy,
-                    pocet_vyhier: arrayTurnaj[i].Pocet_vyhier
+                  let newTym01: Tim = { id: arrayTurnaj[i].TimID,
+                                        nazov: arrayTurnaj[i].Nazov,
+                                        logo: arrayTurnaj[i].Logo,
+                                        pocet_hracov: arrayTurnaj[i].Pocet_hracov,
+                                        odohrane_zapasy: arrayTurnaj[i].Odohrane_zapasy,
+                                        pocet_vyhier: arrayTurnaj[i].Pocet_vyhier
                   };
 
                   //naplnim tym2 v zapase
-                  let newTym02: Tim = {
-                    id: arrayTurnaj[i + 1].TimID,
-                    nazov: arrayTurnaj[i + 1].Nazov,
-                    logo: arrayTurnaj[i + 1].Logo,
-                    pocet_hracov: arrayTurnaj[i + 1].Pocet_hracov,
-                    odohrane_zapasy: arrayTurnaj[i + 1].Odohrane_zapasy,
-                    pocet_vyhier: arrayTurnaj[i + 1].Pocet_vyhier
+                  let newTym02: Tim = { id: arrayTurnaj[i + 1].TimID,
+                                        nazov: arrayTurnaj[i + 1].Nazov,
+                                        logo: arrayTurnaj[i + 1].Logo,
+                                        pocet_hracov: arrayTurnaj[i + 1].Pocet_hracov,
+                                        odohrane_zapasy: arrayTurnaj[i + 1].Odohrane_zapasy,
+                                        pocet_vyhier: arrayTurnaj[i + 1].Pocet_vyhier
                   };
 
 
@@ -608,15 +601,15 @@ export class TournamentDetailComponent implements OnInit {
               this.onPrebiehaChange();
 
               const updateturnaj: Turnaj = {id: this.eventSave.data.id,
-                nazov: this.eventSave.data.nazov,
-                stav_turnaja: "prebieha",
-                zaciatok: this.eventSave.data.zaciatok.substring(0, 10),
-                koniec: this.eventSave.data.koniec.substring(0, 10),
-                vyhra: this.eventSave.data.vyhra,
-                sponzori: this.eventSave.data.sponzori,
-                povrch: this.eventSave.data.povrch,
-                podmienky_turnajaID : this.eventSave.data.podmienky_turnajaID,
-                usporiadatelID: this.eventSave.data.usporiadatelID};
+                                            nazov: this.eventSave.data.nazov,
+                                            stav_turnaja: "prebieha",
+                                            zaciatok: this.eventSave.data.zaciatok.substring(0, 10),
+                                            koniec: this.eventSave.data.koniec.substring(0, 10),
+                                            vyhra: this.eventSave.data.vyhra,
+                                            sponzori: this.eventSave.data.sponzori,
+                                            povrch: this.eventSave.data.povrch,
+                                            podmienky_turnajaID : this.eventSave.data.podmienky_turnajaID,
+                                            usporiadatelID: this.eventSave.data.usporiadatelID};
 
               // Aktualizuje turnaj a zaaktualizuje tabulky
               this.server.updateTurnaj(updateturnaj).then(() => {
