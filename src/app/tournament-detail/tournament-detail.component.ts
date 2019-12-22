@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
-import {Hrac, Podmienky_turnaja, Turnaj, Usporiadatel, Uzivatel, Zapas} from '../api.structures';
+import {Hrac, Podmienky_turnaja, Tim, Turnaj, Usporiadatel, Uzivatel, Zapas} from '../api.structures';
 import {FormBuilder, FormControl} from '@angular/forms';
 
 
@@ -485,8 +485,21 @@ export class TournamentDetailComponent implements OnInit {
             console.log("new zapas", newZapas);
             console.log("new tym", arrayTurnaj[0]);
 
-            this.server.createTim_hra_v_zapase(newZapas, arrayTurnaj[0]);
-            this.server.createTim_hra_v_zapase(newZapas, arrayTurnaj[1]);
+
+
+            let newTym01: Tim = {id: arrayTurnaj[0].TimID,
+                                 nazov: arrayTurnaj[0].Nazov,
+                                 logo: arrayTurnaj[0].Logo,
+                                 pocet_hracov: arrayTurnaj[0].Pocet_hracov,
+                                 odohrane_zapasy: arrayTurnaj[0].Odohrane_zapasy,
+                                 pocet_vyhier: arrayTurnaj[0].Pocet_vyhier};
+
+
+            console.log("newTym01", newTym01);
+
+
+            this.server.createTim_hra_v_zapase(newZapas, newTym01);
+            // this.server.createTim_hra_v_zapase(newZapas, arrayTurnaj[1]);
 
           });
         }
