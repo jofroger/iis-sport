@@ -86,14 +86,12 @@ export class TeamDetailComponent implements OnInit {
       this.server.getHracByUzivatel(this.activeUzivatel). then( (HracByUzivatelResponse: any) => {
 
         if (HracByUzivatelResponse[0] === undefined){
-          console.log("nie si hrac")
           this.nieSiHracError = true;
           return;
         } else {
           this.nieSiHracError = false;
         }
 
-        console.log("ID uzivatela",HracByUzivatelResponse[0].HracID);
 
         this.activeUzivatelHrac.id = HracByUzivatelResponse[0].HracID; //Ziskane HracID priradit do struktury
 
@@ -101,25 +99,17 @@ export class TeamDetailComponent implements OnInit {
         this.activeUzivatelHrac.odohrane_zapasy = HracByUzivatelResponse[0].Odohrane_zapasy;
         this.activeUzivatelHrac.pocet_vyhier = HracByUzivatelResponse[0].Pocet_vyhier;
 
-          console.log("Zapisane Uzivatel.id v strukture",this.activeUzivatelHrac.id);
-        console.log(this.activeUzivatelHrac);
 
         const UserID: string = localStorage.getItem('userId'); //Ziskanie ID z prehliadaca o prihlasenom
         this.activeUzivatelHrac.uzivatelID = +UserID; //Priradenie
 
-        console.log(this.activeUzivatelHrac);
 
       // await this.delay(200);
       this.server.getTimByHrac(this.activeUzivatelHrac).then((getTimByHracResponse: any) => {
 
-        console.log("getTimByHracResponse", getTimByHracResponse[0]);
         this.tim.id = +localStorage.getItem('timID');
-        console.log("tim id",this.tim.id);
 
-        if (getTimByHracResponse[0]) {
-          console.log("und");
-          console.log("getTimByHracResponse[0].TimID", getTimByHracResponse[0].TimID);
-        }
+
 
         if (getTimByHracResponse[0] === undefined) {  // Ak este nie je v ziadnom time
           this.joinTeamIsVisible = true;
@@ -144,8 +134,6 @@ export class TeamDetailComponent implements OnInit {
   }
 
    joinTeam() {
-    console.log("Hrac struktura", this.activeUzivatelHrac);
-    console.log("Tim struktura", this.tim);
 
     this.server.createHrac_hra_v_time(this.activeUzivatelHrac, this.tim);
   }

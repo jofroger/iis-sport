@@ -98,7 +98,6 @@ export class TournamentDetailComponent implements OnInit {
   }
 
   rowClick(event){
-    console.log(event);
     this.eventSave = event;
 
     this.rowClick_PodmienTurnajaId = event.data.podmienky_turnajaID;
@@ -254,7 +253,6 @@ export class TournamentDetailComponent implements OnInit {
 
   createNewTurnaj(event) {
 
-    console.log(event);
     let check: boolean;
     check = this.dataValidation(event);
     if (check === false) {
@@ -288,7 +286,6 @@ export class TournamentDetailComponent implements OnInit {
                                    podmienky_turnajaID: respPodmienTurnaja.insertId,
                                    usporiadatelID: respUsporiadatel.insertId};
 
-        console.log(newturnaj);
         // Prida turnaj a aktualizuje tabulky
         this.server.createTurnaj(newturnaj).then(() => {
           this.getVsetkyTurnaje();
@@ -426,7 +423,6 @@ export class TournamentDetailComponent implements OnInit {
 
   turnajUzavriRozlosuj() {
 
-    console.log(this.eventSave);
 
     if (this.eventSave === undefined){
       this.eventSaveError = true;
@@ -449,7 +445,6 @@ export class TournamentDetailComponent implements OnInit {
 
     this.server.getTurnajByTim(tmpTurnaj).then(( arrayTurnaj:any ) => {
 
-      console.log(arrayTurnaj);
 
       if (arrayTurnaj.length === 8 || arrayTurnaj.length === 4){
         this.eventSaveError_expect4or8tymov = false;
@@ -469,8 +464,6 @@ export class TournamentDetailComponent implements OnInit {
       this.server.getPodmienky_turnaja(tmpgetPodmienkyTurnaja).then(( tmpPodmiekyTur:any ) => {
 
         if (tmpPodmiekyTur[0].Pocet_hracov_v_tyme === 1) {
-          console.log("Hrac");
-              console.log("lenght",arrayTurnaj.length);
 
               for (let i = 0; i <arrayTurnaj.length; i+=2 ) {
 
@@ -486,12 +479,9 @@ export class TournamentDetailComponent implements OnInit {
 
                 //Vytvorim novy zapas
                 this.server.createZapas(newZapas).then((createdZapas: any) => {
-                  console.log("InsertID createdZapas", createdZapas.insertId);
 
                   //Naplnim novy zapas
                   newZapas.id = createdZapas.insertId;
-                  console.log("new zapas", newZapas);
-                  console.log("new tym", arrayTurnaj[0]);
 
                   let findHrac : Hrac = { id: null, odohrane_zapasy: '', pocet_vyhier: null, fotka: '', uzivatelID: null }
 
@@ -518,7 +508,6 @@ export class TournamentDetailComponent implements OnInit {
                       };
 
 
-                      // console.log("newTym01", newTym01);
                       this.server.createHrac_hra_v_zapase(newZapas, newHrac01);
                       this.server.createHrac_hra_v_zapase(newZapas, newHrac02);
                     });
@@ -546,8 +535,6 @@ export class TournamentDetailComponent implements OnInit {
               });
 
         } else {
-              console.log("Tym");
-              console.log("lenght",arrayTurnaj.length);
 
               for (let i = 0; i <arrayTurnaj.length; i+=2 ) {
 
@@ -563,12 +550,9 @@ export class TournamentDetailComponent implements OnInit {
 
                 //Vytvorim novy zapas
                 this.server.createZapas(newZapas).then((createdZapas: any) => {
-                  console.log("InsertID createdZapas", createdZapas.insertId);
 
                   //Naplnim novy zapas
                   newZapas.id = createdZapas.insertId;
-                  console.log("new zapas", newZapas);
-                  console.log("new tym", arrayTurnaj[0]);
 
 
                   //Naplnim tym1 v zapase
@@ -590,7 +574,6 @@ export class TournamentDetailComponent implements OnInit {
                   };
 
 
-                  // console.log("newTym01", newTym01);
                   this.server.createTim_hra_v_zapase(newZapas, newTym01);
                   this.server.createTim_hra_v_zapase(newZapas, newTym02);
 
