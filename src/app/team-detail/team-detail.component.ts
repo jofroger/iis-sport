@@ -218,18 +218,20 @@ export class TeamDetailComponent implements OnInit {
                joinLoadTim.odohrane_zapasy = resp[0].Odohrane_zapasy;
                joinLoadTim.pocet_vyhier = resp[0].Pocet_vyhier;
 
-               this.server.createHrac_hra_v_time(joinUzivatelHrac, joinLoadTim);
-               this.location.back();
+               this.server.createHrac_hra_v_time(joinUzivatelHrac, joinLoadTim).then( (resp: any) => {
+                 this.location.back();
+               });
 
                // this.server.createHrac_hra_v_time(joinUzivatelHrac, this.tim);
              })
-           } else { this.location.back(); }
+           }
          });
        });
      }
    }
   leaveTeam() {
-    this.server.deleteHrac_hra_v_time(this.activeUzivatelHrac, this.tim);
-    this.location.back();
+    this.server.deleteHrac_hra_v_time(this.activeUzivatelHrac, this.tim).then((resp: any) => {
+      this.location.back();
+    });
   }
 }
